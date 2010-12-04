@@ -1,0 +1,6 @@
+syntax: glob
+cscope.*
+*.d
+*.o
+*.swp
+lib/libmcapi.a
