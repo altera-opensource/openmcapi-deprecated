@@ -31,7 +31,9 @@
 #ifndef OPENMCAPI_SHM_H
 #define OPENMCAPI_SHM_H
 
-/* External interfaces */
+/* These are the only interfaces which must be implemented by every shm_os.c.
+ * In addition, shm_os.c is responsible for invoking shm_poll() when new data
+ * is available. */
 
 mcapi_status_t openmcapi_shm_os_init(void);
 mcapi_status_t openmcapi_shm_os_finalize(void);
