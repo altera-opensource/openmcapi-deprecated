@@ -116,7 +116,7 @@ mcapi_uint32_t openmcapi_shm_schedunitid(void)
     return 0;
 }
 
-static int shm_wait_notify(mcapi_uint32_t unitId)
+static int shm_linux_wait_notify(mcapi_uint32_t unitId)
 {
     return ioctl(mcomm_fd, MCOMM_WAIT_READ, &unitId);
 }
@@ -187,7 +187,7 @@ static void *mcapi_receive_thread(void *data)
 
     do {
         /* Block until data for this node is available. */
-        rc = shm_wait_notify(MCAPI_Node_ID);
+        rc = shm_linux_wait_notify(MCAPI_Node_ID);
         if (rc < 0) {
             perror("wait ioctl");
             break;
