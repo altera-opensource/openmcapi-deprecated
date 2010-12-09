@@ -818,7 +818,7 @@ static void shm_desc_consume(SHM_BUFF_DESC_Q* shm_des_q)
 *
 *   FUNCTION
 *
-*       shm_drv_rx_hisr
+*       shm_poll
 *
 *   DESCRIPTION
 *
@@ -833,7 +833,7 @@ static void shm_desc_consume(SHM_BUFF_DESC_Q* shm_des_q)
 *       None
 *
 *************************************************************************/
-void shm_drv_rx_hisr(void)
+void shm_poll(void)
 {
 	SHM_BUFF_DESC_Q* shm_des_q;
 	SHM_BUFF_DESC*   shm_des;

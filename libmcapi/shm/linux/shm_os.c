@@ -197,7 +197,7 @@ static void *mcapi_receive_thread(void *data)
         MCAPI_Lock_RX_Queue();
 
         /* Process the incoming data. */
-        shm_drv_rx_hisr();
+        shm_poll();
 
         MCAPI_Unlock_RX_Queue(0);
 
