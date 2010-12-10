@@ -27,12 +27,10 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 #include <openmcapi.h>
 
-MCAPI_MUTEX         MCAPI_Mutex;
-pthread_t           MCAPI_Control_Task_TCB;
+MCAPI_MUTEX MCAPI_Mutex;
+pthread_t   MCAPI_Control_Task_TCB;
 
 /*************************************************************************
 *
@@ -56,8 +54,7 @@ pthread_t           MCAPI_Control_Task_TCB;
 *************************************************************************/
 mcapi_status_t MCAPI_Init_OS(void)
 {
-    int             status;
-    mcapi_status_t  mcapi_status = MCAPI_SUCCESS;
+    int status;
 
     /* Create the task that will be used for receiving status
      * messages.
@@ -65,12 +62,10 @@ mcapi_status_t MCAPI_Init_OS(void)
     status = pthread_create(&MCAPI_Control_Task_TCB, NULL,
                             mcapi_process_ctrl_msg, NULL);
 
-    if (status != 0)
-    {
-        mcapi_status = MCAPI_OS_ERROR;
-    }
+    if (status)
+        return MCAPI_OS_ERROR;
 
-	return mcapi_status;
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -94,7 +89,6 @@ mcapi_status_t MCAPI_Init_OS(void)
 *************************************************************************/
 void MCAPI_Exit_OS(void)
 {
-
 }
 
 /*************************************************************************
@@ -120,30 +114,19 @@ void MCAPI_Exit_OS(void)
 *************************************************************************/
 mcapi_status_t MCAPI_Resume_Task(mcapi_request_t *request)
 {
-    int     status;
+    int status;
 
-    /* Check if multiple requests are suspending on the same condition. */
+    /* If multiple requests are suspending on the same condition, we use
+     * mcapi_cond_ptr. */
     if (request->mcapi_cond.mcapi_cond_ptr)
-    {
         status = pthread_cond_signal(request->mcapi_cond.mcapi_cond_ptr);
-    }
-
-    /* Otherwise, only one request is waiting for this condition. */
     else
-    {
         status = pthread_cond_signal(&request->mcapi_cond.mcapi_cond);
-    }
 
-    if (status == 0)
-    {
-        return (MCAPI_SUCCESS);
-    }
+    if (status)
+        return MCAPI_OS_ERROR;
 
-    else
-    {
-        return (MCAPI_OS_ERROR);
-    }
-
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -178,8 +161,8 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
                                   MCAPI_COND_STRUCT *condition,
                                   mcapi_timeout_t timeout)
 {
-    int                 status = 0;
-    struct timespec     ts;
+    struct timespec ts;
+    int status = 0;
 
     /* If a request structure was passed into the routine. */
     if (request)
@@ -201,7 +184,6 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
         {
             status = pthread_cond_wait(&condition->mcapi_cond, &MCAPI_Mutex);
         }
-
         else
         {
             /* Get the current time. */
@@ -222,16 +204,10 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
         status = pthread_cond_destroy(&condition->mcapi_cond);
     }
 
-    if (status == 0)
-    {
-        return (MCAPI_SUCCESS);
-    }
+    if (status)
+        return MCAPI_OS_ERROR;
 
-    else
-    {
-        return (MCAPI_OS_ERROR);
-    }
-
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -256,7 +232,6 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
 void MCAPI_Cleanup_Task(void)
 {
     pthread_exit(NULL);
-
 }
 
 /*************************************************************************
@@ -283,7 +258,6 @@ void MCAPI_Init_Condition(MCAPI_COND_STRUCT *condition)
 {
     /* Initialize the condition variable with default parameters. */
     pthread_cond_init(&condition->mcapi_cond, NULL);
-
 }
 
 /*************************************************************************
@@ -311,7 +285,6 @@ void MCAPI_Init_Condition(MCAPI_COND_STRUCT *condition)
 void MCAPI_Set_Condition(mcapi_request_t *request, MCAPI_COND_STRUCT *condition)
 {
     request->mcapi_cond.mcapi_cond_ptr = &condition->mcapi_cond;
-
 }
 
 /*************************************************************************
@@ -337,7 +310,6 @@ void MCAPI_Set_Condition(mcapi_request_t *request, MCAPI_COND_STRUCT *condition)
 void MCAPI_Clear_Condition(mcapi_request_t *request)
 {
     request->mcapi_cond.mcapi_cond_ptr = MCAPI_NULL;
-
 }
 
 /*************************************************************************
@@ -366,16 +338,10 @@ mcapi_status_t MCAPI_Create_Mutex(MCAPI_MUTEX *mutex, char *name)
 
     status = pthread_mutex_init(mutex, NULL);
 
-    if (status == 0)
-    {
-        return (MCAPI_SUCCESS);
-    }
+    if (status)
+        return MCAPI_OS_ERROR;
 
-    else
-    {
-        return (MCAPI_OS_ERROR);
-    }
-
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -404,16 +370,10 @@ mcapi_status_t MCAPI_Delete_Mutex(MCAPI_MUTEX *mutex)
 
     status = pthread_mutex_destroy(mutex);
 
-    if (status == 0)
-    {
-        return (MCAPI_SUCCESS);
-    }
+    if (status)
+        return MCAPI_OS_ERROR;
 
-    else
-    {
-        return (MCAPI_OS_ERROR);
-    }
-
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -440,19 +400,12 @@ mcapi_status_t MCAPI_Obtain_Mutex(MCAPI_MUTEX *mutex)
 {
     int status;
 
-    /* Get the lock. */
     status = pthread_mutex_lock(mutex);
 
-    if (status == 0)
-    {
-        return (MCAPI_SUCCESS);
-    }
+    if (status)
+        return MCAPI_OS_ERROR;
 
-    else
-    {
-        return (MCAPI_OS_ERROR);
-    }
-
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -479,19 +432,12 @@ mcapi_status_t MCAPI_Release_Mutex(MCAPI_MUTEX *mutex)
 {
     int status;
 
-    /* Release the lock. */
     status = pthread_mutex_unlock(mutex);
 
-    if (status == 0)
-    {
-        return (MCAPI_SUCCESS);
-    }
+    if (status)
+        return MCAPI_OS_ERROR;
 
-    else
-    {
-        return (MCAPI_OS_ERROR);
-    }
-
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -517,8 +463,7 @@ mcapi_status_t MCAPI_Set_RX_Event(void)
 {
     mcapi_rx_data();
 
-    return (MCAPI_SUCCESS);
-
+    return MCAPI_SUCCESS;
 }
 
 /*************************************************************************
@@ -544,7 +489,7 @@ mcapi_status_t MCAPI_Set_RX_Event(void)
 *************************************************************************/
 mcapi_int_t MCAPI_Lock_RX_Queue(void)
 {
-	return 0;
+    return 0;
 }
 
 /*************************************************************************
@@ -570,6 +515,5 @@ mcapi_int_t MCAPI_Lock_RX_Queue(void)
 *************************************************************************/
 void MCAPI_Unlock_RX_Queue(mcapi_int_t cookie)
 {
-
 }
 
