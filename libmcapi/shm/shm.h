@@ -143,4 +143,7 @@ typedef struct _shm_drv_mgmt_struct_ SHM_MGMT_BLOCK;
 
 #define ADDRESS_TO_OFFSET(address) (mcapi_uint32_t)((char*)address - (char *)SHM_Mgmt_Blk);
 
+
+void shm_poll(void);
+
 #endif /* MCAPI_SM_DRV_H */

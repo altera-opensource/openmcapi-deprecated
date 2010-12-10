@@ -70,6 +70,7 @@ mcapi_status_t MCAPI_Init_OS(void)
         mcapi_status = MCAPI_OS_ERROR;
     }
 
+	return mcapi_status;
 }
 
 /*************************************************************************
@@ -254,9 +255,7 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
 *************************************************************************/
 void MCAPI_Cleanup_Task(void)
 {
-    int status;
-
-    pthread_exit((void *)status);
+    pthread_exit(NULL);
 
 }
 
@@ -545,7 +544,7 @@ mcapi_status_t MCAPI_Set_RX_Event(void)
 *************************************************************************/
 mcapi_int_t MCAPI_Lock_RX_Queue(void)
 {
-
+	return 0;
 }
 
 /*************************************************************************
