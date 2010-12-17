@@ -7,7 +7,7 @@ include test/Makefile
 
 all: $(TARGETS-y)
 
-clean:
+clean: $(CLEANDEPS)
 	$(RM) $(CLEAN) $(TARGETS-y)
 
 .DEFAULT_GOAL := all
