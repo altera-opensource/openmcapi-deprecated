@@ -705,6 +705,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
     /* Terminate this task. */
     MCAPI_Cleanup_Task();
 
+    return NULL;
 }
 
 /*************************************************************************
