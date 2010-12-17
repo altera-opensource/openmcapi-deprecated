@@ -108,7 +108,6 @@ $(LIB-OBJS-y): %.o: %.c
 
 
 $(D)/libmcapi.a: $(LIB-OBJS-y)
-	echo $(CONFIG_SHM)
 	$(AR) $(ARFLAGS) $@ $?
 
 # Linux kernel module for shared memory driver
