@@ -111,6 +111,18 @@ $(D)/libmcapi.a: $(LIB-OBJS-y)
 	echo $(CONFIG_SHM)
 	$(AR) $(ARFLAGS) $@ $?
 
-TARGETS-y += $(D)/libmcapi.a
+# Linux kernel module for shared memory driver
+$(D)_shm_lkmod_%:
+	$(MAKE) -C $(D)/shm/linux/kmod \
+		CROSS_COMPILE=$(CROSS) \
+		ARCH=$(CONFIG_ARCH) \
+		KERNELDIR=$(KERNELDIR) \
+		INSTALL_MOD_PATH=$(PWD)/$(D)/shm/linux/kmod/deploy \
+		$(patsubst $(D)_shm_lkmod_%,%,$@)
 
-CLEAN += $(LIB-DEPS) $(LIB-OBJS-y)
+TARGETS-y += $(D)/libmcapi.a
+TARGETS-SHM-$(CONFIG_LINUX) += $(D)_shm_lkmod_modules
+TARGETS-$(CONFIG_SHM) += $(TARGETS-SHM-y)
+
+CLEANDEPS += $(D)_shm_lkmod_clean
+CLEAN += $(LIB-DEPS) $(LIB-OBJS-y) $(D)/shm/linux/kmod/deploy
