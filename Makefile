@@ -8,7 +8,7 @@ include test/Makefile
 all: $(TARGETS-y)
 
 clean: $(CLEANDEPS)
-	$(RM) $(CLEAN) $(TARGETS-y)
+	$(RM) -r $(CLEAN) $(TARGETS-y)
 
 .DEFAULT_GOAL := all
 .PHONY: clean
