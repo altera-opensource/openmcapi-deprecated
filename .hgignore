@@ -3,4 +3,6 @@ cscope.*
 *.d
 *.o
 *.swp
-lib/libmcapi.a
+build
+.waf*
+.lock-wafbuild

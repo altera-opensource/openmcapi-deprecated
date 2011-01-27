@@ -1,0 +1,83 @@
+#!/usr/bin/env python
+
+def configure(conf):
+	conf.env.LIB_pthread = ['pthread']
+	conf.env.LIB_rt = ['rt']
+
+def build(bld):
+	bld.recurse('support_suite')
+
+	includes = [
+		'.',
+		'../include',
+		'../include/%s' % bld.env.OS,
+		'../libmcapi/include',
+		'support_suite/%s' % bld.env.OS
+	]
+
+	func_sources = [
+		'1/fts_main.c',
+		'1/fts_mcapi_cancel.c',
+		'1/fts_mcapi_connect_pktchan_i.c',
+		'1/fts_mcapi_connect_sclchan_i.c',
+		'1/fts_mcapi_create_endpoint.c',
+		'1/fts_mcapi_delete_endpoint.c',
+		'1/fts_mcapi_get_endpoint.c',
+		'1/fts_mcapi_get_endpoint_attribute.c',
+		'1/fts_mcapi_get_endpoint_i.c',
+		'1/fts_mcapi_msg_available.c',
+		'1/fts_mcapi_msg_recv.c',
+		'1/fts_mcapi_msg_recv_i.c',
+		'1/fts_mcapi_msg_send.c',
+		'1/fts_mcapi_msg_send_i.c',
+		'1/fts_mcapi_open_pktchan_recv_i.c',
+		'1/fts_mcapi_open_pktchan_send_i.c',
+		'1/fts_mcapi_open_sclchan_recv_i.c',
+		'1/fts_mcapi_open_sclchan_send_i.c',
+		'1/fts_mcapi_pktchan_available.c',
+		'1/fts_mcapi_pktchan_free.c',
+		'1/fts_mcapi_pktchan_recv.c',
+		'1/fts_mcapi_pktchan_recv_close_i.c',
+		'1/fts_mcapi_pktchan_recv_i.c',
+		'1/fts_mcapi_pktchan_send.c',
+		'1/fts_mcapi_pktchan_send_close_i.c',
+		'1/fts_mcapi_pktchan_send_i.c',
+		'1/fts_mcapi_sclchan_available.c',
+		'1/fts_mcapi_sclchan_recv_close_i.c',
+		'1/fts_mcapi_sclchan_recv_x.c',
+		'1/fts_mcapi_sclchan_send_close_i.c',
+		'1/fts_mcapi_sclchan_send_x.c',
+		'1/fts_mcapi_set_endpoint_attribute.c',
+		'1/fts_mcapi_test.c',
+		'1/fts_mcapi_wait.c',
+		'1/fts_mcapi_wait_any.c',
+	]
+
+	bld.stlib(
+		target='mgmt',
+		source='mgmt_svc.c',
+
+		includes=' '.join(includes),
+		cflags='-O2 -Wall',
+	)
+
+	bld.program(
+		target='func_suite',
+		source=' '.join(func_sources),
+
+		includes=' '.join(includes),
+		cflags='-O2',
+
+		use='mcapi mgmt test_support pthread rt'
+	)
+
+	bld.program(
+		target='api_suite',
+		source='3/mcapi_tests.c',
+
+		includes=' '.join(includes),
+		cflags='-O2 -Wall',
+
+		use='mcapi test_support pthread rt'
+	)
+
