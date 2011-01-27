@@ -1,8 +1,13 @@
 syntax: glob
 cscope.*
-*.d
-*.o
 *.swp
 build
 .waf*
 .lock-wafbuild
+libmcapi/shm/linux/kmod/.*
+libmcapi/shm/linux/kmod/*.o
+libmcapi/shm/linux/kmod/*.ko
+libmcapi/shm/linux/kmod/*.mod.c
+libmcapi/shm/linux/kmod/Module.markers
+libmcapi/shm/linux/kmod/Module.symvers
+libmcapi/shm/linux/kmod/modules.order
