@@ -8,6 +8,7 @@ out = 'build'
 subdirs = [
 	'libmcapi',
 	'test',
+	'util',
 	]
 
 def getarch():
