@@ -66,7 +66,7 @@ def build(bld):
 		source=' '.join(func_sources),
 
 		includes=' '.join(includes),
-		cflags='-O2',
+		cflags='-O2 -Wall',
 
 		use='mcapi mgmt test_support pthread rt'
 	)
