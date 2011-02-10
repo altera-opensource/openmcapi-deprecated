@@ -38,10 +38,6 @@ def build(bld):
 def makeopts(bld):
 	'''Assemble the options to pass to Kbuild.'''
 
-	# So we can access bld.env.LINUXDIR et al.
-	if not bld.all_envs:
-		bld.load_envs()
-
 	# XXX figure out how not to hardcode the paths
 	makeopts = [
 		'-C %s/libmcapi/shm/linux/kmod' % bld.path.abspath(),
