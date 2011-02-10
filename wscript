@@ -26,8 +26,9 @@ def options(opt):
 	opt.load('compiler_c')
 	opt.add_option('--arch', default=getarch())
 	opt.add_option('--os', default='linux')
-	opt.add_option('--transport', default='shm')
-	opt.add_option('--cross-cc', default='gcc')
+	opt.add_option('--transport', default='shm', help='Transport driver, e.g. \'shm\' for shared memory')
+	opt.add_option('--cross', default='', help='Cross compiler prefix, e.g. powerpc-linux-gnu-')
+	opt.add_option('--cc', default='gcc')
 
 	opt.recurse(subdirs)
 
@@ -44,7 +45,9 @@ def configure(conf):
 	conf.env.TRANSPORT = conf.options.transport
 	conf.define('CONFIG_%s' % conf.env.TRANSPORT.upper(), 1)
 
-	conf.env.CC = conf.options.cross_cc
+	conf.env.CROSS = conf.options.cross
+	conf.env.CC = conf.env.CROSS + conf.options.cc
+
 	conf.load('compiler_c')
 	# compiler_c checks if CC is a GCC or not, and tells us in COMPILER_CC
 	conf.define('CONFIG_%s' % conf.env.COMPILER_CC.upper(), 1)
