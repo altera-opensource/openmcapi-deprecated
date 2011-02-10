@@ -29,12 +29,12 @@ def options(opt):
 	opt.add_option('--transport', default='shm')
 	opt.add_option('--cross-cc', default='gcc')
 
+	opt.recurse(subdirs)
+
 def build(bld):
 	bld.recurse(subdirs)
 
 def configure(conf):
-	conf.recurse(subdirs)
-
 	conf.env.ARCH = conf.options.arch
 	conf.define('CONFIG_%s' % conf.env.ARCH.upper(), 1)
 
@@ -48,3 +48,5 @@ def configure(conf):
 	conf.load('compiler_c')
 	# compiler_c checks if CC is a GCC or not, and tells us in COMPILER_CC
 	conf.define('CONFIG_%s' % conf.env.COMPILER_CC.upper(), 1)
+
+	conf.recurse(subdirs)

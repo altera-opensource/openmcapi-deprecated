@@ -2,8 +2,11 @@
 
 subdirs = ['shm']
 
+def options(opt):
+	opt.recurse(subdirs)
+
 def configure(conf):
-	pass
+	conf.recurse(subdirs)
 
 def build(bld):
 	bld.recurse(subdirs)

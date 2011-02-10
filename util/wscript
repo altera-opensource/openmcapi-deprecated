@@ -10,3 +10,6 @@ def build(bld):
 
 		cflags='-O2 -Wall',
 	)
+
+def options(opt):
+	pass

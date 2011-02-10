@@ -81,3 +81,5 @@ def build(bld):
 		use='mcapi test_support pthread rt'
 	)
 
+def options(opt):
+	pass
