@@ -1,10 +1,12 @@
 #!/usr/bin/env python
 
 def options(opt):
-	pass
+	opt.add_option('--linuxdir', help='Directory to Linux kernel which has had \'make modules_prepare\' run.')
+	opt.add_option('--linuxargs', help='Extra options to pass to the Linux kernel module build system.')
 
 def configure(conf):
-	pass
+	conf.env.LINUXDIR = conf.options.linuxdir
+	conf.env.LINUXARGS = conf.options.linuxargs
 
 def build(bld):
 	includes = [
