@@ -29,6 +29,7 @@ def options(opt):
 	opt.add_option('--transport', default='shm', help='Transport driver, e.g. \'shm\' for shared memory')
 	opt.add_option('--cross', default='', help='Cross compiler prefix, e.g. powerpc-linux-gnu-')
 	opt.add_option('--cc', default='gcc')
+	opt.add_option('--no-kmods', action='store_true', help='Don\'t build Linux kernel modules')
 
 	opt.recurse(subdirs)
 
@@ -51,5 +52,7 @@ def configure(conf):
 	conf.load('compiler_c')
 	# compiler_c checks if CC is a GCC or not, and tells us in COMPILER_CC
 	conf.define('CONFIG_%s' % conf.env.COMPILER_CC.upper(), 1)
+
+	conf.env.NO_KMODS = conf.options.no_kmods
 
 	conf.recurse(subdirs)

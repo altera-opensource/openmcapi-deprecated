@@ -30,16 +30,19 @@ def options(opt):
 	path = opt.path.abspath()
 	class _build(BuildContext):
 		def compile(self):
-			ret = self.exec_command(
-				'make %s modules modules_install' % makeopts(self, path),
-				cwd=path)
-			if ret:
-				self.fatal('make returned %r' % ret)
+			if not self.env.NO_KMODS:
+				ret = self.exec_command(
+					'make %s modules modules_install' % makeopts(self, path),
+					cwd=path)
+				if ret:
+					self.fatal('make returned %r' % ret)
 			super(_build, self).compile()
 
 	class _clean(CleanContext):
 		def clean(self):
-			self.exec_command('make %s clean' % makeopts(self, path), cwd=path)
+			if not self.env.NO_KMODS:
+				self.exec_command('make %s clean' % makeopts(self, path),
+				                  cwd=path)
 			super(_clean, self).clean()
 
 def configure(conf):
