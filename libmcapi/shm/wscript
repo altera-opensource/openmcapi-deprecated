@@ -1,8 +1,46 @@
 #!/usr/bin/env python
 
+import os.path
+
+from waflib.Build import BuildContext, InstallContext, UninstallContext, CleanContext
+
+def makeopts(ctx, path):
+	'''Assemble the options to pass to Kbuild.'''
+
+	makeopts = [
+		'-C %s/linux/kmod' % path,
+		'ARCH=%s' % ctx.env.ARCH,
+		'INSTALL_MOD_PATH=%s/linux/kmod/deploy' %
+			os.path.join(ctx.out_dir, path),
+	]
+	if ctx.env.LINUXDIR:
+		makeopts.append('KERNELDIR=%s' % ctx.env.LINUXDIR)
+	if ctx.env.CROSS:
+		makeopts.append('CROSS_COMPILE=%s' % ctx.env.CROSS)
+	if ctx.env.LINUXARGS:
+		makeopts.append(ctx.env.LINUXARGS)
+
+	return ' '.join(makeopts)
+
 def options(opt):
 	opt.add_option('--linuxdir', help='Directory to Linux kernel which has had \'make modules_prepare\' run.')
 	opt.add_option('--linuxargs', help='Extra options to pass to the Linux kernel module build system.')
+
+	# These classes are magic to make the Linux kmod build automatically:
+	path = opt.path.abspath()
+	class _build(BuildContext):
+		def compile(self):
+			ret = self.exec_command(
+				'make %s modules modules_install' % makeopts(self, path),
+				cwd=path)
+			if ret:
+				self.fatal('make returned %r' % ret)
+			super(_build, self).compile()
+
+	class _clean(CleanContext):
+		def clean(self):
+			self.exec_command('make %s clean' % makeopts(self, path), cwd=path)
+			super(_clean, self).clean()
 
 def configure(conf):
 	conf.env.LINUXDIR = conf.options.linuxdir
@@ -35,43 +73,3 @@ def build(bld):
 		cflags='-O2 -Wall',
 	)
 
-def makeopts(bld):
-	'''Assemble the options to pass to Kbuild.'''
-
-	# XXX figure out how not to hardcode the paths
-	makeopts = [
-		'-C %s/libmcapi/shm/linux/kmod' % bld.path.abspath(),
-		'ARCH=%s' % bld.env.ARCH,
-		'INSTALL_MOD_PATH=%s/libmcapi/shm/linux/kmod/deploy' % bld.out_dir,
-	]
-	if bld.env.LINUXDIR:
-		makeopts.append('KERNELDIR=%s' % bld.env.LINUXDIR)
-	if bld.env.CROSS:
-		makeopts.append('CROSS_COMPILE=%s' % bld.env.CROSS)
-	if bld.env.LINUXARGS:
-		makeopts.append(bld.env.LINUXARGS)
-
-	return ' '.join(makeopts)
-
-# Below here lies magic to make the Linux kmod build automatically:
-
-from waflib.Build import BuildContext, InstallContext, UninstallContext, CleanContext
-
-class _build(BuildContext):
-	def compile(self):
-		ret = self.exec_command('make %s modules modules_install' % makeopts(self))
-		if ret:
-			self.fatal('make returned %r' % ret)
-		super(_build, self).compile()
-
-class _clean(CleanContext):
-	def clean(self):
-		self.exec_command('make %s clean' % makeopts(self))
-		super(_clean, self).clean()
-
-class _install(InstallContext):
-	def compile(self):
-		ret = self.exec_command('make %s modules_install' % makeopts(self))
-		if ret:
-			self.fatal('make install returned %r' % ret)
-		super(_install, self).compile()
