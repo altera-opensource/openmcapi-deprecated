@@ -63,7 +63,7 @@ from waflib.Build import BuildContext, InstallContext, UninstallContext, CleanCo
 
 class _build(BuildContext):
 	def compile(self):
-		ret = self.exec_command('make %s modules' % makeopts(self))
+		ret = self.exec_command('make %s modules modules_install' % makeopts(self))
 		if ret:
 			self.fatal('make returned %r' % ret)
 		super(_build, self).compile()
