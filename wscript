@@ -5,11 +5,11 @@ import platform
 top = '.'
 out = 'build'
 
-subdirs = [
+bld_subdirs = [
 	'libmcapi',
-	'test',
 	'util',
 	]
+subdirs = bld_subdirs + ['test']
 
 def getarch():
 	classes = {
@@ -34,7 +34,7 @@ def options(opt):
 	opt.recurse(subdirs)
 
 def build(bld):
-	bld.recurse(subdirs)
+	bld.recurse(bld_subdirs)
 
 def configure(conf):
 	conf.env.ARCH = conf.options.arch
@@ -56,3 +56,11 @@ def configure(conf):
 	conf.env.NO_KMODS = conf.options.no_kmods
 
 	conf.recurse(subdirs)
+
+def test(tst):
+	global bld_subdirs
+	bld_subdirs += ['test']
+
+	import Options
+	Options.commands += ['build']
+
