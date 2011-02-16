@@ -51,10 +51,10 @@
 *       The unique ID of the local node.
 *
 *************************************************************************/
-mcapi_uint_t mcapi_get_node_id(mcapi_status_t *mcapi_status)
+mcapi_node_t mcapi_get_node_id(mcapi_status_t *mcapi_status)
 {
     MCAPI_GLOBAL_DATA   *node_data;
-    mcapi_uint_t        node_id = 0;
+    mcapi_node_t        node_id = 0;
     int                 i;
 
     /* Validate the status pointer. */

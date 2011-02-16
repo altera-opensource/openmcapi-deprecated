@@ -204,7 +204,7 @@ mcapi_boolean_t mcapi_test(mcapi_request_t *, size_t *, mcapi_status_t *);
 mcapi_boolean_t mcapi_wait(mcapi_request_t *, size_t *, mcapi_status_t *,
                            mcapi_timeout_t);
 
-mcapi_uint_t mcapi_get_node_id(mcapi_status_t *);
+mcapi_node_t mcapi_get_node_id(mcapi_status_t *);
 mcapi_uint_t mcapi_msg_available(mcapi_endpoint_t, mcapi_status_t *);
 mcapi_uint_t mcapi_pktchan_available(mcapi_pktchan_recv_hndl_t, mcapi_status_t *);
 void mcapi_pktchan_free(void *, mcapi_status_t *);
