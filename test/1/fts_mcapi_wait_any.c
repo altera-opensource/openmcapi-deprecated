@@ -76,8 +76,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_1)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, 250);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, 250,
+                                  &mcapi_struct->status);
 
         if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
         {
@@ -143,8 +143,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_2)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                  &mcapi_struct->status);
 
         if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
              (finished == 0) )
@@ -218,8 +218,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_3)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                  &mcapi_struct->status);
 
         if ( (finished != 0) ||
              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -318,7 +318,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_4)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (finished != 0) ||
                      (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -403,8 +404,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_5)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                  &mcapi_struct->status);
 
         /* If the test does not return success or the correct number of bytes
          * transmitted.
@@ -460,8 +461,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_6)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, 250);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, 250,
+                                  &mcapi_struct->status);
 
         if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
         {
@@ -543,7 +544,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_7)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (finished != 0) ||
                      (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -643,7 +645,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_8)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (finished == 0) &&
                      (mcapi_struct->status == MCAPI_EREQ_CANCELED) )
@@ -743,7 +746,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_9)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -814,8 +818,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_10)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, 250);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, 250,
+                                  &mcapi_struct->status);
 
         if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
         {
@@ -911,7 +915,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_11)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -1011,8 +1016,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_12)
             req_ptr[0] = &svc_struct.request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                  (finished == 0) )
@@ -1074,8 +1079,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_13)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, 250);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, 250,
+                                  &mcapi_struct->status);
 
         if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
         {
@@ -1171,7 +1176,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_14)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -1271,8 +1277,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_15)
             req_ptr[0] = &svc_struct.request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                  (finished == 0) )
@@ -1335,8 +1341,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_16)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                  &mcapi_struct->status);
 
         if ( (finished != 0) ||
              (mcapi_struct->status != MCAPI_SUCCESS) ||
@@ -1443,8 +1449,9 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_17)
                                 req_ptr[0] = &mcapi_struct->request;
 
                                 /* Wait for the call to timeout. */
-                                finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                          &mcapi_struct->status, 250);
+                                finished = mcapi_wait_any(1, req_ptr,
+                                                          &rx_len, 250,
+                                                          &mcapi_struct->status);
 
                                 if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
                                 {
@@ -1611,9 +1618,11 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_18)
                                             req_ptr[0] = &mcapi_struct->request;
 
                                             /* Wait for the call to timeout. */
-                                            finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                                      &mcapi_struct->status,
-                                                                      MCAPI_FTS_TIMEOUT);
+                                            finished = mcapi_wait_any(1,
+                                                                      req_ptr,
+                                                                      &rx_len,
+                                                                      MCAPI_FTS_TIMEOUT,
+                                                                      &mcapi_struct->status);
 
                                             if ( (finished != 0) ||
                                                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -1789,9 +1798,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_19)
                                         req_ptr[0] = &svc_struct.request;
 
                                         /* Wait for the call to timeout. */
-                                        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                                  &mcapi_struct->status,
-                                                                  MCAPI_FTS_TIMEOUT);
+                                        finished = mcapi_wait_any(1, req_ptr,
+                                                                  &rx_len,
+                                                                  MCAPI_FTS_TIMEOUT,
+                                                                  &mcapi_struct->status);
 
                                         if ( (finished != 0) ||
                                              (mcapi_struct->status != MCAPI_EREQ_CANCELED) )
@@ -1898,8 +1908,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_20)
             req_ptr[0] = &request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len, &mcapi_struct->status,
-                                      MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (finished != 0) ||
                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -1987,8 +1997,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_21)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status,
-                                                  MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -2126,9 +2136,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_22)
                                         req_ptr[0] = &request;
 
                                         /* Wait for the call to timeout. */
-                                        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                                  &mcapi_struct->status,
-                                                                  MCAPI_FTS_TIMEOUT);
+                                        finished = mcapi_wait_any(1, req_ptr,
+                                                                  &rx_len,
+                                                                  MCAPI_FTS_TIMEOUT,
+                                                                  &mcapi_struct->status);
 
                                         if ( (finished != 0) ||
                                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -2220,8 +2231,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_23)
             req_ptr[0] = &request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len, &mcapi_struct->status,
-                                      MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (finished != 0) ||
                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -2309,8 +2320,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_24)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status,
-                                                  MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -2448,9 +2459,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_25)
                                         req_ptr[0] = &request;
 
                                         /* Wait for the call to timeout. */
-                                        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                                  &mcapi_struct->status,
-                                                                  MCAPI_FTS_TIMEOUT);
+                                        finished = mcapi_wait_any(1, req_ptr,
+                                                                  &rx_len,
+                                                                  MCAPI_FTS_TIMEOUT,
+                                                                  &mcapi_struct->status);
 
                                         if ( (finished != 0) ||
                                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -2561,8 +2573,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_26)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status,
-                                                  MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -2633,8 +2645,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_27)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, 250);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, 250,
+                                  &mcapi_struct->status);
 
         if ( (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) &&
              (finished == 0) )
@@ -2731,7 +2743,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_28)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -2831,8 +2844,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_29)
             req_ptr[0] = &svc_struct.request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                  (finished == 0) )
@@ -2894,8 +2907,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_30)
         req_ptr[0] = &mcapi_struct->request;
 
         /* Wait for the call to timeout. */
-        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                  &mcapi_struct->status, 250);
+        finished = mcapi_wait_any(1, req_ptr, &rx_len, 250,
+                                  &mcapi_struct->status);
 
         if ( (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) &&
              (finished == 0) )
@@ -2992,7 +3005,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_31)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -3092,8 +3106,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_32)
             req_ptr[0] = &svc_struct.request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                  (finished == 0) )
@@ -3162,8 +3176,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_33)
             req_ptr[0] = &request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (finished != 0) ||
                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -3251,7 +3265,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_34)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -3389,9 +3404,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_35)
                                         req_ptr[0] = &request;
 
                                         /* Wait for the call to timeout. */
-                                        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                                  &mcapi_struct->status,
-                                                                  MCAPI_FTS_TIMEOUT);
+                                        finished = mcapi_wait_any(1, req_ptr,
+                                                                  &rx_len,
+                                                                  MCAPI_FTS_TIMEOUT,
+                                                                  &mcapi_struct->status);
 
                                         if ( (finished != 0) ||
                                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -3483,8 +3499,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_36)
             req_ptr[0] = &request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(1, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (finished != 0) ||
                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -3572,7 +3588,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_37)
 
                         /* Wait for the call to timeout. */
                         finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                  &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                                  MCAPI_FTS_TIMEOUT,
+                                                  &mcapi_struct->status);
 
                         if ( (finished != 0) ||
                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -3710,9 +3727,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_38)
                                         req_ptr[0] = &request;
 
                                         /* Wait for the call to timeout. */
-                                        finished = mcapi_wait_any(1, req_ptr, &rx_len,
-                                                                  &mcapi_struct->status,
-                                                                  MCAPI_FTS_TIMEOUT);
+                                        finished = mcapi_wait_any(1, req_ptr,
+                                                                  &rx_len,
+                                                                  MCAPI_FTS_TIMEOUT,
+                                                                  &mcapi_struct->status);
 
                                         if ( (finished != 0) ||
                                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -3805,8 +3823,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_39)
             req_ptr[1] = &request2;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, 250);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, 250,
+                                      &mcapi_struct->status);
 
             if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
             {
@@ -3884,8 +3902,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_40)
             req_ptr[1] = &request2;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                  (finished == 0) )
@@ -3975,8 +3993,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_41)
             req_ptr[1] = &request2;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (finished != 0) ||
                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -4074,8 +4092,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_42)
             req_ptr[1] = &mcapi_struct->request;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                  (finished == 1) )
@@ -4165,8 +4183,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_43)
             req_ptr[1] = &request2;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (finished != 1) ||
                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -4260,8 +4278,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_44)
             req_ptr[1] = &request2;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, 250);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, 250,
+                                      &mcapi_struct->status);
 
             if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
             {
@@ -4348,7 +4366,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_45)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                      (finished == 0) )
@@ -4451,7 +4470,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_46)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (finished != 0) ||
                      (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -4562,7 +4582,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_47)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                      (finished == 1) )
@@ -4652,8 +4673,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_48)
             req_ptr[1] = &request2;
 
             /* Wait for the call to succeed. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             if ( (finished != 1) ||
                  (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -4730,8 +4751,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_49)
                     req_ptr[1] = &request2;
 
                     /* Wait for the call to timeout. */
-                    finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                              &mcapi_struct->status, 250);
+                    finished = mcapi_wait_any(2, req_ptr, &rx_len, 250,
+                                              &mcapi_struct->status);
 
                     if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
                     {
@@ -4828,7 +4849,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_50)
 
                     /* Wait for the call to timeout. */
                     finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                              &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                              MCAPI_FTS_TIMEOUT,
+                                              &mcapi_struct->status);
 
                     if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                          (finished == 0) )
@@ -4969,9 +4991,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_51)
                                     req_ptr[1] = &request2;
 
                                     /* Wait for the open to complete. */
-                                    finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                              &mcapi_struct->status,
-                                                              MCAPI_FTS_TIMEOUT);
+                                    finished = mcapi_wait_any(2, req_ptr,
+                                                              &rx_len,
+                                                              MCAPI_FTS_TIMEOUT,
+                                                              &mcapi_struct->status);
 
                                     if ( (finished != 0) ||
                                          (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -5114,7 +5137,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_52)
 
                     /* Wait for the call to timeout. */
                     finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                              &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                              MCAPI_FTS_TIMEOUT,
+                                              &mcapi_struct->status);
 
                     if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                          (finished == 1) )
@@ -5255,9 +5279,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_53)
                                     req_ptr[1] = &request2;
 
                                     /* Wait for the open to complete. */
-                                    finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                              &mcapi_struct->status,
-                                                              MCAPI_FTS_TIMEOUT);
+                                    finished = mcapi_wait_any(2, req_ptr,
+                                                              &rx_len,
+                                                              MCAPI_FTS_TIMEOUT,
+                                                              &mcapi_struct->status);
 
                                     if ( (finished != 1) ||
                                          (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -5455,8 +5480,9 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_54)
                                 req_ptr[1] = &request2;
 
                                 /* Wait for the requests to timeout. */
-                                finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                          &mcapi_struct->status, 250);
+                                finished = mcapi_wait_any(2, req_ptr,
+                                                          &rx_len, 250,
+                                                          &mcapi_struct->status);
 
                                 if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
                                 {
@@ -5652,9 +5678,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_55)
                                 if (mcapi_struct->status == MCAPI_SUCCESS)
                                 {
                                     /* Wait for the request to be cancelled. */
-                                    finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                              &mcapi_struct->status,
-                                                              MCAPI_FTS_TIMEOUT);
+                                    finished = mcapi_wait_any(2, req_ptr,
+                                                              &rx_len,
+                                                              MCAPI_FTS_TIMEOUT,
+                                                              &mcapi_struct->status);
 
                                     if ( (finished == 0) &&
                                          (mcapi_struct->status == MCAPI_EREQ_CANCELED) )
@@ -5858,9 +5885,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_56)
                                 if (mcapi_struct->status == MCAPI_SUCCESS)
                                 {
                                     /* Wait for the packet. */
-                                    finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                              &mcapi_struct->status,
-                                                              MCAPI_FTS_TIMEOUT);
+                                    finished = mcapi_wait_any(2, req_ptr,
+                                                              &rx_len,
+                                                              MCAPI_FTS_TIMEOUT,
+                                                              &mcapi_struct->status);
 
                                     if ( (finished != 0) ||
                                          (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -6070,9 +6098,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_57)
                                 if (mcapi_struct->status == MCAPI_SUCCESS)
                                 {
                                     /* Wait for the request to be cancelled. */
-                                    finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                              &mcapi_struct->status,
-                                                              MCAPI_FTS_TIMEOUT);
+                                    finished = mcapi_wait_any(2, req_ptr,
+                                                              &rx_len,
+                                                              MCAPI_FTS_TIMEOUT,
+                                                              &mcapi_struct->status);
 
                                     if ( (finished == 1) &&
                                          (mcapi_struct->status == MCAPI_EREQ_CANCELED) )
@@ -6305,9 +6334,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_58)
                                         req_ptr[1] = &request2;
 
                                         /* Wait for the request to be complete. */
-                                        finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                                  &mcapi_struct->status,
-                                                                  MCAPI_FTS_TIMEOUT);
+                                        finished = mcapi_wait_any(2, req_ptr,
+                                                                  &rx_len,
+                                                                  MCAPI_FTS_TIMEOUT,
+                                                                  &mcapi_struct->status);
 
                                         if ( (finished != 1) ||
                                              (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -6440,8 +6470,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_59)
             req_ptr[1] = &request2;
 
             /* Wait for the call to timeout. */
-            finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                      &mcapi_struct->status, 250);
+            finished = mcapi_wait_any(2, req_ptr, &rx_len, 250,
+                                      &mcapi_struct->status);
 
             if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
             {
@@ -6527,7 +6557,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_60)
 
                 /* Wait for the request to be canceled. */
                 finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                      (finished == 0) )
@@ -6662,9 +6693,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_61)
                                     req_ptr[1] = &request2;
 
                                     /* Wait for the call to complete. */
-                                    finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                                              &mcapi_struct->status,
-                                                              MCAPI_FTS_TIMEOUT);
+                                    finished = mcapi_wait_any(2, req_ptr,
+                                                              &rx_len,
+                                                              MCAPI_FTS_TIMEOUT,
+                                                              &mcapi_struct->status);
 
                                     if ( (finished != 0) ||
                                          (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -6792,7 +6824,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_62)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
                      (finished == 1) )
@@ -6893,7 +6926,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_63)
 
                 /* Wait for the call to timeout. */
                 finished = mcapi_wait_any(2, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 if ( (finished != 1) ||
                      (mcapi_struct->status != MCAPI_SUCCESS) )
@@ -7134,7 +7168,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_64)
 
         /* Wait for the call to timeout. */
         finished =
-            mcapi_wait_any(7, req_ptr, &rx_len, &mcapi_struct->status, 250);
+            mcapi_wait_any(7, req_ptr, &rx_len, 250, &mcapi_struct->status);
 
         if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
         {
@@ -7401,8 +7435,9 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_65)
                                        svc_struct.local_endp, 500, MCAPI_DEFAULT_PRIO);
 
             /* Wait for the call to be canceled. */
-            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len, &mcapi_struct->status,
-                                      MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
+                                      MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             /* If the request was canceled. */
             if ( (finished == i) &&
@@ -7721,8 +7756,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
                                                        MCAPI_DEFAULT_PRIO);
 
                             /* Wait for the call to complete. */
-                            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
-                                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                            finished = mcapi_wait_any(i + 1, req_ptr,
+                                                      &rx_len,
+                                                      MCAPI_FTS_TIMEOUT,
+                                                      &mcapi_struct->status);
 
                             /* If the request was canceled. */
                             if ( (finished != i) ||
@@ -7810,8 +7847,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
                                                        MCAPI_DEFAULT_PRIO);
 
                             /* Wait for the call to complete. */
-                            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
-                                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                            finished = mcapi_wait_any(i + 1, req_ptr,
+                                                      &rx_len,
+                                                      MCAPI_FTS_TIMEOUT,
+                                                      &mcapi_struct->status);
 
                             /* If the request was canceled. */
                             if ( (finished != i) ||
@@ -7871,7 +7910,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
             {
                 /* Wait for the call to complete. */
                 finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
-                                          &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                                          MCAPI_FTS_TIMEOUT,
+                                          &mcapi_struct->status);
 
                 /* If the request was canceled. */
                 if ( (finished != i) ||
@@ -7957,8 +7997,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
                                                        MCAPI_DEFAULT_PRIO);
 
                             /* Wait for the call to complete. */
-                            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
-                                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                            finished = mcapi_wait_any(i + 1, req_ptr,
+                                                      &rx_len,
+                                                      MCAPI_FTS_TIMEOUT,
+                                                      &mcapi_struct->status);
 
                             /* If the request was canceled. */
                             if ( (finished != i) ||
@@ -8046,8 +8088,10 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
                                                        MCAPI_DEFAULT_PRIO);
 
                             /* Wait for the call to complete. */
-                            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
-                                                      &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+                            finished = mcapi_wait_any(i + 1, req_ptr,
+                                                      &rx_len,
+                                                      MCAPI_FTS_TIMEOUT,
+                                                      &mcapi_struct->status);
 
                             /* If the request was canceled. */
                             if ( (finished != i) ||
@@ -8123,8 +8167,9 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
                                                MCAPI_DEFAULT_PRIO);
 
                     /* Wait for the call to complete. */
-                    finished = mcapi_wait_any(i + 1, req_ptr, &rx_len, &mcapi_struct->status,
-                                              MCAPI_FTS_TIMEOUT);
+                    finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
+                                              MCAPI_FTS_TIMEOUT,
+                                              &mcapi_struct->status);
 
                     /* If the request was canceled. */
                     if ( (finished != i) ||
@@ -8166,8 +8211,9 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
                                        MCAPI_DEFAULT_PRIO);
 
             /* Wait for the call to complete. */
-            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len, &mcapi_struct->status,
-                                      MCAPI_FTS_TIMEOUT);
+            finished = mcapi_wait_any(i + 1, req_ptr, &rx_len,
+                                      MCAPI_FTS_TIMEOUT,
+                                      &mcapi_struct->status);
 
             /* If the request was canceled. */
             if ( (finished != i) ||

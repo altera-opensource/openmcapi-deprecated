@@ -56,13 +56,13 @@
 *                               with the number of bytes sent/received if
 *                               the operation in question is a send or
 *                               receive operation.
-*       *mcapi_status           A pointer to memory that will be filled in
-*                               with the status of the call.
 *       timeout                 The number milliseconds to wait for
 *                               completion of the respective operation
 *                               before returning from mcapi_wait_any().
 *                               A value of MCAPI_INFINITE indicates no
 *                               timeout.
+*       *mcapi_status           A pointer to memory that will be filled in
+*                               with the status of the call.
 *
 *   OUTPUTS
 *
@@ -71,8 +71,8 @@
 *
 *************************************************************************/
 mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
-                           size_t *size, mcapi_status_t *mcapi_status,
-                           mcapi_timeout_t timeout)
+                           size_t *size, mcapi_timeout_t timeout,
+                           mcapi_status_t *mcapi_status)
 {
     int                 i, j;
     MCAPI_GLOBAL_DATA   *node_data;

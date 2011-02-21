@@ -214,8 +214,8 @@ mcapi_uint16_t mcapi_sclchan_recv_uint16(mcapi_sclchan_recv_hndl_t, mcapi_status
 mcapi_uint32_t mcapi_sclchan_recv_uint32(mcapi_sclchan_recv_hndl_t, mcapi_status_t *);
 mcapi_uint64_t mcapi_sclchan_recv_uint64(mcapi_sclchan_recv_hndl_t, mcapi_status_t *);
 mcapi_uint8_t mcapi_sclchan_recv_uint8(mcapi_sclchan_recv_hndl_t, mcapi_status_t *);
-mcapi_int_t mcapi_wait_any(size_t, mcapi_request_t **, size_t *, mcapi_status_t *,
-                           mcapi_timeout_t);
+mcapi_int_t mcapi_wait_any(size_t, mcapi_request_t **, size_t *,
+                           mcapi_timeout_t, mcapi_status_t *);
 
 #ifdef          __cplusplus
 }

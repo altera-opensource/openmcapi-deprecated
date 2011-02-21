@@ -14656,21 +14656,22 @@ void MCAPI_TEST_mcapi_wait_any(int type)
     if (type == MCAPI_TEST_POST_INIT)
     {
         /* 1.41.1.1 - Invalid number. */
-        finished = mcapi_wait_any(0, requests, &size, &mcapi_status, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(0, requests, &size, MCAPID_TIMEOUT,
+                                  &mcapi_status);
 
         if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.1.2 - Invalid number, invalid requests. */
-        finished = mcapi_wait_any(0, 0, &size, &mcapi_status, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(0, 0, &size, MCAPID_TIMEOUT, &mcapi_status);
 
         if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.1.3 - Invalid number, invalid requests, invalid size. */
-        finished = mcapi_wait_any(0, 0, 0, &mcapi_status, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(0, 0, 0, MCAPID_TIMEOUT, &mcapi_status);
 
         if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
             MCAPI_TEST_Error();
@@ -14679,70 +14680,71 @@ void MCAPI_TEST_mcapi_wait_any(int type)
         /* 1.41.1.4 - Invalid number, invalid requests, invalid size,
          * invalid status.
          */
-        finished = mcapi_wait_any(0, 0, 0, 0, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(0, 0, 0, MCAPID_TIMEOUT, 0);
 
         if (finished != 0)
             MCAPI_TEST_Error();
 
 
         /* 1.41.2.1 - Invalid requests. */
-        finished = mcapi_wait_any(1, 0, &size, &mcapi_status, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(1, 0, &size, MCAPID_TIMEOUT, &mcapi_status);
 
         if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.2.2 - Invalid requests, invalid size. */
-        finished = mcapi_wait_any(1, 0, 0, &mcapi_status, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(1, 0, 0, MCAPID_TIMEOUT, &mcapi_status);
 
         if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.2.3 - Invalid requests, invalid size, invalid status. */
-        finished = mcapi_wait_any(1, 0, 0, 0, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(1, 0, 0, MCAPID_TIMEOUT, 0);
 
         if (finished != 0)
             MCAPI_TEST_Error();
 
 
         /* 1.41.3.1 - Invalid size. */
-        finished = mcapi_wait_any(1, requests, 0, &mcapi_status, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(1, requests, 0, MCAPID_TIMEOUT,
+                                  &mcapi_status);
 
         if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.3.2 - Invalid size, invalid status. */
-        finished = mcapi_wait_any(1, requests, 0, 0, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(1, requests, 0, MCAPID_TIMEOUT, 0);
 
         if (finished != 0)
             MCAPI_TEST_Error();
 
 
         /* 1.41.3.3 - Invalid size, invalid status, invalid number. */
-        finished = mcapi_wait_any(0, requests, 0, 0, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(0, requests, 0, MCAPID_TIMEOUT, 0);
 
         if (finished != 0)
             MCAPI_TEST_Error();
 
 
         /* 1.41.4.1 - Invalid status. */
-        finished = mcapi_wait_any(1, requests, &size, 0, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(1, requests, &size, MCAPID_TIMEOUT, 0);
 
         if (finished != 0)
             MCAPI_TEST_Error();
 
 
         /* 1.41.4.2 - Invalid status, invalid size. */
-        finished = mcapi_wait_any(0, requests, &size, 0, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(0, requests, &size, MCAPID_TIMEOUT, 0);
 
         if (finished != 0)
             MCAPI_TEST_Error();
 
 
         /* 1.41.4.3 - Invalid status, invalid size, invalid requests. */
-        finished = mcapi_wait_any(0, 0, &size, 0, MCAPID_TIMEOUT);
+        finished = mcapi_wait_any(0, 0, &size, MCAPID_TIMEOUT, 0);
 
         if (finished != 0)
             MCAPI_TEST_Error();
@@ -14781,8 +14783,9 @@ MCAPI_THREAD_ENTRY(MCAPI_TEST_Multithread_Wait)
 
         else if (MCAPI_TEST_Wait_Any_Request[0])
         {
-            finished = mcapi_wait_any(MCAPI_TEST_Wait_Any_Count, MCAPI_TEST_Wait_Any_Request,
-                                      &size, &mcapi_status, MCAPI_TEST_Wait_Timeout);
+            finished = mcapi_wait_any(MCAPI_TEST_Wait_Any_Count,
+                                      MCAPI_TEST_Wait_Any_Request, &size,
+                                      MCAPI_TEST_Wait_Timeout, &mcapi_status);
 
             if ( (mcapi_status != MCAPI_TEST_Wait_Status) ||
                  (MCAPI_TEST_Wait_Finished != finished) )
