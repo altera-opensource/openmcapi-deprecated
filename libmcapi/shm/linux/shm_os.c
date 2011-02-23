@@ -114,7 +114,7 @@ mcapi_uint32_t openmcapi_shm_schedunitid(void)
     if (rc)
         return MCAPI_OS_ERROR;
 
-    return 0;
+    return core_id;
 }
 
 static int shm_linux_wait_notify(mcapi_uint32_t unitId)
