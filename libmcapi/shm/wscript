@@ -25,6 +25,7 @@ def makeopts(ctx, path):
 def options(opt):
 	opt.add_option('--linuxdir', help='Directory to Linux kernel which has had \'make modules_prepare\' run.')
 	opt.add_option('--linuxargs', help='Extra options to pass to the Linux kernel module build system.')
+	opt.add_option('--shm-sysv', action='store_true', help='For debugging purposes: use SysV shared memory instead of physical RAM. Implies --no-kmods.')
 
 	# These classes are magic to make the Linux kmod build automatically:
 	path = opt.path.abspath()
@@ -48,6 +49,9 @@ def options(opt):
 def configure(conf):
 	conf.env.LINUXDIR = conf.options.linuxdir
 	conf.env.LINUXARGS = conf.options.linuxargs
+	conf.env.SHM_SYSV = conf.options.shm_sysv
+	if conf.env.SHM_SYSV:
+		conf.env.NO_KMODS = True
 
 def build(bld):
 	includes = [
@@ -62,11 +66,19 @@ def build(bld):
 		'shm.c'
 	]
 
+	shm_sources = [
+		'sysv.c'
+	]
+
 	extra_sources = {
 		'linux': ['linux/shm_os.c'],
 	}
 
-	sources += extra_sources.get(bld.env.OS, [])
+	if bld.env.SHM_SYSV:
+		# sysv is OS-agnostic and trumps OS drivers
+		sources += shm_sources
+	else:
+		sources += extra_sources.get(bld.env.OS, [])
 
 	bld.stlib(
 		target='mcapi_shm',
