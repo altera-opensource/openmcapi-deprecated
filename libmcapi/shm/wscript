@@ -83,8 +83,6 @@ def build(bld):
 	bld.stlib(
 		target='mcapi_shm',
 		source=' '.join(sources),
-
 		includes=' '.join(includes),
-		cflags='-O2 -Wall',
 	)
 

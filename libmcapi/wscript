@@ -9,8 +9,6 @@ def configure(conf):
 	conf.recurse(subdirs)
 
 def build(bld):
-	bld.recurse(subdirs)
-
 	includes = [
 		'../include',
 		'../include/%s' % bld.env.OS,
@@ -95,13 +93,13 @@ def build(bld):
 
 	sources += extra_sources.get(bld.env.OS, [])
 
+	bld.env.prepend_value('CFLAGS', ['-O2', '-Wall'])
+
 	bld.stlib(
 		target='mcapi',
 		source=' '.join(sources),
-
 		includes=' '.join(includes),
-		cflags='-O2 -Wall',
-
 		use='mcapi_shm',
 	)
 
+	bld.recurse(subdirs)
