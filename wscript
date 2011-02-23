@@ -8,6 +8,7 @@ out = 'build'
 bld_subdirs = [
 	'libmcapi',
 	'util',
+	'demo',
 	]
 subdirs = bld_subdirs + ['test']
 
