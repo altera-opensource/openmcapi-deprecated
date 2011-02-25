@@ -57,12 +57,16 @@ const unsigned int shm_bytes = 0x00100000; /* XXX */
 static int msgqid;
 static pthread_t shm_rx_thread;
 
+struct shm_msgbuf {
+    long mtype;
+};
+
 mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unitId)
 {
     int rc;
-    char *msg = "";
+    static struct shm_msgbuf msg = {1};
 
-    rc = msgsnd(msgqid, msg, 0, 0);
+    rc = msgsnd(msgqid, &msg, 0, 0);
     if (rc == -1)
         rc = MCAPI_ENOT_CONNECTED;
 
@@ -131,11 +135,11 @@ out1:
 static void *mcapi_receive_thread(void *data)
 {
     int rc;
-    char msg[1];
+    static struct shm_msgbuf msg = {1};
 
     do {
         /* Block until data for this node is available. */
-        rc = msgrcv(msgqid, msg, 0, 0, 0);
+        rc = msgrcv(msgqid, &msg, 0, 0, 0);
         if (rc < 0) {
             /* This likely means the other side has already torn down the
              * message queue, so just exit. */
