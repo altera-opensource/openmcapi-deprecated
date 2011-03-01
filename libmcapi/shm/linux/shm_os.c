@@ -93,12 +93,13 @@ static size_t shm_linux_read_size(void)
     return size;
 }
 
-mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unitId)
+mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unit_id,
+                                    mcapi_uint32_t node_id)
 {
     mcapi_status_t mcapi_status = MCAPI_SUCCESS;
     int rc;
 
-    rc = ioctl(mcomm_fd, MCOMM_NOTIFY, &unitId);
+    rc = ioctl(mcomm_fd, MCOMM_NOTIFY, &unit_id);
     if (rc)
         mcapi_status = MCAPI_OS_ERROR;
 

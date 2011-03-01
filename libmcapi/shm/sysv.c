@@ -61,10 +61,11 @@ struct shm_msgbuf {
     long mtype;
 };
 
-mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unitId)
+mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unit_id,
+                                    mcapi_uint32_t node_id)
 {
     int rc;
-    static struct shm_msgbuf msg = {1};
+    struct shm_msgbuf msg = {node_id + 1};
 
     rc = msgsnd(msgqid, &msg, 0, 0);
     if (rc == -1)
@@ -135,11 +136,11 @@ out1:
 static void *mcapi_receive_thread(void *data)
 {
     int rc;
-    static struct shm_msgbuf msg = {1};
+    static struct shm_msgbuf msg = {0};
 
     do {
         /* Block until data for this node is available. */
-        rc = msgrcv(msgqid, &msg, 0, 0, 0);
+        rc = msgrcv(msgqid, &msg, 0, MCAPI_Node_ID + 1, 0);
         if (rc < 0) {
             /* This likely means the other side has already torn down the
              * message queue, so just exit. */

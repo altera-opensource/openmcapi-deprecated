@@ -41,7 +41,8 @@ mcapi_status_t openmcapi_shm_os_finalize(void);
 void *openmcapi_shm_map(void);
 void openmcapi_shm_unmap(void *shm);
 
-mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unit_id);
+mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unit_id,
+                                    mcapi_uint32_t node_id);
 mcapi_uint32_t openmcapi_shm_schedunitid(void);
 
 #endif /* OPENMCAPI_SHM_H */

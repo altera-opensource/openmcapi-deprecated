@@ -383,6 +383,7 @@ static mcapi_status_t shm_tx(MCAPI_BUFFER *buffer, size_t buffer_size,
 {
 	SHM_BUFF_DESC_Q* shm_q;
 	mcapi_uint32_t  unit_id;
+	mcapi_uint32_t	node_id;
 	mcapi_status_t  status = MCAPI_SUCCESS;
 
 #ifdef MCAPI_SM_DBG_SUPPORT
@@ -393,13 +394,14 @@ static mcapi_status_t shm_tx(MCAPI_BUFFER *buffer, size_t buffer_size,
 #endif
 
 	/* Obtain SM ring queue for the destination node ID */
-	shm_q = get_sm_ring_q(tx_endpoint->mcapi_foreign_node_id, &unit_id);
+	node_id = tx_endpoint->mcapi_foreign_node_id;
+	shm_q = get_sm_ring_q(node_id, &unit_id);
 
 	if (shm_q)
 	{
 		/* Enqueue request to transmit data */
-		status = enqueue_sm_ring_q(shm_q, tx_endpoint->mcapi_foreign_node_id, buffer, \
-								   priority, buffer_size, tx_endpoint->mcapi_chan_type);
+		status = enqueue_sm_ring_q(shm_q, node_id, buffer, priority,
+			buffer_size, tx_endpoint->mcapi_chan_type);
 
 		/* Resume Tasks suspensed on TX */
 		mcapi_check_resume(MCAPI_REQ_TX_FIN, tx_endpoint->mcapi_endp_handle,
@@ -408,7 +410,7 @@ static mcapi_status_t shm_tx(MCAPI_BUFFER *buffer, size_t buffer_size,
 		/* Start data transmission */
 		if (status == MCAPI_SUCCESS)
 		{
-			status = openmcapi_shm_notify(unit_id);
+			status = openmcapi_shm_notify(unit_id, node_id);
 
 #ifdef MCAPI_SM_DBG_SUPPORT
 			printf("TX buffer - TX success \r\n");
