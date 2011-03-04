@@ -105,19 +105,28 @@ void startup(unsigned int local)
 	connect(local, remote);
 }
 
-void demo(int node)
+void demo(int node, int loop)
 {
 	char outgoing[16];
 	char *incoming;
 	size_t bytes;
 	mcapi_status_t status;
 
-	memset(outgoing, 0, 16);
-	sprintf(outgoing, "hi from node %d", node);
+	do {
+		memset(outgoing, 0, 16);
+		sprintf(outgoing, "hi from node %d", node);
 
-	mcapi_pktchan_send(send_handle, outgoing, strlen(outgoing)+1, &status);
-	mcapi_assert_success(status);
+		mcapi_pktchan_send(send_handle, outgoing, strlen(outgoing)+1,
+			&status);
+		mcapi_assert_success(status);
 
-	mcapi_pktchan_recv(recv_handle, (void *)&incoming, &bytes, &status);
-	printf("received message: %s\n", incoming);
+		mcapi_pktchan_recv(recv_handle, (void *)&incoming, &bytes,
+			&status);
+		printf("received message: %s\n", incoming);
+
+		mcapi_pktchan_free(incoming, &status);
+		mcapi_assert_success(status);
+
+		sleep(1);
+	} while (loop);
 }
