@@ -35,6 +35,7 @@
 #include <stdint.h>
 #include <string.h>
 #include <pthread.h>
+#include <unistd.h>
 
 /********************* Porting Section **************************/
 

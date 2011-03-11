@@ -451,7 +451,7 @@ void MCAPI_Set_Condition(mcapi_request_t *, MCAPI_COND_STRUCT *);
 void MCAPI_Clear_Condition(mcapi_request_t *);
 mcapi_int_t MCAPI_Lock_RX_Queue(void);
 void MCAPI_Unlock_RX_Queue(mcapi_int_t cookie);
-
+void MCAPI_Sleep(unsigned how_long);
 
 /* The name of the shared memory interface. */
 #define OPENMCAPI_SHM_NAME "sha_mem"

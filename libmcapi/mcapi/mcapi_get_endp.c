@@ -27,8 +27,6 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-
-
 #include <openmcapi.h>
 
 /*************************************************************************
@@ -101,10 +99,26 @@ mcapi_endpoint_t mcapi_get_endpoint(mcapi_node_t node_id, mcapi_port_t port_id,
         /* Otherwise, query the foreign node for the information. */
         else
         {
-            /* Issue the call to get a remote endpoint. */
-            get_remote_endpoint(node_id, port_id, mcapi_status, 0xffffffff);
 
-            /* If the request was sent. */
+            /* If the remote endpoint is not ready loop till it becomes
+            * available.
+            */
+            for (;;)
+            {
+                /* Issue the call to get a remote endpoint. */
+                get_remote_endpoint(node_id, port_id, mcapi_status, 0xffffffff);
+
+                if(*mcapi_status == MCAPI_ENO_BUFFER)
+                {
+                    MCAPI_Sleep(1);
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            /* The get remote endpoint request was successfully sent. */
             if (*mcapi_status == MCAPI_SUCCESS)
             {
                 *mcapi_status = MCAPI_EREQ_PENDING;
