@@ -38,23 +38,20 @@ static void connect(int local, int remote)
 	mcapi_status_t   status;
 	size_t           size;
 	
-	printf("\nLinux: MCAPI Initialization \n");
-
-	printf("Linux: Creating tx port %d\n", ports[local].tx);
+	printf("Node %d: Creating tx port %d\n", local, ports[local].tx);
 	local_send_endpoint = mcapi_create_endpoint(ports[local].tx, &status);
 	mcapi_assert_success(status);
 
-	printf("Linux: Creating rx port %d\n", ports[local].rx);
+	printf("Node %d: Creating rx port %d\n", local, ports[local].rx);
 	local_recv_endpoint = mcapi_create_endpoint(ports[local].rx, &status);
 	mcapi_assert_success(status);
 
 	remote_recv_endpoint = mcapi_get_endpoint(remote, ports[remote].rx,
 	                                          &status);
-
 	mcapi_assert_success(status);
 
-	printf("Linux: Connecting %d:%d to %d:%d\n", local, ports[local].tx,
-	       remote, ports[remote].rx);
+	printf("Node %d: Connecting %d:%d to %d:%d\n",local, local, ports[local].tx,
+	 	       remote, ports[remote].rx);
 	mcapi_connect_pktchan_i(local_send_endpoint, remote_recv_endpoint,
 	                        &request, &status);
 	mcapi_assert_success(status);
@@ -62,13 +59,13 @@ static void connect(int local, int remote)
 	mcapi_wait(&request, &size, &status, WAIT_TIMEOUT);	
 	mcapi_assert_success(status);
 
-	printf("Linux: Connection complete\n");
+	printf("Node %d: Connection complete\n", local);
 
-	printf("Linux: Opening send endpoint\n");
+	printf("Node %d: Opening send endpoint\n", local);
 	mcapi_open_pktchan_send_i(&send_handle, local_send_endpoint, &send_request,
 							  &status);
 
-	printf("Linux: Opening receive endpoint\n");
+	printf("Node %d: Opening receive endpoint\n", local);
 	mcapi_open_pktchan_recv_i(&recv_handle, local_recv_endpoint, &recv_request,
 							  &status);
 
@@ -78,7 +75,7 @@ static void connect(int local, int remote)
 	mcapi_wait(&recv_request, &size, &status, WAIT_TIMEOUT);	
 	mcapi_assert_success(status);
 	
-	printf("Linux: MCAPI negotiation complete! \n");
+	printf("Node %d: MCAPI negotiation complete! \n", local);
 }
 
 void startup(unsigned int local)
@@ -90,6 +87,7 @@ void startup(unsigned int local)
 	remote = !local;
 	local = !remote; /* ensure it's either 0 or 1 */
 
+	printf("Node %d: MCAPI Initialized\n",local);
 	mcapi_initialize(local, &version, &status);
 	mcapi_assert_success(status);
 
