@@ -37,7 +37,6 @@ static void connect(int local, int remote)
 	mcapi_request_t  recv_request;
 	mcapi_status_t   status;
 	size_t           size;
-	int              i;
 	
 	printf("\nLinux: MCAPI Initialization \n");
 
@@ -49,17 +48,9 @@ static void connect(int local, int remote)
 	local_recv_endpoint = mcapi_create_endpoint(ports[local].rx, &status);
 	mcapi_assert_success(status);
 
-	for (i = 0; i < 60; i++) {
-		remote_recv_endpoint = mcapi_get_endpoint(remote, ports[remote].rx,
-		                                          &status);
-		if (!status)
-			break;
+	remote_recv_endpoint = mcapi_get_endpoint(remote, ports[remote].rx,
+	                                          &status);
 
-		printf("Linux: Waiting for remote RX endpoint %d (status %d)\n",
-		       ports[remote].rx, status);
-
-		sleep(1);
-	}
 	mcapi_assert_success(status);
 
 	printf("Linux: Connecting %d:%d to %d:%d\n", local, ports[local].tx,
