@@ -517,20 +517,9 @@ void MCAPI_Unlock_RX_Queue(mcapi_int_t cookie)
 {
 }
 
-/************************************************************************
-*
-*   FUNCTION
-*
-*       MCAPI_Sleep
-*
-*   DESCRIPTION
-*
-*       Sleep routine used for sleeping as indicated by the user.
-*
-*************************************************************************/
-void MCAPI_Sleep(unsigned how_long)
+void MCAPI_Sleep(unsigned int secs)
 {
-    sleep(how_long);
-
-} /* MCAPI_Sleep */
+	/* XXX We can use select() to implement sub-second sleeps in the future. */
+    sleep(secs);
+}
 

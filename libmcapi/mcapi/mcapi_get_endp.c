@@ -108,7 +108,7 @@ mcapi_endpoint_t mcapi_get_endpoint(mcapi_node_t node_id, mcapi_port_t port_id,
                 /* Issue the call to get a remote endpoint. */
                 get_remote_endpoint(node_id, port_id, mcapi_status, 0xffffffff);
 
-                if(*mcapi_status == MCAPI_ENO_BUFFER)
+                if (*mcapi_status == MCAPI_ENO_BUFFER)
                 {
                     MCAPI_Sleep(1);
                 }
