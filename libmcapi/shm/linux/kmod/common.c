@@ -80,7 +80,6 @@ static irqreturn_t mcomm_interrupt(int irq, void *dev_id)
 {
 	struct mcomm_devdata *devdata = dev_id;
 	void __iomem *mbox;
-	int handled = IRQ_NONE;
 	int i;
 
 	mbox = devdata->mbox_mapped;
@@ -101,15 +100,14 @@ static irqreturn_t mcomm_interrupt(int irq, void *dev_id)
 		if (active) {
 			pr_debug("%s: waking mbox %d\n", __func__, i);
 			wake_up_interruptible(&devdata->wait);
-			handled = IRQ_HANDLED;
 		}
 		mbox += devdata->mbox_stride;
 	}
 
-	if ((irq != NO_IRQ) && (handled == IRQ_HANDLED))
+	if (irq != NO_IRQ)
 		mcomm_platform_ops->ack();
 
-	return handled;
+	return IRQ_HANDLED;
 }
 
 static int mcomm_mbox_pending(struct mcomm_devdata *devdata,
@@ -287,7 +285,7 @@ static long mcomm_dev_initialize(struct mcomm_devdata *devdata, u32 offset,
 	devdata->nr_mboxes = nr_mboxes;
 
 	if (devdata->irq != NO_IRQ) {
-		rc = request_irq(devdata->irq, mcomm_interrupt, IRQF_SHARED, "mcomm",
+		rc = request_irq(devdata->irq, mcomm_interrupt, 0, "mcomm",
 						 devdata);
 		if (rc) {
 			printk(KERN_ERR "%s: failed to reserve irq %d\n", __func__,
