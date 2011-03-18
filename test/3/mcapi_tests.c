@@ -42,7 +42,7 @@
 #include "mcapid.h"
 #include "support_suite/mcapid_support.h"
 
-#define  MCAPI_LOCAL_NODE_ID    0
+#define  FUNC_FRONTEND_NODE_ID    0
 #define  MCAPID_TIMEOUT         5000
 
 MCAPI_MUTEX     MCAPI_TEST_Mutex;
@@ -486,25 +486,25 @@ void MCAPI_TEST_mcapi_initialize(void)
     mcapi_version_t mcapi_version;
 
     /* 1.1.2.1 - Test an invalid version. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, 0, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, 0, &mcapi_status);
 
     if (mcapi_status != MCAPI_EPARAM)
         MCAPI_TEST_Error();
 
     /* 1.1.2.2 - Test invalid version and status. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, 0, 0);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, 0, 0);
 
     /* 1.1.3.1 - Test an invalid status. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, 0);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, 0);
 
     /* 1.1.4.1 - Successfully initialize. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if ( (mcapi_status != MCAPI_SUCCESS) || (mcapi_version != MCAPI_VERSION) )
         MCAPI_TEST_Error();
 
     /* 1.1.5.1 - Attempt to initialize again. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_INITIALIZED)
         MCAPI_TEST_Error();
@@ -519,7 +519,7 @@ void MCAPI_TEST_mcapi_initialize(void)
     MCAPID_Sleep(2000);
 
     /* 1.1.5.2 - Attempt to initialize again. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -567,7 +567,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -618,7 +618,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -669,7 +669,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -685,7 +685,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -708,7 +708,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -731,7 +731,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -768,7 +768,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -805,7 +805,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -842,7 +842,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -879,14 +879,14 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
 
 
     /* Make a call to get an endpoint that doesn't exist. */
-    mcapi_get_endpoint_i(MCAPI_LOCAL_NODE_ID, 20000, &endpoint, &request,
+    mcapi_get_endpoint_i(FUNC_FRONTEND_NODE_ID, 20000, &endpoint, &request,
                          &mcapi_status);
 
     /* 1.43.4.1 - Outstanding get endpoint request. */
@@ -898,7 +898,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -921,7 +921,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -941,7 +941,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -999,7 +999,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1055,7 +1055,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1113,7 +1113,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1138,7 +1138,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1192,7 +1192,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1247,7 +1247,7 @@ void MCAPI_TEST_mcapi_finalize(void)
         MCAPI_TEST_Error();
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1308,14 +1308,14 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
 
 
     /* Make a call to get an endpoint that doesn't exist. */
-    mcapi_get_endpoint_i(MCAPI_LOCAL_NODE_ID, 20000, &endpoint, &request,
+    mcapi_get_endpoint_i(FUNC_FRONTEND_NODE_ID, 20000, &endpoint, &request,
                          &mcapi_status);
 
     /* Cause another thread to also wait for this request to finish. */
@@ -1337,7 +1337,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1367,7 +1367,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1416,7 +1416,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1465,7 +1465,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1532,7 +1532,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1581,7 +1581,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1630,14 +1630,14 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
 
 
     /* Make a call to get an endpoint that doesn't exist. */
-    mcapi_get_endpoint_i(MCAPI_LOCAL_NODE_ID, 20000, &endpoint, &request,
+    mcapi_get_endpoint_i(FUNC_FRONTEND_NODE_ID, 20000, &endpoint, &request,
                          &mcapi_status);
 
     /* Create a receive endpoint. */
@@ -1667,7 +1667,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1717,7 +1717,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1794,7 +1794,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();
@@ -1889,7 +1889,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_Obtain_Mutex(&MCAPI_TEST_Wait_Mutex);
 
     /* Reinitialize the system. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &mcapi_version, &mcapi_status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
     if (mcapi_status != MCAPI_SUCCESS)
         MCAPI_TEST_Error();

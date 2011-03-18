@@ -47,10 +47,10 @@
 /****** These values must match on all nodes ******/
 
 /* The node ID of this node. */
-#define MCAPI_LOCAL_NODE_ID     0
+#define FUNC_FRONTEND_NODE_ID   0
 
 /* The node ID of the foreign node. */
-#define MCAPI_FOREIGN_NODE_ID   0
+#define FUNC_BACKEND_NODE_ID    1
 
 /* The node IDs for the transmit and receive nodes. */
 #define MCAPI_TX_NODE_ID        0

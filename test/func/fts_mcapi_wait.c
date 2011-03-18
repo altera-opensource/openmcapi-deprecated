@@ -67,7 +67,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_1)
     MCAPI_Obtain_Mutex(&MCAPID_FTS_Mutex);
 
     /* Get the foreign endpoint. */
-    mcapi_get_endpoint_i(MCAPI_FOREIGN_NODE_ID, 1024, &endpoint,
+    mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &mcapi_struct->request, &mcapi_struct->status);
 
     if (mcapi_struct->status == MCAPI_SUCCESS)
@@ -126,7 +126,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_2)
     MCAPI_Obtain_Mutex(&MCAPID_FTS_Mutex);
 
     /* Get the foreign endpoint. */
-    mcapi_get_endpoint_i(MCAPI_FOREIGN_NODE_ID, 1024, &endpoint,
+    mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &mcapi_struct->request, &mcapi_struct->status);
 
     if (mcapi_struct->status == MCAPI_SUCCESS)
@@ -198,7 +198,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_3)
     MCAPI_Obtain_Mutex(&MCAPID_FTS_Mutex);
 
     /* Get the foreign endpoint. */
-    mcapi_get_endpoint_i(MCAPI_FOREIGN_NODE_ID, 1024, &endpoint,
+    mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &mcapi_struct->request, &mcapi_struct->status);
 
     if (mcapi_struct->status == MCAPI_SUCCESS)
@@ -284,7 +284,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_4)
     MCAPID_Create_Service(&svc_struct, 1);
 
     /* Get the foreign endpoint. */
-    mcapi_get_endpoint_i(MCAPI_FOREIGN_NODE_ID, 1024, &endpoint,
+    mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &svc_struct.request, &mcapi_struct->status);
 
     if (mcapi_struct->status == MCAPI_SUCCESS)

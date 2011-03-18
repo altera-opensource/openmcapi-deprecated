@@ -69,7 +69,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_1)
     MCAPI_Obtain_Mutex(&MCAPID_FTS_Mutex);
 
     /* Get the foreign endpoint. */
-    mcapi_get_endpoint_i(MCAPI_FOREIGN_NODE_ID, 1024, &endpoint,
+    mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &mcapi_struct->request, &mcapi_struct->status);
 
     if (mcapi_struct->status == MCAPI_SUCCESS)
@@ -176,7 +176,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_2)
         if (mcapi_struct->status == MCAPI_SUCCESS)
         {
             /* Get the foreign endpoint. */
-            mcapi_get_endpoint_i(MCAPI_FOREIGN_NODE_ID, 1024, &endpoint,
+            mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                                  &mcapi_struct->request, &mcapi_struct->status);
 
             /* The test call should return success immediately. */
@@ -238,7 +238,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_3)
     MCAPI_Obtain_Mutex(&MCAPID_FTS_Mutex);
 
     /* Get the foreign endpoint. */
-    mcapi_get_endpoint_i(MCAPI_FOREIGN_NODE_ID, 1024, &endpoint,
+    mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &mcapi_struct->request, &mcapi_struct->status);
 
     if (mcapi_struct->status == MCAPI_SUCCESS)

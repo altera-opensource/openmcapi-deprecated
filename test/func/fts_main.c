@@ -346,7 +346,7 @@ int mcapi_test_start(int argc, char *argv[])
     unsigned            error_count = 0;
 
     /* Initialize MCAPI on the node. */
-    mcapi_initialize(MCAPI_LOCAL_NODE_ID, &version, &status);
+    mcapi_initialize(FUNC_FRONTEND_NODE_ID, &version, &status);
 
     /* If an error occurred, the demo has failed. */
     if (status != MCAPI_SUCCESS) {
@@ -357,7 +357,7 @@ int mcapi_test_start(int argc, char *argv[])
 
     MCAPI_Create_Mutex(&MCAPID_FTS_Mutex, "fts_mutex");
 
-#if (MCAPID_REG_SERVER_NODE == MCAPI_LOCAL_NODE_ID)
+#if (MCAPID_REG_SERVER_NODE == FUNC_FRONTEND_NODE_ID)
 
     /* Start the registration server. */
     MCAPID_Create_Thread(&MCAPID_Registration_Server, &MCAPID_Reg_Struct);
