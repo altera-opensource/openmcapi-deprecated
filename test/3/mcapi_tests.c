@@ -142,7 +142,7 @@ extern MCAPI_GLOBAL_DATA    MCAPI_Global_Struct;
 *      Executes the MCAPI API test suite.
 *
 *************************************************************************/
-MCAPID_TEST_ENTRY(nu_tf_kern_3_init)
+int mcapi_test_start(int argc, char *argv[])
 {
     unsigned        cur_error_count;
 
@@ -466,8 +466,7 @@ MCAPID_TEST_ENTRY(nu_tf_kern_3_init)
 
     printf("MCAPI API Test Finished - Total Error Count:         %u\r\n", MCAPI_TEST_Errors);
 
-    MCAPID_Finished();
-
+    return MCAPI_TEST_Errors;
 } /* MCAPID_Test_Init */
 
 /************************************************************************

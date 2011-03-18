@@ -337,18 +337,8 @@ MCAPID_STRUCT   MCAPID_Reg_Struct, MCAPID_Mgmt_Struct, MCAPID_Echo_Struct[4];
 
 extern  MCAPI_GLOBAL_DATA           MCAPI_Global_Struct;
 
-/************************************************************************
-*
-*   FUNCTION
-*
-*       nu_tf_kern_1_init
-*
-*   DESCRIPTION
-*
-*       Invokes each test.
-*
-*************************************************************************/
-MCAPID_TEST_ENTRY(nu_tf_kern_1_init)
+
+int mcapi_test_start(int argc, char *argv[])
 {
     mcapi_status_t      status;
     mcapi_version_t     version;
@@ -359,8 +349,11 @@ MCAPID_TEST_ENTRY(nu_tf_kern_1_init)
     mcapi_initialize(MCAPI_LOCAL_NODE_ID, &version, &status);
 
     /* If an error occurred, the demo has failed. */
-    if (status != MCAPI_SUCCESS)
-        MCAPID_Finished();
+    if (status != MCAPI_SUCCESS) {
+        printf("%s\n", "mcapi_initialize() failed!");
+        MCAPID_Failures++;
+        goto out;
+    }
 
     MCAPI_Create_Mutex(&MCAPID_FTS_Mutex, "fts_mutex");
 
@@ -484,8 +477,9 @@ MCAPID_TEST_ENTRY(nu_tf_kern_1_init)
     }
 
     printf("MCAPI Functional Test Complete with, %u errors\r\n", MCAPID_Failures);
-    MCAPID_Finished();
 
+out:
+    return MCAPID_Failures;
 } /* MCAPID_Test_Init */
 
 /************************************************************************

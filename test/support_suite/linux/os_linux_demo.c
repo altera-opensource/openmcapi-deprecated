@@ -36,8 +36,50 @@
 *
 *************************************************************************/
 #include <pthread.h>
+#include <signal.h>
 #include "mcapid.h"
 #include "support_suite/mcapid_support.h"
+
+extern int mcapi_test_start(int argc, char *argv[]);
+
+static struct sigaction oldactions[32];
+
+static void cleanup(void)
+{
+	mcapi_status_t status;
+
+	mcapi_finalize(&status);
+}
+
+static void signalled(int signal, siginfo_t *info, void *context)
+{
+	struct sigaction *action;
+
+	action = &oldactions[signal];
+
+	if ((action->sa_flags & SA_SIGINFO) && action->sa_sigaction)
+		action->sa_sigaction(signal, info, context);
+	else if (action->sa_handler)
+		action->sa_handler(signal);
+
+	exit(signal);
+}
+
+struct sigaction action = {
+	.sa_sigaction = signalled,
+	.sa_flags = SA_SIGINFO,
+};
+
+int main(int argc, char *argv[])
+{
+	atexit(cleanup);
+	sigaction(SIGQUIT, &action, &oldactions[SIGQUIT]);
+	sigaction(SIGABRT, &action, &oldactions[SIGABRT]);
+	sigaction(SIGTERM, &action, &oldactions[SIGTERM]);
+	sigaction(SIGINT,  &action, &oldactions[SIGINT]);
+
+    return mcapi_test_start(argc, argv);
+}
 
 /************************************************************************
 *
