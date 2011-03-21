@@ -48,7 +48,4 @@
 
 #define MCAPID_TEST_ENTRY(f)    int main(int argc, char **argv)
 
-void MCAPID_Cleanup(MCAPID_STRUCT *);
-void MCAPID_Sleep(unsigned);
-
 #endif /* _MCAPID_H_ */

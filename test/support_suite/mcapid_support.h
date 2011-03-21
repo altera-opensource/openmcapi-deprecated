@@ -121,6 +121,8 @@ mcapi_status_t MCAPID_Register_Service(char *, mcapi_node_t node, mcapi_port_t p
 mcapi_status_t MCAPID_Remove_Service(char *, mcapi_node_t node, mcapi_port_t port);
 mcapi_status_t MCAPID_Create_Thread(MCAPI_THREAD_PTR_ENTRY(thread_entry), MCAPID_STRUCT *);
 void MCAPID_Finished(void);
+void MCAPID_Cleanup(MCAPID_STRUCT *);
+void MCAPID_Sleep(unsigned);
 
 MCAPI_THREAD_ENTRY(MCAPID_Registration_Server);
 
