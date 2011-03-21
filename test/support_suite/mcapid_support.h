@@ -85,6 +85,7 @@ typedef struct _MCAPID_USER_STRUCT_
     char                *service;       /* The name of the service to register (server) or get (client). */
     int                 retry;          /* The number of times to attempt to get a service as a client. */
     char                test_name[16];
+    void *              (*func)(void *argv);
     MCAPI_THREAD_PTR_ENTRY(thread_entry);
 } MCAPID_USER_STRUCT;
 
@@ -95,6 +96,7 @@ typedef struct _MCAPID_STRUCT_
     mcapi_port_t        local_port;     /* The port ID of the local side or MCAPI_PORT_ANY. */
     char                *service;       /* The name of the service to register (server) or get (client). */
     int                 retry;          /* The number of times to attempt to get a service as a client. */
+    void *              (*func)(void *argv);
     MCAPI_THREAD_PTR_ENTRY(thread_entry);
 
     /* Returned to the user. */
@@ -112,7 +114,7 @@ typedef struct _MCAPID_STRUCT_
     void                *app_spec;      /* Application specific data structure area. */
 } MCAPID_STRUCT;
 
-void MCAPID_Create_Service(MCAPID_STRUCT *);
+int MCAPID_Create_Service(MCAPID_STRUCT *);
 void MCAPID_Destroy_Service(MCAPID_STRUCT *, int);
 mcapi_status_t MCAPID_Get_Service(char *, mcapi_endpoint_t *);
 mcapi_status_t MCAPID_Register_Service(char *, mcapi_node_t node, mcapi_port_t port);

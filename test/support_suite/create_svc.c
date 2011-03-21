@@ -94,13 +94,14 @@
 *       set according to the status of that service request.
 *
 *************************************************************************/
-void MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
+int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
 {
     mcapi_request_t request;
     int             retry;
     size_t          size;
     mcapi_status_t  status;
     static int      next_free_port = 20; /* arbitrary */
+    int             rc = 0;
 
     /* Can't use MCAPI_PORT_ANY, because we need to know the port in order to
      * register it. */
@@ -256,6 +257,10 @@ void MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                 /* Start the service locally. */
                 MCAPID_Create_Thread(mcapi_struct->thread_entry, mcapi_struct);
             }
+            else if (mcapi_struct->func)
+            {
+                rc = (int)mcapi_struct->func(mcapi_struct);
+            }
         }
 
         /* If an error occurred. */
@@ -269,4 +274,6 @@ void MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
             mcapi_delete_endpoint(mcapi_struct->local_endp, &status);
         }
     }
+
+    return rc;
 } /* MCAPID_Create_Service */

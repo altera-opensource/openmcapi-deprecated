@@ -367,6 +367,7 @@ int mcapi_test_start(int argc, char *argv[])
         MCAPI_FTS_Services[i].local_port = MCAPI_FTS_User_Services[i].local_port;
         MCAPI_FTS_Services[i].service = MCAPI_FTS_User_Services[i].service;
         MCAPI_FTS_Services[i].retry = MCAPI_FTS_User_Services[i].retry;
+        MCAPI_FTS_Services[i].func = MCAPI_FTS_User_Services[i].func;
         MCAPI_FTS_Services[i].thread_entry = MCAPI_FTS_User_Services[i].thread_entry;
         MCAPI_FTS_Services[i].state = -1;
 
@@ -379,15 +380,6 @@ int mcapi_test_start(int argc, char *argv[])
 
         /* Start the service. */
         MCAPID_Create_Service(&MCAPI_FTS_Services[i]);
-
-        if (MCAPI_FTS_Services[i].status == MCAPI_SUCCESS)
-        {
-			/* Wait for the service to complete. */
-			while (MCAPI_FTS_Services[i].state != 0)
-			{
-				MCAPID_Sleep(250);
-			}
-        }
 
         if (MCAPI_FTS_Services[i].status != MCAPI_SUCCESS)
         {
