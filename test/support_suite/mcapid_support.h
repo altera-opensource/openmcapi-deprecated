@@ -123,6 +123,7 @@ mcapi_status_t MCAPID_Create_Thread(MCAPI_THREAD_PTR_ENTRY(thread_entry), MCAPID
 void MCAPID_Finished(void);
 void MCAPID_Cleanup(MCAPID_STRUCT *);
 void MCAPID_Sleep(unsigned);
+unsigned long MCAPID_Time(void);
 
 MCAPI_THREAD_ENTRY(MCAPID_Registration_Server);
 

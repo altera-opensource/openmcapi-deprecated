@@ -77,6 +77,12 @@
 
 /**** End User Configurable Section. */
 
+#define timeout_assert(start, secs) \
+    if ((MCAPID_Time() - start) > secs) { \
+        printf("timeout at %s:%d\n", __FILE__, __LINE__); \
+        break; \
+    }
+
 #define status_assert(s) \
     if (s != MCAPI_SUCCESS) { \
         printf("failure status (%d) at %s:%d\n", s, __FILE__, __LINE__); \

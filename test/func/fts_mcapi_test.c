@@ -88,8 +88,12 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_1)
             /* Wait for a response. */
             if (mcapi_struct->status == MCAPI_SUCCESS)
             {
+                unsigned long start = MCAPID_Time();
+
                 for (;;)
                 {
+                    timeout_assert(start, 5);
+
                     /* The wait call should return success eventually. */
                     finished =
                         mcapi_test(&mcapi_struct->request, &rx_len, &mcapi_struct->status);
@@ -671,8 +675,12 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_8)
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
+                        unsigned long start = MCAPID_Time();
+
                         for (;;)
                         {
+                            timeout_assert(start, 5);
+
                             /* The connect call will return successfully. */
                             finished =
                                 mcapi_test(&mcapi_struct->request, &rx_len,
@@ -842,6 +850,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_10)
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
+                        unsigned long start = MCAPID_Time();
+
                         /* Open the receive side. */
                         mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
                                                   mcapi_struct->local_endp,
@@ -849,6 +859,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_10)
 
                         for (;;)
                         {
+                            timeout_assert(start, 5);
+
                             /* Test for the completion. */
                             finished =
                                 mcapi_test(&request, &rx_len, &mcapi_struct->status);
@@ -1092,6 +1104,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_13)
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
+                        unsigned long start = MCAPID_Time();
+
                         /* Open the send side. */
                         mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
                                                   mcapi_struct->local_endp,
@@ -1099,6 +1113,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_13)
 
                         for (;;)
                         {
+                            timeout_assert(start, 5);
+
                             /* Test for the completion. */
                             finished =
                                 mcapi_test(&request, &rx_len, &mcapi_struct->status);
@@ -2427,8 +2443,12 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_25)
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
+                        unsigned long start = MCAPID_Time();
+
                         for (;;)
                         {
+                            timeout_assert(start, 5);
+
                             /* The connect call will return successfully. */
                             finished =
                                 mcapi_test(&mcapi_struct->request, &rx_len,
@@ -2598,6 +2618,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_27)
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
+                        unsigned long start = MCAPID_Time();
+
                         /* Open the receive side. */
                         mcapi_open_sclchan_recv_i(&mcapi_struct->scl_rx_handle,
                                                   mcapi_struct->local_endp,
@@ -2605,6 +2627,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_27)
 
                         for (;;)
                         {
+                            timeout_assert(start, 5);
+
                             /* Test for the completion. */
                             finished =
                                 mcapi_test(&request, &rx_len, &mcapi_struct->status);
@@ -2848,6 +2872,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_30)
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
+                        unsigned long start = MCAPID_Time();
+
                         /* Open the send side. */
                         mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
                                                   mcapi_struct->local_endp,
@@ -2855,6 +2881,8 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_30)
 
                         for (;;)
                         {
+                            timeout_assert(start, 5);
+
                             /* Test for the completion. */
                             finished =
                                 mcapi_test(&request, &rx_len, &mcapi_struct->status);

@@ -37,6 +37,7 @@
 *************************************************************************/
 #include <pthread.h>
 #include <signal.h>
+#include <time.h>
 #include "mcapid.h"
 #include "support_suite/mcapid_support.h"
 
@@ -150,3 +151,10 @@ void MCAPID_Sleep(unsigned how_long)
     }
 
 } /* MCAPID_Sleep */
+
+
+/* Number of seconds since a fixed time. */
+unsigned long MCAPID_Time(void)
+{
+    return (unsigned long)time(NULL);
+}
