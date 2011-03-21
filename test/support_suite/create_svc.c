@@ -96,10 +96,17 @@
 *************************************************************************/
 void MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
 {
-    mcapi_request_t         request;
-    int                     retry;
-    size_t                  size;
-    mcapi_status_t          status;
+    mcapi_request_t request;
+    int             retry;
+    size_t          size;
+    mcapi_status_t  status;
+    static int      next_free_port = 20; /* arbitrary */
+
+    /* Can't use MCAPI_PORT_ANY, because we need to know the port in order to
+     * register it. */
+    if (mcapi_struct->local_port == MCAPI_PORT_ANY) {
+        mcapi_struct->local_port = next_free_port++;
+    }
 
     /* Create the local endpoint. */
     mcapi_struct->local_endp = mcapi_create_endpoint(mcapi_struct->local_port,
@@ -147,7 +154,8 @@ void MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                     /* Register the service. */
                     mcapi_struct->status =
                         MCAPID_Register_Service(mcapi_struct->service,
-                                                mcapi_struct->local_endp);
+                                                mcapi_struct->node,
+                                                mcapi_struct->local_port);
 
                     break;
 

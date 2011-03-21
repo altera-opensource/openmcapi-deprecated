@@ -85,7 +85,8 @@ void MCAPID_Destroy_Service(MCAPID_STRUCT *mcapi_struct, int count)
                     /* Remove the service from the registry. */
                     mcapi_struct[i].status =
                         MCAPID_Remove_Service(mcapi_struct[i].service,
-                                              mcapi_struct[i].local_endp);
+                                              mcapi_struct[i].node,
+                                              mcapi_struct[i].local_port);
 
                     break;
 

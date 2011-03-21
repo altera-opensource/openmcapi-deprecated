@@ -50,10 +50,11 @@
 
 /* Registration service packet offsets. */
 #define MCAPID_SVCREG_TYPE_OFFSET   0
-#define MCAPID_SVCREG_ENDP_OFFSET   4
-#define MCAPID_SVCREG_RXENDP_OFFSET 8
-#define MCAPID_SVCREG_STATUS_OFFSET 12
-#define MCAPID_SVCREG_NAME_OFFSET   16
+#define MCAPID_SVCREG_PORT_OFFSET   4
+#define MCAPID_SVCREG_NODE_OFFSET   8
+#define MCAPID_SVCREG_RXENDP_OFFSET 12
+#define MCAPID_SVCREG_STATUS_OFFSET 16
+#define MCAPID_SVCREG_NAME_OFFSET   20
 
 /* Registration request types. */
 #define MCAPID_REG_SVC              0   /* Register an endpoint for a service. */
@@ -63,7 +64,8 @@
 typedef struct _MCAPID_SERVICE_STRUCT_
 {
     char                service[MCAPID_SVC_LEN];
-    mcapi_endpoint_t    endpoint;
+    mcapi_port_t        port;
+    mcapi_node_t        node;
     mcapi_uint32_t      avail;
 } MCAPID_SERVICE_STRUCT;
 
@@ -113,8 +115,8 @@ typedef struct _MCAPID_STRUCT_
 void MCAPID_Create_Service(MCAPID_STRUCT *);
 void MCAPID_Destroy_Service(MCAPID_STRUCT *, int);
 mcapi_status_t MCAPID_Get_Service(char *, mcapi_endpoint_t *);
-mcapi_status_t MCAPID_Register_Service(char *, mcapi_endpoint_t);
-mcapi_status_t MCAPID_Remove_Service(char *, mcapi_endpoint_t);
+mcapi_status_t MCAPID_Register_Service(char *, mcapi_node_t node, mcapi_port_t port);
+mcapi_status_t MCAPID_Remove_Service(char *, mcapi_node_t node, mcapi_port_t port);
 mcapi_status_t MCAPID_Create_Thread(MCAPI_THREAD_PTR_ENTRY(thread_entry), MCAPID_STRUCT *);
 void MCAPID_Finished(void);
 

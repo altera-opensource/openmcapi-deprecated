@@ -35,6 +35,7 @@
 *
 *************************************************************************/
 
+#include "openmcapi.h" /* XXX remove me */
 #include "mcapid_support.h"
 #include "mcapid.h"
 
@@ -116,9 +117,11 @@ MCAPI_THREAD_ENTRY(MCAPID_Registration_Server)
                         strcpy(MCAPID_Registered_Services[avail].service,
                                (char*)&buffer[MCAPID_SVCREG_NAME_OFFSET]);
 
-                        /* Store the endpoint. */
-                        MCAPID_Registered_Services[avail].endpoint =
-                            mcapi_get32(buffer, MCAPID_SVCREG_ENDP_OFFSET);
+                        /* Store the node and endpoint. */
+                        MCAPID_Registered_Services[avail].port =
+                            mcapi_get32(buffer, MCAPID_SVCREG_PORT_OFFSET);
+                        MCAPID_Registered_Services[avail].node =
+                            mcapi_get32(buffer, MCAPID_SVCREG_NODE_OFFSET);
 
                         /* Indicate that this block is taken. */
                         MCAPID_Registered_Services[avail].avail = MCAPI_FALSE;
@@ -166,9 +169,11 @@ MCAPI_THREAD_ENTRY(MCAPID_Registration_Server)
                         if (strcmp((char*)&buffer[MCAPID_SVCREG_NAME_OFFSET],
                                    MCAPID_Registered_Services[i].service) == 0)
                         {
-                            /* Store the endpoint in the outgoing buffer. */
-                            mcapi_put32(buffer, MCAPID_SVCREG_ENDP_OFFSET,
-                                        MCAPID_Registered_Services[i].endpoint);
+                            /* Store the node and port in the outgoing buffer. */
+                            mcapi_put32(buffer, MCAPID_SVCREG_PORT_OFFSET,
+                                        MCAPID_Registered_Services[i].port);
+                            mcapi_put32(buffer, MCAPID_SVCREG_NODE_OFFSET,
+                                        MCAPID_Registered_Services[i].node);
 
                             /* Set the status to success. */
                             mcapi_put32(buffer, MCAPID_SVCREG_STATUS_OFFSET, MCAPI_SUCCESS);
@@ -214,7 +219,8 @@ MCAPI_THREAD_ENTRY(MCAPID_Registration_Server)
 *       tuple.
 *
 *************************************************************************/
-mcapi_status_t MCAPID_Remove_Service(char *service, mcapi_endpoint_t endp)
+mcapi_status_t MCAPID_Remove_Service(char *service, mcapi_node_t node,
+                                     mcapi_port_t port)
 {
     unsigned char       buffer[MCAPID_REG_MSG_LEN];
     mcapi_endpoint_t    rx_endp, tx_endp;
@@ -238,7 +244,8 @@ mcapi_status_t MCAPID_Remove_Service(char *service, mcapi_endpoint_t endp)
             mcapi_put32(buffer, MCAPID_SVCREG_TYPE_OFFSET, MCAPID_REM_SVC);
 
             /* Store the endpoint to be registered. */
-            mcapi_put32(buffer, MCAPID_SVCREG_ENDP_OFFSET, endp);
+            mcapi_put32(buffer, MCAPID_SVCREG_PORT_OFFSET, port);
+            mcapi_put32(buffer, MCAPID_SVCREG_NODE_OFFSET, node);
 
             /* Store the endpoint to which the reply should be sent. */
             mcapi_put32(buffer, MCAPID_SVCREG_RXENDP_OFFSET, rx_endp);
@@ -284,7 +291,8 @@ mcapi_status_t MCAPID_Remove_Service(char *service, mcapi_endpoint_t endp)
 *       tuple.
 *
 *************************************************************************/
-mcapi_status_t MCAPID_Register_Service(char *service, mcapi_endpoint_t endp)
+mcapi_status_t MCAPID_Register_Service(char *service, mcapi_node_t node,
+                                       mcapi_port_t port)
 {
     unsigned char       buffer[MCAPID_REG_MSG_LEN];
     mcapi_endpoint_t    rx_endp, tx_endp;
@@ -304,21 +312,14 @@ mcapi_status_t MCAPID_Register_Service(char *service, mcapi_endpoint_t endp)
 
         if (status == MCAPI_SUCCESS)
         {
-            /* If the caller did not specify an endpoint for the
-             * service, create one.
-             */
-            if (endp == 0xffffffff)
-            {
-                endp = mcapi_create_endpoint(MCAPI_PORT_ANY, &status);
-            }
-
             if (status == MCAPI_SUCCESS)
             {
                 /* Set the type to indicate a registration request. */
                 mcapi_put32(buffer, MCAPID_SVCREG_TYPE_OFFSET, MCAPID_REG_SVC);
 
-                /* Store the endpoint to be registered. */
-                mcapi_put32(buffer, MCAPID_SVCREG_ENDP_OFFSET, endp);
+                /* Store the node and port to be registered. */
+                mcapi_put32(buffer, MCAPID_SVCREG_NODE_OFFSET, node);
+                mcapi_put32(buffer, MCAPID_SVCREG_PORT_OFFSET, port);
 
                 /* Store the endpoint to which the reply should be sent. */
                 mcapi_put32(buffer, MCAPID_SVCREG_RXENDP_OFFSET, rx_endp);
@@ -361,7 +362,7 @@ mcapi_status_t MCAPID_Register_Service(char *service, mcapi_endpoint_t endp)
 *
 *   DESCRIPTION
 *
-*       This function gets the endpoint associated with a service.
+*       This function gets the node and port associated with a service.
 *
 *************************************************************************/
 mcapi_status_t MCAPID_Get_Service(char *service, mcapi_endpoint_t *endp)
@@ -410,8 +411,14 @@ mcapi_status_t MCAPID_Get_Service(char *service, mcapi_endpoint_t *endp)
 
                     if (status == MCAPI_SUCCESS)
                     {
-                        /* Extract the endpoint. */
-                        *endp = mcapi_get32(buffer, MCAPID_SVCREG_ENDP_OFFSET);
+                        /* Extract the node and port. */
+                        mcapi_port_t port;
+                        mcapi_node_t node;
+
+                        port = mcapi_get32(buffer, MCAPID_SVCREG_PORT_OFFSET);
+                        node = mcapi_get32(buffer, MCAPID_SVCREG_NODE_OFFSET);
+
+                        *endp = mcapi_get_endpoint(node, port, &status);
                     }
                 }
             }
