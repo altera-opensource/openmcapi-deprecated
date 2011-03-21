@@ -16,7 +16,7 @@ def build(bld):
 	]
 
 	func_frontend_sources = [
-		'func/fts_main.c',
+		'func/frontend.c',
 		'func/fts_mcapi_cancel.c',
 		'func/fts_mcapi_connect_pktchan_i.c',
 		'func/fts_mcapi_connect_sclchan_i.c',
