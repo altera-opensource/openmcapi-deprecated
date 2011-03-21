@@ -144,7 +144,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_9_2)
         if (mcapi_struct->status == MCAPI_SUCCESS)
         {
             /* Get the endpoint. */
-            endpoint = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+            endpoint = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
             if (mcapi_struct->status == MCAPI_SUCCESS)
             {

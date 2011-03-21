@@ -731,7 +731,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_9)
             if (mcapi_struct->status == MCAPI_SUCCESS)
             {
                 /* Get the foreign endpoint. */
-                tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -895,7 +895,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_11)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
-                tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -1156,7 +1156,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_14)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
-                rx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -1418,7 +1418,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_17)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
-                tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -1568,7 +1568,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_18)
                 if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
-                    tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                    tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
@@ -1753,7 +1753,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_19)
                 if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
-                    tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                    tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
                     {
@@ -2097,7 +2097,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_22)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the send side endpoint. */
-                tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -2420,7 +2420,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_25)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the receive side endpoint. */
-                rx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -2558,7 +2558,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_26)
             if (mcapi_struct->status == MCAPI_SUCCESS)
             {
                 /* Get the foreign endpoint. */
-                tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -2723,7 +2723,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_28)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
-                tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -2985,7 +2985,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_31)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
-                rx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -3365,7 +3365,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_35)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the send side endpoint. */
-                tx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {
@@ -3688,7 +3688,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_38)
             if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
             {
                 /* Get the receive side endpoint. */
-                rx_endp = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+                rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
                 if (mcapi_struct->status == MCAPI_SUCCESS)
                 {

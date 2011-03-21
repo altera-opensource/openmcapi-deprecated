@@ -65,29 +65,26 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_5_1)
     MCAPI_Obtain_Mutex(&MCAPID_FTS_Mutex);
 
     /* Indicate that the endpoint should be created. */
-    mcapi_struct->status =
-        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP, 1024,
-                               mcapi_struct->local_endp, 2000, MCAPI_DEFAULT_PRIO);
+    status = MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP,
+                                    1024, mcapi_struct->local_endp, 2000,
+                                    MCAPI_DEFAULT_PRIO);
+    status_assert(status);
 
-    if (mcapi_struct->status == MCAPI_SUCCESS)
+    /* Get the foreign endpoint. */
+    endpoint = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &status);
+    status_assert(status);
+
+    /* If the endpoint was created. */
+    if (endpoint != 0xffffffff)
     {
-        /* Get the foreign endpoint. */
-        endpoint = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+        /* Tell the other side to delete the endpoint. */
+        status = MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP,
+                                        1024, mcapi_struct->local_endp, 0,
+                                        MCAPI_DEFAULT_PRIO);
+        status_assert(status);
 
-        /* If the endpoint was created. */
-        if ( (mcapi_struct->status == MCAPI_SUCCESS) && (endpoint != 0xffffffff) )
-        {
-            /* Tell the other side to delete the endpoint. */
-            status =
-                MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
-                                       mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
-
-            if (status == MCAPI_SUCCESS)
-            {
-                /* Wait for the response before releasing the mutex. */
-                status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-            }
-        }
+        /* Wait for the response before releasing the mutex. */
+        status = MCAPID_RX_Mgmt_Response(mcapi_struct);
     }
 
     /* Set the state of the test to completed. */
@@ -135,7 +132,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_5_2)
         if (mcapi_struct->status == MCAPI_SUCCESS)
         {
             /* Get the foreign endpoint. */
-            endpoint = mcapi_get_endpoint(0, 1024, &mcapi_struct->status);
+            endpoint = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
 
             if ( (mcapi_struct->status == MCAPI_SUCCESS) && (endpoint != 0xffffffff) )
             {
