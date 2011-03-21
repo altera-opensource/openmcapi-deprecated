@@ -367,41 +367,40 @@ int mcapi_test_start(int argc, char *argv[])
     /* Let the registration server come up. */
     MCAPID_Sleep(2000);
 
-    /* Set up the structure for the management service. */
+    /* The management service. */
     MCAPID_Mgmt_Struct.type = MCAPI_MSG_RX_TYPE;
     MCAPID_Mgmt_Struct.local_port = MCAPI_PORT_ANY;
     MCAPID_Mgmt_Struct.service = "mgmt_svc";
     MCAPID_Mgmt_Struct.thread_entry = MCAPID_Mgmt_Service;
+    MCAPID_Create_Service(&MCAPID_Mgmt_Struct);
 
-    /* Start the management server. */
-    MCAPID_Create_Service(&MCAPID_Mgmt_Struct, 1);
-
-    /* Set up the structure for the message echo server. */
+    /* The message echo service. */
     MCAPID_Echo_Struct[0].type = MCAPI_MSG_RX_TYPE;
     MCAPID_Echo_Struct[0].local_port = MCAPI_PORT_ANY;
     MCAPID_Echo_Struct[0].service = "msg_echo_svr";
     MCAPID_Echo_Struct[0].thread_entry = MCAPI_FTS_Msg_Echo_Server;
+    MCAPID_Create_Service(&MCAPID_Echo_Struct[0]);
 
-    /* Set up the structure for the packet discard server. */
+    /* The packet discard service. */
     MCAPID_Echo_Struct[1].type = MCAPI_CHAN_PKT_RX_TYPE;
     MCAPID_Echo_Struct[1].local_port = MCAPI_PORT_ANY;
     MCAPID_Echo_Struct[1].service = "pkt_svr";
     MCAPID_Echo_Struct[1].thread_entry = MCAPI_FTS_Pkt_Server;
+    MCAPID_Create_Service(&MCAPID_Echo_Struct[1]);
 
-    /* Set up the structure for the scalar discard server. */
+    /* The scalar discard service. */
     MCAPID_Echo_Struct[2].type = MCAPI_MSG_RX_TYPE;
     MCAPID_Echo_Struct[2].local_port = MCAPI_PORT_ANY;
     MCAPID_Echo_Struct[2].service = "scl_svr";
     MCAPID_Echo_Struct[2].thread_entry = MCAPI_FTS_Scl_Server;
+    MCAPID_Create_Service(&MCAPID_Echo_Struct[2]);
 
-    /* Set up the structure for the local services server. */
+    /* The local services service. */
     MCAPID_Echo_Struct[3].type = MCAPI_MSG_RX_TYPE;
     MCAPID_Echo_Struct[3].local_port = MCAPI_PORT_ANY;
     MCAPID_Echo_Struct[3].service = "lcl_mgmt";
     MCAPID_Echo_Struct[3].thread_entry = MCAPI_FTS_Local_Services;
-
-    /* Start the servers. */
-    MCAPID_Create_Service(MCAPID_Echo_Struct, 4);
+    MCAPID_Create_Service(&MCAPID_Echo_Struct[3]);
 
     /* Run each test and wait for it to complete before moving on to the
      * next test.
@@ -425,7 +424,7 @@ int mcapi_test_start(int argc, char *argv[])
         mcapi_unlock_node_data();
 
         /* Start the service. */
-        MCAPID_Create_Service(&MCAPI_FTS_Services[i], 1);
+        MCAPID_Create_Service(&MCAPI_FTS_Services[i]);
 
         if (MCAPI_FTS_Services[i].status == MCAPI_SUCCESS)
         {

@@ -94,175 +94,171 @@
 *       set according to the status of that service request.
 *
 *************************************************************************/
-void MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct, int count)
+void MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
 {
     mcapi_request_t         request;
-    int                     i, retry;
+    int                     retry;
     size_t                  size;
     mcapi_status_t          status;
 
-    for (i = 0; i < count; i ++)
+    /* Create the local endpoint. */
+    mcapi_struct->local_endp = mcapi_create_endpoint(mcapi_struct->local_port,
+                                                       &mcapi_struct->status);
+
+    if (mcapi_struct->status == MCAPI_SUCCESS)
     {
-        /* Create the local endpoint. */
-        mcapi_struct[i].local_endp = mcapi_create_endpoint(mcapi_struct[i].local_port,
-                                                           &mcapi_struct[i].status);
-
-        if (mcapi_struct[i].status == MCAPI_SUCCESS)
+        /* If a service was specified. */
+        if (mcapi_struct->service)
         {
-            /* If a service was specified. */
-            if (mcapi_struct[i].service)
+            /* Operate on the service field based on the type of endpoint. */
+            switch (mcapi_struct->type)
             {
-                /* Operate on the service field based on the type of endpoint. */
-                switch (mcapi_struct[i].type)
-                {
-                    /* Client type endpoints get services. */
-                    case MCAPI_CHAN_PKT_TX_TYPE:
-                    case MCAPI_CHAN_SCL_TX_TYPE:
-                    case MCAPI_MSG_TX_TYPE:
+                /* Client type endpoints get services. */
+                case MCAPI_CHAN_PKT_TX_TYPE:
+                case MCAPI_CHAN_SCL_TX_TYPE:
+                case MCAPI_MSG_TX_TYPE:
 
-                        retry = mcapi_struct[i].retry;
+                    retry = mcapi_struct->retry;
 
-                        do
-                        {
-                            /* Get the foreign endpoint. */
-                            mcapi_struct[i].status =
-                                MCAPID_Get_Service(mcapi_struct[i].service,
-                                                   &mcapi_struct[i].foreign_endp);
+                    do
+                    {
+                        /* Get the foreign endpoint. */
+                        mcapi_struct->status =
+                            MCAPID_Get_Service(mcapi_struct->service,
+                                               &mcapi_struct->foreign_endp);
 
-                            if (retry > 0)
-                                retry --;
+                        if (retry > 0)
+                            retry --;
 
-                            /* All attempts have been made. */
-                            else if (retry != 0xffffffff)
-                                break;
+                        /* All attempts have been made. */
+                        else if (retry != 0xffffffff)
+                            break;
 
-                        } while ( (mcapi_struct[i].status != MCAPI_SUCCESS) &&
-                                  (mcapi_struct[i].status != MCAPI_EENDP_LIMIT) );
+                    } while ( (mcapi_struct->status != MCAPI_SUCCESS) &&
+                              (mcapi_struct->status != MCAPI_EENDP_LIMIT) );
 
-                        break;
+                    break;
 
-                    /* Server type endpoints register services. */
-                    case MCAPI_CHAN_PKT_RX_TYPE:
-                    case MCAPI_CHAN_SCL_RX_TYPE:
-                    case MCAPI_MSG_RX_TYPE:
+                /* Server type endpoints register services. */
+                case MCAPI_CHAN_PKT_RX_TYPE:
+                case MCAPI_CHAN_SCL_RX_TYPE:
+                case MCAPI_MSG_RX_TYPE:
 
-                        /* Register the service. */
-                        mcapi_struct[i].status =
-                            MCAPID_Register_Service(mcapi_struct[i].service,
-                                                    mcapi_struct[i].local_endp);
+                    /* Register the service. */
+                    mcapi_struct->status =
+                        MCAPID_Register_Service(mcapi_struct->service,
+                                                mcapi_struct->local_endp);
 
-                        break;
+                    break;
 
-                    default:
+                default:
 
-                        break;
-                }
-            }
-
-            /* If the service was registered / retrieved. */
-            if (mcapi_struct[i].status == MCAPI_SUCCESS)
-            {
-                /* Operate on the structure based on the type of endpoint being
-                 * created.
-                 */
-                switch (mcapi_struct[i].type)
-                {
-                    /* The TX side of a packet channel. */
-                    case MCAPI_CHAN_PKT_TX_TYPE:
-
-                        /* If a service was specified. */
-                        if (mcapi_struct[i].service)
-                        {
-                            /* Issue the connection. */
-                            mcapi_connect_pktchan_i(mcapi_struct[i].local_endp,
-                                                    mcapi_struct[i].foreign_endp,
-                                                    &request, &mcapi_struct[i].status);
-
-                            /* Wait for the connection to complete. */
-                            mcapi_wait(&request, &size, &mcapi_struct[i].status,
-                                       MCAPI_INFINITE);
-                        }
-
-                        if (mcapi_struct[i].status == MCAPI_SUCCESS)
-                        {
-                            /* Open the TX side. */
-                            mcapi_open_pktchan_send_i(&mcapi_struct[i].pkt_tx_handle,
-                                                      mcapi_struct[i].local_endp,
-                                                      &mcapi_struct[i].request,
-                                                      &mcapi_struct[i].status);
-                        }
-
-                        break;
-
-                    case MCAPI_CHAN_PKT_RX_TYPE:
-
-                        /* Open the RX side. */
-                        mcapi_open_pktchan_recv_i(&mcapi_struct[i].pkt_rx_handle,
-                                                  mcapi_struct[i].local_endp,
-                                                  &mcapi_struct[i].request,
-                                                  &mcapi_struct[i].status);
-
-                        break;
-
-                    case MCAPI_CHAN_SCL_TX_TYPE:
-
-                        /* If a service was specified. */
-                        if (mcapi_struct[i].service)
-                        {
-                            /* Issue the connection. */
-                            mcapi_connect_sclchan_i(mcapi_struct[i].local_endp,
-                                                    mcapi_struct[i].foreign_endp,
-                                                    &request, &mcapi_struct[i].status);
-
-                            /* Wait for the connection to complete. */
-                            mcapi_wait(&request, &size, &mcapi_struct[i].status,
-                                       MCAPI_INFINITE);
-                        }
-
-                        if (mcapi_struct[i].status == MCAPI_SUCCESS)
-                        {
-                            /* Open the TX side. */
-                            mcapi_open_sclchan_send_i(&mcapi_struct[i].scl_tx_handle,
-                                                      mcapi_struct[i].local_endp,
-                                                      &mcapi_struct[i].request,
-                                                      &mcapi_struct[i].status);
-                        }
-
-                        break;
-
-                    case MCAPI_CHAN_SCL_RX_TYPE:
-
-                        /* Open the RX side. */
-                        mcapi_open_sclchan_recv_i(&mcapi_struct[i].scl_rx_handle,
-                                                  mcapi_struct[i].local_endp,
-                                                  &mcapi_struct[i].request,
-                                                  &mcapi_struct[i].status);
-
-                        break;
-
-                    default:
-
-                        break;
-                }
-
-                if (mcapi_struct[i].thread_entry)
-                {
-                    /* Start the service locally. */
-                    MCAPID_Create_Thread(mcapi_struct[i].thread_entry, &mcapi_struct[i]);
-                }
-            }
-
-            /* If an error occurred. */
-            if ( (mcapi_struct[i].status != MCAPI_SUCCESS) &&
-                 (mcapi_struct[i].status != MCAPI_ENOT_CONNECTED) )
-            {
-                /* Delete the endpoint since the service could not be
-                 * registered / retrieved.  The call has failed for this
-                 * instance of the MCAPID_STRUCT.
-                 */
-                mcapi_delete_endpoint(mcapi_struct[i].local_endp, &status);
+                    break;
             }
         }
-    }
 
+        /* If the service was registered / retrieved. */
+        if (mcapi_struct->status == MCAPI_SUCCESS)
+        {
+            /* Operate on the structure based on the type of endpoint being
+             * created.
+             */
+            switch (mcapi_struct->type)
+            {
+                /* The TX side of a packet channel. */
+                case MCAPI_CHAN_PKT_TX_TYPE:
+
+                    /* If a service was specified. */
+                    if (mcapi_struct->service)
+                    {
+                        /* Issue the connection. */
+                        mcapi_connect_pktchan_i(mcapi_struct->local_endp,
+                                                mcapi_struct->foreign_endp,
+                                                &request, &mcapi_struct->status);
+
+                        /* Wait for the connection to complete. */
+                        mcapi_wait(&request, &size, &mcapi_struct->status,
+                                   MCAPI_INFINITE);
+                    }
+
+                    if (mcapi_struct->status == MCAPI_SUCCESS)
+                    {
+                        /* Open the TX side. */
+                        mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
+                                                  mcapi_struct->local_endp,
+                                                  &mcapi_struct->request,
+                                                  &mcapi_struct->status);
+                    }
+
+                    break;
+
+                case MCAPI_CHAN_PKT_RX_TYPE:
+
+                    /* Open the RX side. */
+                    mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
+                                              mcapi_struct->local_endp,
+                                              &mcapi_struct->request,
+                                              &mcapi_struct->status);
+
+                    break;
+
+                case MCAPI_CHAN_SCL_TX_TYPE:
+
+                    /* If a service was specified. */
+                    if (mcapi_struct->service)
+                    {
+                        /* Issue the connection. */
+                        mcapi_connect_sclchan_i(mcapi_struct->local_endp,
+                                                mcapi_struct->foreign_endp,
+                                                &request, &mcapi_struct->status);
+
+                        /* Wait for the connection to complete. */
+                        mcapi_wait(&request, &size, &mcapi_struct->status,
+                                   MCAPI_INFINITE);
+                    }
+
+                    if (mcapi_struct->status == MCAPI_SUCCESS)
+                    {
+                        /* Open the TX side. */
+                        mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
+                                                  mcapi_struct->local_endp,
+                                                  &mcapi_struct->request,
+                                                  &mcapi_struct->status);
+                    }
+
+                    break;
+
+                case MCAPI_CHAN_SCL_RX_TYPE:
+
+                    /* Open the RX side. */
+                    mcapi_open_sclchan_recv_i(&mcapi_struct->scl_rx_handle,
+                                              mcapi_struct->local_endp,
+                                              &mcapi_struct->request,
+                                              &mcapi_struct->status);
+
+                    break;
+
+                default:
+
+                    break;
+            }
+
+            if (mcapi_struct->thread_entry)
+            {
+                /* Start the service locally. */
+                MCAPID_Create_Thread(mcapi_struct->thread_entry, mcapi_struct);
+            }
+        }
+
+        /* If an error occurred. */
+        if ( (mcapi_struct->status != MCAPI_SUCCESS) &&
+             (mcapi_struct->status != MCAPI_ENOT_CONNECTED) )
+        {
+            /* Delete the endpoint since the service could not be
+             * registered / retrieved.  The call has failed for this
+             * instance of the MCAPID_STRUCT.
+             */
+            mcapi_delete_endpoint(mcapi_struct->local_endp, &status);
+        }
+    }
 } /* MCAPID_Create_Service */

@@ -155,7 +155,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_2)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* Set endpoint to 0xffffffff for testing purposes. */
     endpoint = 0xffffffff;

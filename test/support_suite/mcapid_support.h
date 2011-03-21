@@ -110,7 +110,7 @@ typedef struct _MCAPID_STRUCT_
     void                *app_spec;      /* Application specific data structure area. */
 } MCAPID_STRUCT;
 
-void MCAPID_Create_Service(MCAPID_STRUCT *, int);
+void MCAPID_Create_Service(MCAPID_STRUCT *);
 void MCAPID_Destroy_Service(MCAPID_STRUCT *, int);
 mcapi_status_t MCAPID_Get_Service(char *, mcapi_endpoint_t *);
 mcapi_status_t MCAPID_Register_Service(char *, mcapi_endpoint_t);

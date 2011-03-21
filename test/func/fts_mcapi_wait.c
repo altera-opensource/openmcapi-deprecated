@@ -281,7 +281,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_4)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* Get the foreign endpoint. */
     mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
@@ -590,7 +590,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_8)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* Indicate that a remote endpoint should be created for sending data
      * to this node.
@@ -961,7 +961,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_12)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service that will cancel the call. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* Open the receive side. */
     mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
@@ -1213,7 +1213,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_15)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service that will cancel the call. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* Open the send side. */
     mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
@@ -1665,7 +1665,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_19)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service that will cancel the call. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* This test requires an extra endpoint. */
     rx_endp = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
@@ -2732,7 +2732,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_29)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service that will cancel the call. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* Open the receive side. */
     mcapi_open_sclchan_recv_i(&mcapi_struct->scl_rx_handle,
@@ -2984,7 +2984,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_32)
     svc_struct.thread_entry = MCAPI_NULL;
 
     /* Create the client service that will cancel the call. */
-    MCAPID_Create_Service(&svc_struct, 1);
+    MCAPID_Create_Service(&svc_struct);
 
     /* Open the send side. */
     mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
