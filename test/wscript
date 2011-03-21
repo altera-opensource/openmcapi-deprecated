@@ -57,41 +57,32 @@ def build(bld):
 		'func/backend.c',
 	]
 
+	bld.env.prepend_value('CFLAGS', ['-O2', '-Wall'])
+
 	bld.stlib(
 		target='mgmt',
 		source='mgmt_svc.c',
-
 		includes=' '.join(includes),
-		cflags='-O2 -Wall',
 	)
 
 	bld.program(
 		target='func_frontend',
 		source=' '.join(func_frontend_sources),
-
 		includes=' '.join(includes),
-		cflags='-O2 -Wall',
-
 		use='mgmt test_support mcapi pthread rt'
 	)
 
 	bld.program(
 		target='func_backend',
 		source=' '.join(func_backend_sources),
-
 		includes=' '.join(includes),
-		cflags='-O2 -Wall',
-
 		use='mgmt test_support mcapi pthread rt'
 	)
 
 	bld.program(
 		target='api_suite',
 		source='3/mcapi_tests.c',
-
 		includes=' '.join(includes),
-		cflags='-O2 -Wall',
-
 		use='mcapi test_support pthread rt'
 	)
 
