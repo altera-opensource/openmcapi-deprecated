@@ -45,7 +45,7 @@
 #define MCAPID_SVC_LEN          64                      /* The maximum length of a service name. */
 #define MCAPID_MAX_SERVICES     64                      /* The maximum number of simultaneous registered services. */
 #define MCAPID_REG_MSG_LEN      MCAPID_SVC_LEN + 4 + 4  /* The length of a registration message. */
-#define MCAPID_REG_SERVER_NODE  0
+#define MCAPID_REG_SERVER_NODE  1 /* XXX always? */
 #define MCAPID_REG_SERVER_PORT  20000
 
 /* Registration service packet offsets. */

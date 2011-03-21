@@ -15,7 +15,7 @@ def build(bld):
 		'support_suite/%s' % bld.env.OS
 	]
 
-	func_sources = [
+	func_frontend_sources = [
 		'func/fts_main.c',
 		'func/fts_mcapi_cancel.c',
 		'func/fts_mcapi_connect_pktchan_i.c',
@@ -53,6 +53,10 @@ def build(bld):
 		'func/fts_mcapi_wait_any.c',
 	]
 
+	func_backend_sources = [
+		'func/backend.c',
+	]
+
 	bld.stlib(
 		target='mgmt',
 		source='mgmt_svc.c',
@@ -62,13 +66,23 @@ def build(bld):
 	)
 
 	bld.program(
-		target='func_suite',
-		source=' '.join(func_sources),
+		target='func_frontend',
+		source=' '.join(func_frontend_sources),
 
 		includes=' '.join(includes),
 		cflags='-O2 -Wall',
 
-		use='mcapi mgmt test_support pthread rt'
+		use='mgmt test_support mcapi pthread rt'
+	)
+
+	bld.program(
+		target='func_backend',
+		source=' '.join(func_backend_sources),
+
+		includes=' '.join(includes),
+		cflags='-O2 -Wall',
+
+		use='mgmt test_support mcapi pthread rt'
 	)
 
 	bld.program(
