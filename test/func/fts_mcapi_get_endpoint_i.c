@@ -69,38 +69,28 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_4_1)
     mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &mcapi_struct->request, &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_SUCCESS)
-    {
-        /* Indicate that the endpoint should be created. */
-        mcapi_struct->status =
-            MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP, 1024,
-                                   mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    /* Indicate that the endpoint should be created. */
+    status = MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP, 1024,
+                                    mcapi_struct->local_endp, 0,
+                                    MCAPI_DEFAULT_PRIO);
+    status_assert(status);
 
-        /* Wait for a response. */
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    /* Wait for a response. */
+    status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert(status);
 
-            /* If the endpoint was created. */
-            if (mcapi_struct->status == MCAPI_SUCCESS)
-            {
-                /* The wait call should return success. */
-                mcapi_wait(&mcapi_struct->request, &rx_len,
-                           &mcapi_struct->status, 5000);
+    mcapi_wait(&mcapi_struct->request, &rx_len, &status, 5000);
+    status_assert(status);
 
-                /* Tell the other side to delete the endpoint. */
-                status =
-                    MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
-                                           mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    /* Tell the other side to delete the endpoint. */
+    status = MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
+                                    mcapi_struct->local_endp, 0,
+                                    MCAPI_DEFAULT_PRIO);
+    status_assert(status);
 
-                if (status == MCAPI_SUCCESS)
-                {
-                    /* Wait for a response before releasing the mutex. */
-                    status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-                }
-            }
-        }
-    }
+    /* Wait for a response before releasing the mutex. */
+    status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert(status);
 
     /* Set the state of the test to completed. */
     mcapi_struct->state = 0;

@@ -39,6 +39,7 @@
 #ifndef _MCAPI_FTS_H_
 #define _MCAPI_FTS_H_
 
+#include <stdio.h>
 #include <mcapi.h>
 #include <openmcapi.h>
 #include "mgmt_svc.h"
@@ -75,6 +76,11 @@
 #endif
 
 /**** End User Configurable Section. */
+
+#define status_assert(s) \
+    if (s != MCAPI_SUCCESS) { \
+        printf("failure status (%d) at %s:%d\n", s, __FILE__, __LINE__); \
+    }
 
 #define MCAPI_MASTER_NODE_ID    0
 
