@@ -120,6 +120,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_1)
 
 } /* MCAPI_FTS_Tx_2_36_1 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -233,6 +234,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_2)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_36_2 */
+#endif
 
 /************************************************************************
 *

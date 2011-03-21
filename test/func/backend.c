@@ -315,6 +315,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Scl_Server)
 
 } /* MCAPI_FTS_Scl_Server */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -384,7 +385,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Local_Services)
     }
 
 } /* MCAPI_FTS_Local_Services */
-
+#endif
 
 int mcapi_test_start(int argc, char *argv[])
 {
@@ -439,6 +440,7 @@ int mcapi_test_start(int argc, char *argv[])
     MCAPID_Echo_Struct[2].thread_entry = MCAPI_FTS_Scl_Server;
     MCAPID_Create_Service(&MCAPID_Echo_Struct[2]);
 
+#ifdef LCL_MGMT_UNBROKEN
     /* The local services service. */
     MCAPID_Echo_Struct[3].type = MCAPI_MSG_RX_TYPE;
     MCAPID_Echo_Struct[3].node = FUNC_BACKEND_NODE_ID;
@@ -446,6 +448,7 @@ int mcapi_test_start(int argc, char *argv[])
     MCAPID_Echo_Struct[3].service = "lcl_mgmt";
     MCAPID_Echo_Struct[3].thread_entry = MCAPI_FTS_Local_Services;
     MCAPID_Create_Service(&MCAPID_Echo_Struct[3]);
+#endif
 
     while (1); /* XXX */
 

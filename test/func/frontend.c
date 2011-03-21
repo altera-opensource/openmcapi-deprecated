@@ -219,24 +219,36 @@ MCAPID_USER_STRUCT MCAPI_FTS_User_Services[] =
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.33.36", MCAPI_FTS_Tx_2_33_36},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.33.37", MCAPI_FTS_Tx_2_33_37},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.34.1", MCAPI_FTS_Tx_2_34_1},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.34.2", MCAPI_FTS_Tx_2_34_2},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.3", MCAPI_FTS_Tx_2_34_3},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.4", MCAPI_FTS_Tx_2_34_4},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "msg_echo_svr", 0xffffffff, "2.34.5", MCAPI_FTS_Tx_2_34_5},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.34.6", MCAPI_FTS_Tx_2_34_6},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.7", MCAPI_FTS_Tx_2_34_7},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.8", MCAPI_FTS_Tx_2_34_8},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.9", MCAPI_FTS_Tx_2_34_9},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.34.10", MCAPI_FTS_Tx_2_34_10},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.11", MCAPI_FTS_Tx_2_34_11},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.12", MCAPI_FTS_Tx_2_34_12},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.13", MCAPI_FTS_Tx_2_34_13},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.14", MCAPI_FTS_Tx_2_34_14},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.15", MCAPI_FTS_Tx_2_34_15},
+#endif
     {MCAPI_CHAN_PKT_TX_TYPE, MCAPI_PORT_ANY, "pkt_svr", 0xffffffff, "2.34.16", MCAPI_FTS_Tx_2_34_16},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.17", MCAPI_FTS_Tx_2_34_17},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.18", MCAPI_FTS_Tx_2_34_18},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.19", MCAPI_FTS_Tx_2_34_19},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.34.20", MCAPI_FTS_Tx_2_34_20},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.21", MCAPI_FTS_Tx_2_34_21},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.22", MCAPI_FTS_Tx_2_34_22},
@@ -246,10 +258,14 @@ MCAPID_USER_STRUCT MCAPI_FTS_User_Services[] =
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.26", MCAPI_FTS_Tx_2_34_26},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.27", MCAPI_FTS_Tx_2_34_27},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.28", MCAPI_FTS_Tx_2_34_28},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.29", MCAPI_FTS_Tx_2_34_29},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.30", MCAPI_FTS_Tx_2_34_30},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.31", MCAPI_FTS_Tx_2_34_31},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.32", MCAPI_FTS_Tx_2_34_32},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.33", MCAPI_FTS_Tx_2_34_33},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.34", MCAPI_FTS_Tx_2_34_34},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.35", MCAPI_FTS_Tx_2_34_35},
@@ -257,24 +273,36 @@ MCAPID_USER_STRUCT MCAPI_FTS_User_Services[] =
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.37", MCAPI_FTS_Tx_2_34_37},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.34.38", MCAPI_FTS_Tx_2_34_38},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.1", MCAPI_FTS_Tx_2_35_1},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.2", MCAPI_FTS_Tx_2_35_2},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.3", MCAPI_FTS_Tx_2_35_3},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.4", MCAPI_FTS_Tx_2_35_4},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "msg_echo_svr", 0xffffffff, "2.35.5", MCAPI_FTS_Tx_2_35_5},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.6", MCAPI_FTS_Tx_2_35_6},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.7", MCAPI_FTS_Tx_2_35_7},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.8", MCAPI_FTS_Tx_2_35_8},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.9", MCAPI_FTS_Tx_2_35_9},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.10", MCAPI_FTS_Tx_2_35_10},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.11", MCAPI_FTS_Tx_2_35_11},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.12", MCAPI_FTS_Tx_2_35_12},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.13", MCAPI_FTS_Tx_2_35_13},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.14", MCAPI_FTS_Tx_2_35_14},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.15", MCAPI_FTS_Tx_2_35_15},
+#endif
     {MCAPI_CHAN_PKT_TX_TYPE, MCAPI_PORT_ANY, "pkt_svr", 0xffffffff, "2.35.16", MCAPI_FTS_Tx_2_35_16},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.17", MCAPI_FTS_Tx_2_35_17},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.18", MCAPI_FTS_Tx_2_35_18},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.19", MCAPI_FTS_Tx_2_35_19},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.20", MCAPI_FTS_Tx_2_35_20},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.21", MCAPI_FTS_Tx_2_35_21},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.22", MCAPI_FTS_Tx_2_35_22},
@@ -284,10 +312,14 @@ MCAPID_USER_STRUCT MCAPI_FTS_User_Services[] =
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.26", MCAPI_FTS_Tx_2_35_26},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.27", MCAPI_FTS_Tx_2_35_27},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.28", MCAPI_FTS_Tx_2_35_28},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.29", MCAPI_FTS_Tx_2_35_29},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.30", MCAPI_FTS_Tx_2_35_30},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.31", MCAPI_FTS_Tx_2_35_31},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.32", MCAPI_FTS_Tx_2_35_32},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.33", MCAPI_FTS_Tx_2_35_33},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.34", MCAPI_FTS_Tx_2_35_34},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.35", MCAPI_FTS_Tx_2_35_35},
@@ -295,35 +327,61 @@ MCAPID_USER_STRUCT MCAPI_FTS_User_Services[] =
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.37", MCAPI_FTS_Tx_2_35_37},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.38", MCAPI_FTS_Tx_2_35_38},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.39", MCAPI_FTS_Tx_2_35_39},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.40", MCAPI_FTS_Tx_2_35_40},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.41", MCAPI_FTS_Tx_2_35_41},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.42", MCAPI_FTS_Tx_2_35_42},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.43", MCAPI_FTS_Tx_2_35_43},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.44", MCAPI_FTS_Tx_2_35_44},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.45", MCAPI_FTS_Tx_2_35_45},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.46", MCAPI_FTS_Tx_2_35_46},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.47", MCAPI_FTS_Tx_2_35_47},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.48", MCAPI_FTS_Tx_2_35_48},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.49", MCAPI_FTS_Tx_2_35_49},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.50", MCAPI_FTS_Tx_2_35_50},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.51", MCAPI_FTS_Tx_2_35_51},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.52", MCAPI_FTS_Tx_2_35_52},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.53", MCAPI_FTS_Tx_2_35_53},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.54", MCAPI_FTS_Tx_2_35_54},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.55", MCAPI_FTS_Tx_2_35_55},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.56", MCAPI_FTS_Tx_2_35_56},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.57", MCAPI_FTS_Tx_2_35_57},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.58", MCAPI_FTS_Tx_2_35_58},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.35.59", MCAPI_FTS_Tx_2_35_59},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.60", MCAPI_FTS_Tx_2_35_60},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.61", MCAPI_FTS_Tx_2_35_61},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "lcl_mgmt", 0xffffffff, "2.35.62", MCAPI_FTS_Tx_2_35_62},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.63", MCAPI_FTS_Tx_2_35_63},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.64", MCAPI_FTS_Tx_2_35_64},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.65", MCAPI_FTS_Tx_2_35_65},
+#endif
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.35.66", MCAPI_FTS_Tx_2_35_66},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.36.1", MCAPI_FTS_Tx_2_36_1},
+#ifdef LCL_MGMT_UNBROKEN
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.36.2", MCAPI_FTS_Tx_2_36_2},
+#endif
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.36.3", MCAPI_FTS_Tx_2_36_3},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.36.4", MCAPI_FTS_Tx_2_36_4},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.36.5", MCAPI_FTS_Tx_2_36_5},

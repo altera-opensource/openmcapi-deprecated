@@ -254,6 +254,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_3)
 
 } /* MCAPI_FTS_Tx_2_35_3 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -361,6 +362,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_4)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_4 */
+#endif
 
 /************************************************************************
 *
@@ -575,6 +577,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_7)
 
 } /* MCAPI_FTS_Tx_2_35_7 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -683,6 +686,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_8)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_8 */
+#endif
 
 /************************************************************************
 *
@@ -965,6 +969,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_11)
 
 } /* MCAPI_FTS_Tx_2_35_11 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -1042,6 +1047,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_12)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_12 */
+#endif
 
 /************************************************************************
 *
@@ -1226,6 +1232,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_14)
 
 } /* MCAPI_FTS_Tx_2_35_14 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -1303,6 +1310,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_15)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_15 */
+#endif
 
 /************************************************************************
 *
@@ -1685,6 +1693,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_18)
 
 } /* MCAPI_FTS_Tx_2_35_18 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -1864,6 +1873,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_19)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_19 */
+#endif
 
 /************************************************************************
 *
@@ -2793,6 +2803,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_28)
 
 } /* MCAPI_FTS_Tx_2_35_28 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -2870,6 +2881,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_29)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_29 */
+#endif
 
 /************************************************************************
 *
@@ -3055,6 +3067,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_31)
 
 } /* MCAPI_FTS_Tx_2_35_31 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -3132,6 +3145,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_32)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_32 */
+#endif
 
 /************************************************************************
 *
@@ -5543,6 +5557,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_54)
 
 } /* MCAPI_FTS_Tx_2_35_54 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -5757,6 +5772,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_55)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_55 */
+#endif
 
 /************************************************************************
 *
@@ -5963,6 +5979,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_56)
 
 } /* MCAPI_FTS_Tx_2_35_56 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -6171,6 +6188,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_57)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_57 */
+#endif
 
 /************************************************************************
 *
@@ -7225,6 +7243,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_64)
 
 } /* MCAPI_FTS_Tx_2_35_64 */
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -7507,7 +7526,9 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_65)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_65 */
+#endif
 
+#ifdef LCL_MGMT_UNBROKEN
 /************************************************************************
 *
 *   FUNCTION
@@ -8278,3 +8299,4 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_66)
     MCAPI_Release_Mutex(&MCAPID_FTS_Mutex);
 
 } /* MCAPI_FTS_Tx_2_35_66 */
+#endif
