@@ -278,6 +278,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_4)
     /* Set up the structure for getting the local management server. */
     svc_struct.type = MCAPI_MSG_TX_TYPE;
     svc_struct.local_port = MCAPI_PORT_ANY;
+    svc_struct.node = FUNC_FRONTEND_NODE_ID;
     svc_struct.service = "lcl_mgmt";
     svc_struct.thread_entry = MCAPI_NULL;
 
@@ -589,6 +590,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_8)
     /* Set up the structure for getting the local management server. */
     svc_struct.type = MCAPI_MSG_TX_TYPE;
     svc_struct.local_port = MCAPI_PORT_ANY;
+    svc_struct.node = FUNC_FRONTEND_NODE_ID;
     svc_struct.service = "lcl_mgmt";
     svc_struct.thread_entry = MCAPI_NULL;
 
@@ -962,6 +964,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_12)
     /* Set up the structure for getting the local management server. */
     svc_struct.type = MCAPI_MSG_TX_TYPE;
     svc_struct.local_port = MCAPI_PORT_ANY;
+    svc_struct.node = FUNC_FRONTEND_NODE_ID;
     svc_struct.service = "lcl_mgmt";
     svc_struct.thread_entry = MCAPI_NULL;
 
@@ -1216,6 +1219,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_15)
     /* Set up the structure for getting the local management server. */
     svc_struct.type = MCAPI_MSG_TX_TYPE;
     svc_struct.local_port = MCAPI_PORT_ANY;
+    svc_struct.node = FUNC_FRONTEND_NODE_ID;
     svc_struct.service = "lcl_mgmt";
     svc_struct.thread_entry = MCAPI_NULL;
 
@@ -1670,6 +1674,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_19)
     /* Set up the structure for getting the local management server. */
     svc_struct.type = MCAPI_MSG_TX_TYPE;
     svc_struct.local_port = MCAPI_PORT_ANY;
+    svc_struct.node = FUNC_FRONTEND_NODE_ID;
     svc_struct.service = "lcl_mgmt";
     svc_struct.thread_entry = MCAPI_NULL;
 
@@ -2739,6 +2744,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_29)
     /* Set up the structure for getting the local management server. */
     svc_struct.type = MCAPI_MSG_TX_TYPE;
     svc_struct.local_port = MCAPI_PORT_ANY;
+    svc_struct.node = FUNC_FRONTEND_NODE_ID;
     svc_struct.service = "lcl_mgmt";
     svc_struct.thread_entry = MCAPI_NULL;
 
@@ -2993,6 +2999,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_32)
     /* Set up the structure for getting the local management server. */
     svc_struct.type = MCAPI_MSG_TX_TYPE;
     svc_struct.local_port = MCAPI_PORT_ANY;
+    svc_struct.node = FUNC_FRONTEND_NODE_ID;
     svc_struct.service = "lcl_mgmt";
     svc_struct.thread_entry = MCAPI_NULL;
 

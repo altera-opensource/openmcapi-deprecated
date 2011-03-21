@@ -94,6 +94,7 @@ typedef struct _MCAPID_STRUCT_
     /* Provided by the user. */
     int                 type;           /* See types listed above. */
     mcapi_port_t        local_port;     /* The port ID of the local side or MCAPI_PORT_ANY. */
+    mcapi_node_t        node;
     char                *service;       /* The name of the service to register (server) or get (client). */
     int                 retry;          /* The number of times to attempt to get a service as a client. */
     void *              (*func)(void *argv);
