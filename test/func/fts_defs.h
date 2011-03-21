@@ -59,22 +59,6 @@
 
 #define MCAPI_FTS_TIMEOUT       5000
 
-/* Increment by one when a new test is added. */
-#define MCAPID_FTS_COUNT    286
-
-#ifndef CFG_NU_TF_KERN_1_MCAPI_CFG_H
-#define CFG_NU_TF_KERN_1_MCAPI_CFG_H
-
-/* The index of the first test to execute.  Valid values are
- * 0 - (MCAPID_FTS_COUNT - 1)
- */
-#define CFG_NU_TF_KERN_1_MCAPI_START    0
-
-/* The index of the last test to execute. */
-#define CFG_NU_TF_KERN_1_MCAPI_FINISH   (MCAPID_FTS_COUNT - 1)
-
-#endif
-
 /**** End User Configurable Section. */
 
 #define timeout_assert(start, secs) \

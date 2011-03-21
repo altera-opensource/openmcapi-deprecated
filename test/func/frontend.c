@@ -40,7 +40,9 @@
 #include "support_suite/mcapid_support.h"
 #include "mcapid.h"
 
-MCAPID_USER_STRUCT MCAPI_FTS_User_Services[MCAPID_FTS_COUNT] =
+#define ARRAY_SIZE(a) (sizeof(a)/sizeof(a[0]))
+
+MCAPID_USER_STRUCT MCAPI_FTS_User_Services[] =
 {
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.3.1", MCAPI_FTS_Tx_2_3_1},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.3.2", MCAPI_FTS_Tx_2_3_2},
@@ -330,7 +332,7 @@ MCAPID_USER_STRUCT MCAPI_FTS_User_Services[MCAPID_FTS_COUNT] =
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.36.8", MCAPI_FTS_Tx_2_36_8}
 };
 
-MCAPID_STRUCT   MCAPI_FTS_Services[MCAPID_FTS_COUNT];
+MCAPID_STRUCT   MCAPI_FTS_Services[ARRAY_SIZE(MCAPI_FTS_User_Services)];
 MCAPI_MUTEX     MCAPID_FTS_Mutex;
 
 extern  MCAPI_GLOBAL_DATA           MCAPI_Global_Struct;
@@ -356,9 +358,7 @@ int mcapi_test_start(int argc, char *argv[])
     /* Run each test and wait for it to complete before moving on to the
      * next test.
      */
-    for (i = CFG_NU_TF_KERN_1_MCAPI_START;
-         (i <= CFG_NU_TF_KERN_1_MCAPI_FINISH) && (i < MCAPID_FTS_COUNT);
-         i ++)
+    for (i = 0; i < ARRAY_SIZE(MCAPI_FTS_User_Services); i++)
     {
         MCAPI_FTS_Services[i].type = MCAPI_FTS_User_Services[i].type;
         MCAPI_FTS_Services[i].local_port = MCAPI_FTS_User_Services[i].local_port;
