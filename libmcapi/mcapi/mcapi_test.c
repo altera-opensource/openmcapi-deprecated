@@ -126,6 +126,8 @@ mcapi_boolean_t mcapi_test(mcapi_request_t *request, size_t *size,
                         else if (request->mcapi_status != MCAPI_EREQ_PENDING)
                         {
                             *mcapi_status = request->mcapi_status;
+
+                            ret_val = MCAPI_TRUE;
                         }
 
                         /* The endpoint has not been created. */
