@@ -390,7 +390,7 @@ mcapi_request_t *mcapi_find_request(mcapi_request_t *target_request,
     /* Search the list looking for the target entry. */
     while (req_ptr)
     {
-        if ( (req_ptr->mcapi_local_node_id == target_request->mcapi_local_node_id) &&
+        if ( (req_ptr->mcapi_requesting_node_id == target_request->mcapi_requesting_node_id) &&
              (req_ptr->mcapi_type == target_request->mcapi_type) &&
              (req_ptr->mcapi_target_endp == target_request->mcapi_target_endp) &&
              (req_ptr->mcapi_target_node_id == target_request->mcapi_target_node_id) &&

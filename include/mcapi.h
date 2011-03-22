@@ -120,9 +120,9 @@ struct _mcapi_request
     mcapi_status_t          mcapi_status;
     mcapi_uint8_t           mcapi_type;
     mcapi_uint8_t           mcapi_chan_type;
-    mcapi_node_t            mcapi_local_node_id;    /* The node ID of the node
-                                                     * making the call. */
-    mcapi_port_t            mcapi_local_port_id;
+    mcapi_node_t            mcapi_requesting_node_id; /* The node ID of the node
+                                                       * making the call. */
+    mcapi_port_t            mcapi_requesting_port_id;
     mcapi_endpoint_t        mcapi_target_endp;
     mcapi_endpoint_t        *mcapi_endp_ptr;        /* The application's
                                                      * pointer to an endpoint
