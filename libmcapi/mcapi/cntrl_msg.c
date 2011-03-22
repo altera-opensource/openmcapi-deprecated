@@ -180,6 +180,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
                                     MCAPI_GET16(buffer, MCAPI_GETENDP_PORT);
                                 request->mcapi_target_node_id = MCAPI_Node_ID;
                                 request->mcapi_local_node_id = node_id;
+                                request->mcapi_local_port_id = port_id;
                                 request->mcapi_status = MCAPI_EREQ_PENDING;
                                 request->mcapi_pending_count = 1;
 
@@ -1024,7 +1025,7 @@ void mcapi_tx_response(MCAPI_GLOBAL_DATA *node_data, mcapi_request_t *request)
     MCAPI_PUT16(buffer, MCAPI_GETENDP_PORT, request->mcapi_target_port_id);
 
     remote_endp = mcapi_encode_endpoint(request->mcapi_local_node_id,
-                                        MCAPI_CTRL_RX_Endp);
+                                        request->mcapi_local_port_id);
 
     /* Put the target endpoint in the packet. */
     MCAPI_PUT32(buffer, MCAPI_GETENDP_ENDP,
