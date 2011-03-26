@@ -171,7 +171,11 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_2)
                          &mcapi_struct->request, &mcapi_struct->status);
     status_assert(mcapi_struct->status);
 
-    /* The test call should return success immediately. */
+    /* This is an arbitrary wait to allow for the get_endpoint message
+     * round trip. */
+    MCAPID_Sleep(100);
+
+    /* The test call should return success almost immediately. */
     finished = mcapi_test(&mcapi_struct->request, &rx_len, &mcapi_struct->status);
     status_assert(mcapi_struct->status);
     general_assert(finished == MCAPI_TRUE);
