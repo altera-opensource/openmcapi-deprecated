@@ -197,6 +197,8 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                                                   mcapi_struct->local_endp,
                                                   &mcapi_struct->request,
                                                   &mcapi_struct->status);
+                        mcapi_wait(&mcapi_struct->request, &size,
+                                   &mcapi_struct->status, MCAPI_INFINITE);
                     }
 
                     break;
@@ -208,6 +210,8 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                                               mcapi_struct->local_endp,
                                               &mcapi_struct->request,
                                               &mcapi_struct->status);
+                    mcapi_wait(&mcapi_struct->request, &size,
+                               &mcapi_struct->status, MCAPI_INFINITE);
 
                     break;
 
@@ -233,6 +237,8 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                                                   mcapi_struct->local_endp,
                                                   &mcapi_struct->request,
                                                   &mcapi_struct->status);
+                        mcapi_wait(&mcapi_struct->request, &size,
+                                   &mcapi_struct->status, MCAPI_INFINITE);
                     }
 
                     break;
