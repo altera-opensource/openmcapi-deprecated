@@ -31,8 +31,6 @@ static void signalled(int signal, siginfo_t *info, void *context)
 {
 	struct sigaction *action;
 
-	cleanup();
-
 	action = &oldactions[signal];
 
 	if ((action->sa_flags & SA_SIGINFO) && action->sa_sigaction)
