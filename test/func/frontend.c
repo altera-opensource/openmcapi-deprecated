@@ -435,6 +435,7 @@ int mcapi_test_start(int argc, char *argv[])
 
         /* Start the service. */
         MCAPID_Create_Service(&MCAPI_FTS_Services[i]);
+        status_assert(MCAPI_FTS_Services[i].status);
         printf("MCAPI Functional Test %s complete\n",
                MCAPI_FTS_User_Services[i].test_name);
 
