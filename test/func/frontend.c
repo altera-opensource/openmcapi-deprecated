@@ -54,7 +54,7 @@ MCAPID_USER_STRUCT MCAPI_FTS_User_Services[] =
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.5.2", MCAPI_FTS_Tx_2_5_2},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.6.1", MCAPI_FTS_Tx_2_6_1},
     {MCAPI_CHAN_PKT_TX_TYPE, MCAPI_PORT_ANY, "pkt_svr", 0xffffffff, "2.6.2", MCAPI_FTS_Tx_2_6_2},
-    {MCAPI_CHAN_SCL_TX_TYPE, MCAPI_PORT_ANY, "scl_svr", 0xffffffff, "2.6.3", MCAPI_FTS_Tx_2_6_3},
+    {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "scl_svr", 0xffffffff, "2.6.3", MCAPI_FTS_Tx_2_6_3},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.6.4", MCAPI_FTS_Tx_2_6_4},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, "mgmt_svc", 0xffffffff, "2.6.5", MCAPI_FTS_Tx_2_6_5},
     {MCAPI_MSG_TX_TYPE, MCAPI_PORT_ANY, MCAPI_NULL, 0xffffffff, "2.7.1", MCAPI_FTS_Tx_2_7_1},
