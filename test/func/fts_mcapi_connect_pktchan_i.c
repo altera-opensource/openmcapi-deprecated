@@ -300,83 +300,63 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_3)
     mcapi_struct->status =
         MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP, 1024,
                                mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    status_assert(mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_SUCCESS)
-    {
-        /* Wait for a response. */
-        mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    /* Wait for a response. */
+    mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert(mcapi_struct->status);
 
-        /* If the endpoint was created. */
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Indicate that the endpoint should be opened as a receiver. */
-            mcapi_struct->status =
-                MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_OPEN_RX_SIDE_PKT, 1024,
-                                       mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    /* Indicate that the endpoint should be opened as a receiver. */
+    mcapi_struct->status =
+        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_OPEN_RX_SIDE_PKT, 1024,
+                               mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    status_assert(mcapi_struct->status);
 
-            if (mcapi_struct->status == MCAPI_SUCCESS)
-            {
-                /* Wait for a response. */
-                mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    /* Wait for a response. */
+    mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
 
-                /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
-                {
-                    /* Get the receive side endpoint. */
-                    rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
+    /* Get the receive side endpoint. */
+    rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
 
-                    if (mcapi_struct->status == MCAPI_SUCCESS)
-                    {
-                        /* Open the local endpoint as the sender. */
-                        mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
-                                                  mcapi_struct->local_endp,
-                                                  &request, &mcapi_struct->status);
+    /* Open the local endpoint as the sender. */
+    mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
+                              mcapi_struct->local_endp,
+                              &request, &mcapi_struct->status);
+    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
 
-                        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
-                        {
-                            /* Connect the two endpoints. */
-                            mcapi_connect_pktchan_i(mcapi_struct->local_endp, rx_endp,
-                                                    &mcapi_struct->request,
-                                                    &mcapi_struct->status);
+    /* Connect the two endpoints. */
+    mcapi_connect_pktchan_i(mcapi_struct->local_endp, rx_endp,
+                            &mcapi_struct->request,
+                            &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
 
-                            if (mcapi_struct->status == MCAPI_SUCCESS)
-                            {
-                                /* Wait for the open call to return successfully. */
-                                mcapi_wait(&request, &rx_len,
-                                           &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+    /* Wait for the open call to return successfully. */
+    mcapi_wait(&request, &rx_len,
+               &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
-                                /* Close the send side. */
-                                mcapi_packetchan_send_close_i(mcapi_struct->pkt_tx_handle,
-                                                              &request, &status);
-                            }
-                        }
-                    }
-                }
-            }
+    /* Close the send side. */
+    mcapi_packetchan_send_close_i(mcapi_struct->pkt_tx_handle,
+                                  &request, &status);
 
-            /* Tell the other side to close the receive side. */
-            status =
-                MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CLOSE_RX_SIDE_PKT, 1024,
-                                       mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    /* Tell the other side to close the receive side. */
+    status =
+        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CLOSE_RX_SIDE_PKT, 1024,
+                               mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    status_assert(status);
 
-            if (status == MCAPI_SUCCESS)
-            {
-                /* Wait for the response. */
-                status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    /* Wait for the response. */
+    status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-                /* Tell the other side to delete the endpoint. */
-                status =
-                    MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
-                                           mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    /* Tell the other side to delete the endpoint. */
+    status =
+        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
+                               mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    status_assert(mcapi_struct->status);
 
-                if (status == MCAPI_SUCCESS)
-                {
-                    /* Wait for the response. */
-                    status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-                }
-            }
-        }
-    }
+    /* Wait for the response. */
+    status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
     /* Set the state of the test to completed. */
     mcapi_struct->state = 0;
