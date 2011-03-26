@@ -38,6 +38,7 @@
 #include <pthread.h>
 #include <signal.h>
 #include <time.h>
+#include <unistd.h>
 #include "mcapid.h"
 #include "support_suite/mcapid_support.h"
 
@@ -132,26 +133,10 @@ void MCAPID_Cleanup(MCAPID_STRUCT *mcapi_struct)
 
 } /* MCAPID_Cleanup */
 
-/************************************************************************
-*
-*   FUNCTION
-*
-*       MCAPID_Sleep
-*
-*   DESCRIPTION
-*
-*       Sleep routine used for pausing as indicated by the user.
-*
-*************************************************************************/
-void MCAPID_Sleep(unsigned how_long)
+void MCAPID_Sleep(unsigned ms)
 {
-    if (how_long)
-    {
-        sleep((how_long/1000));
-    }
-
-} /* MCAPID_Sleep */
-
+    usleep(ms * 1000);
+}
 
 /* Number of seconds since a fixed time. */
 unsigned long MCAPID_Time(void)
