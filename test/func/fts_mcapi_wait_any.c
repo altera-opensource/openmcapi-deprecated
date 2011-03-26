@@ -6967,21 +6967,18 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_63)
 
                 /* Wait for a response that the creation was successful. */
                 status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+                status_assert(status);
 
-                if (status == MCAPI_SUCCESS)
-                {
-                    /* Indicate that the endpoint should be deleted. */
-                    status =
-                        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1025,
-                                               mcapi_struct->local_endp, 0,
-                                               MCAPI_DEFAULT_PRIO);
+                /* Indicate that the endpoint should be deleted. */
+                status =
+                    MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1025,
+                                           mcapi_struct->local_endp, 0,
+                                           MCAPI_DEFAULT_PRIO);
+                status_assert(status);
 
-                    if (status == MCAPI_SUCCESS)
-                    {
-                        /* Wait for a response that the endpoint was deleted. */
-                        status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-                    }
-                }
+                /* Wait for a response that the endpoint was deleted. */
+                status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+                status_assert(status);
 
                 /* Cancel the first request. */
                 mcapi_cancel(&request1, &status);
@@ -7045,168 +7042,131 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_64)
     /* Get a foreign endpoint. */
     mcapi_get_endpoint_i(FUNC_BACKEND_NODE_ID, 1024, &endpoint,
                          &request1, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_SUCCESS)
+    /* Create an endpoint for receiving messages. */
+    rx_endp1 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Make the call to receive data on this endpoint. */
+    mcapi_msg_recv_i(rx_endp1, buffer, MCAPID_MSG_LEN, &request2,
+                     &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Create an endpoint for the receive side of a packet channel. */
+    rx_endp2 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Open receive side of a packet channel. */
+    mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
+                              rx_endp2, &request3, &mcapi_struct->status);
+    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
+
+    /* Create an endpoint for the send side of a packet channel. */
+    tx_endp1 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Open send side of a packet channel. */
+    mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
+                              tx_endp1, &request4, &mcapi_struct->status);
+    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
+
+    /* Indicate that an endpoint should be created. */
+    mcapi_struct->status =
+        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP, 1025,
+                               mcapi_struct->local_endp, 0,
+                               MCAPI_DEFAULT_PRIO);
+    status_assert(mcapi_struct->status);
+
+    /* Wait for a response. */
+    mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert(mcapi_struct->status);
+
+    /* Indicate that the send side should be opened. */
+    mcapi_struct->status =
+        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_OPEN_TX_SIDE_PKT, 1025,
+                               mcapi_struct->local_endp, 0,
+                               MCAPI_DEFAULT_PRIO);
+    status_assert(mcapi_struct->status);
+
+    /* Wait for a response. */
+    mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
+
+    /* Get the foreign endpoint. */
+    foreign_tx_endp1 = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1025,
+                                          &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Create an endpoint for the receive side of a packet channel. */
+    rx_endp3 =
+        mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Connect the two endpoints. */
+    mcapi_connect_pktchan_i(foreign_tx_endp1, rx_endp3,
+                            &mcapi_struct->request,
+                            &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Wait for the connection. */
+    mcapi_wait(&mcapi_struct->request, &rx_len,
+               &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+
+    /* Open receive side of a packet channel. */
+    mcapi_open_pktchan_recv_i(&rx_handle, rx_endp3,
+                              &mcapi_struct->request,
+                              &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Wait for the open. */
+    mcapi_wait(&mcapi_struct->request, &rx_len,
+               &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+
+    /* Wait for data on the channel. */
+    mcapi_pktchan_recv_i(rx_handle, (void**)&pkt_ptr, &request5,
+                         &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Create an endpoint for the receive side of a scalar channel. */
+    rx_endp4 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Open receive side of a scalar channel. */
+    mcapi_open_sclchan_recv_i(&mcapi_struct->scl_rx_handle,
+                              rx_endp4, &request6, &mcapi_struct->status);
+    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
+
+    /* Create an endpoint for the send side of a scalar channel. */
+    tx_endp2 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Open send side of a scalar channel. */
+    mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
+                              tx_endp2, &request7, &mcapi_struct->status);
+    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
+
+    req_ptr[0] = &request1;
+    req_ptr[1] = &request2;
+    req_ptr[2] = &request3;
+    req_ptr[3] = &request4;
+    req_ptr[4] = &request5;
+    req_ptr[5] = &request6;
+    req_ptr[6] = &request7;
+
+    /* Wait for the call to timeout. */
+    finished =
+        mcapi_wait_any(7, req_ptr, &rx_len, 250, &mcapi_struct->status);
+
+    if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
     {
-        /* Create an endpoint for receiving messages. */
-        rx_endp1 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
-
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Make the call to receive data on this endpoint. */
-            mcapi_msg_recv_i(rx_endp1, buffer, MCAPID_MSG_LEN, &request2,
-                             &mcapi_struct->status);
-        }
+        mcapi_struct->status = MCAPI_SUCCESS;
     }
 
-    if (mcapi_struct->status == MCAPI_SUCCESS)
+    /* Cancel each request. */
+    for (i = 0; i < 7; i ++)
     {
-        /* Create an endpoint for the receive side of a packet channel. */
-        rx_endp2 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
-
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Open receive side of a packet channel. */
-            mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
-                                      rx_endp2, &request3, &mcapi_struct->status);
-        }
-    }
-
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
-    {
-        /* Create an endpoint for the send side of a packet channel. */
-        tx_endp1 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
-
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Open send side of a packet channel. */
-            mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
-                                      tx_endp1, &request4, &mcapi_struct->status);
-        }
-    }
-
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
-    {
-        /* Indicate that an endpoint should be created. */
-        mcapi_struct->status =
-            MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP, 1025,
-                                   mcapi_struct->local_endp, 0,
-                                   MCAPI_DEFAULT_PRIO);
-
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Wait for a response. */
-            mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-
-            if (mcapi_struct->status == MCAPI_SUCCESS)
-            {
-                /* Indicate that the send side should be opened. */
-                mcapi_struct->status =
-                    MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_OPEN_TX_SIDE_PKT, 1025,
-                                           mcapi_struct->local_endp, 0,
-                                           MCAPI_DEFAULT_PRIO);
-
-                /* Wait for a response. */
-                mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-            }
-        }
-
-        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
-        {
-            /* Get the foreign endpoint. */
-            foreign_tx_endp1 = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1025,
-                                                  &mcapi_struct->status);
-
-            if (mcapi_struct->status == MCAPI_SUCCESS)
-            {
-                /* Create an endpoint for the receive side of a packet channel. */
-                rx_endp3 =
-                    mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
-
-                if (mcapi_struct->status == MCAPI_SUCCESS)
-                {
-                    /* Connect the two endpoints. */
-                    mcapi_connect_pktchan_i(foreign_tx_endp1, rx_endp3,
-                                            &mcapi_struct->request,
-                                            &mcapi_struct->status);
-
-                    if (mcapi_struct->status == MCAPI_SUCCESS)
-                    {
-                        /* Wait for the connection. */
-                        mcapi_wait(&mcapi_struct->request, &rx_len,
-                                   &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
-
-                        /* Open receive side of a packet channel. */
-                        mcapi_open_pktchan_recv_i(&rx_handle, rx_endp3,
-                                                  &mcapi_struct->request,
-                                                  &mcapi_struct->status);
-
-                        if (mcapi_struct->status == MCAPI_SUCCESS)
-                        {
-                            /* Wait for the open. */
-                            mcapi_wait(&mcapi_struct->request, &rx_len,
-                                       &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
-
-                            /* Wait for data on the channel. */
-                            mcapi_pktchan_recv_i(rx_handle, (void**)&pkt_ptr, &request5,
-                                                 &mcapi_struct->status);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    if (mcapi_struct->status == MCAPI_SUCCESS)
-    {
-        /* Create an endpoint for the receive side of a scalar channel. */
-        rx_endp4 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
-
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Open receive side of a scalar channel. */
-            mcapi_open_sclchan_recv_i(&mcapi_struct->scl_rx_handle,
-                                      rx_endp4, &request6, &mcapi_struct->status);
-        }
-    }
-
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
-    {
-        /* Create an endpoint for the send side of a scalar channel. */
-        tx_endp2 = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
-
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Open send side of a scalar channel. */
-            mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
-                                      tx_endp2, &request7, &mcapi_struct->status);
-        }
-    }
-
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
-    {
-        req_ptr[0] = &request1;
-        req_ptr[1] = &request2;
-        req_ptr[2] = &request3;
-        req_ptr[3] = &request4;
-        req_ptr[4] = &request5;
-        req_ptr[5] = &request6;
-        req_ptr[6] = &request7;
-
-        /* Wait for the call to timeout. */
-        finished =
-            mcapi_wait_any(7, req_ptr, &rx_len, 250, &mcapi_struct->status);
-
-        if (mcapi_struct->status == MCAPI_EREQ_TIMEOUT)
-        {
-            mcapi_struct->status = MCAPI_SUCCESS;
-        }
-
-        /* Cancel each request. */
-        for (i = 0; i < 7; i ++)
-        {
-            mcapi_cancel(req_ptr[i], &status);
-        }
+        mcapi_cancel(req_ptr[i], &status);
     }
 
     /* Close the receive side of the packet channel. */
@@ -7214,11 +7174,17 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_35_64)
 
     /* Delete each endpoint. */
     mcapi_delete_endpoint(rx_endp1, &status);
+    status_assert(status);
     mcapi_delete_endpoint(rx_endp2, &status);
+    status_assert(status);
     mcapi_delete_endpoint(rx_endp3, &status);
+    status_assert(status);
     mcapi_delete_endpoint(rx_endp4, &status);
+    status_assert(status);
     mcapi_delete_endpoint(tx_endp1, &status);
+    status_assert(status);
     mcapi_delete_endpoint(tx_endp2, &status);
+    status_assert(status);
 
     /* Indicate that the send side should be closed. */
     status =
