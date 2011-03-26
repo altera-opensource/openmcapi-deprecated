@@ -67,6 +67,11 @@
         break; \
     }
 
+#define general_assert(c) \
+    if (!(c)) { \
+        printf("assertion failed at %s:%d\n", __FILE__, __LINE__); \
+    }
+
 #define status_assert_code(s,c) \
     if (s != c) { \
         printf("status: expected %d, got %d at %s:%d\n", c, s, __FILE__, \
