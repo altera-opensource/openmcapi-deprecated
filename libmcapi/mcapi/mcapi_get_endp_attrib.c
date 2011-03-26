@@ -127,8 +127,8 @@ void mcapi_get_endpoint_attribute(mcapi_endpoint_t endpoint,
 
                         else
                         {
-                            /* Unknown attribute. */
-                            *mcapi_status = MCAPI_EATTR_NUM;
+                            /* We don't know what interface to query. */
+                            *mcapi_status = MCAPI_ENOT_CONNECTED;
                         }
 
                         break;
