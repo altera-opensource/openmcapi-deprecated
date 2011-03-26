@@ -75,51 +75,39 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_11_1)
     mcapi_struct->status =
         MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_CREATE_ENDP, 1024,
                                mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    status_assert(mcapi_struct->status);
 
     /* Wait for a response. */
-    if (mcapi_struct->status == MCAPI_SUCCESS)
+    mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert(mcapi_struct->status);
+
+    /* If the endpoint was created. */
+    /* Traverse through all priorities. */
+    for (i = 0; i < MCAPI_PRIO_COUNT; i ++)
     {
-        /* Wait for the response. */
-        mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+        /* Issue a NO OP call with a 1000 millisecond pause to cause
+         * the other side to cause Node 0 to send just an ACK.
+         */
+        mcapi_struct->status =
+            MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_NO_OP, 1024,
+                                   mcapi_struct->local_endp, 1000, i);
+        status_assert(mcapi_struct->status);
 
-        /* If the endpoint was created. */
-        if (mcapi_struct->status == MCAPI_SUCCESS)
-        {
-            /* Traverse through all priorities. */
-            for (i = 0; i < MCAPI_PRIO_COUNT; i ++)
-            {
-                /* Issue a NO OP call with a 1000 millisecond pause to cause
-                 * the other side to cause Node 0 to send just an ACK.
-                 */
-                mcapi_struct->status =
-                    MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_NO_OP, 1024,
-                                           mcapi_struct->local_endp, 1000, i);
-
-                if (mcapi_struct->status == MCAPI_SUCCESS)
-                {
-                    /* Wait for the ACK. */
-                    mcapi_msg_recv(mcapi_struct->local_endp, buffer, MCAPID_MGMT_PKT_LEN,
-                                   &rx_len, &mcapi_struct->status);
-
-                    if (mcapi_struct->status != MCAPI_SUCCESS)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-
-        /* Tell the other side to delete the endpoint. */
-        status =
-            MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
-                                   mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
-
-        if (status == MCAPI_SUCCESS)
-        {
-            /* Wait for the response. */
-            status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-        }
+        /* Wait for the ACK. */
+        mcapi_msg_recv(mcapi_struct->local_endp, buffer, MCAPID_MGMT_PKT_LEN,
+                       &rx_len, &mcapi_struct->status);
+        status_assert(mcapi_struct->status);
     }
+
+    /* Tell the other side to delete the endpoint. */
+    status =
+        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
+                               mcapi_struct->local_endp, 0, MCAPI_DEFAULT_PRIO);
+    status_assert(status);
+
+    /* Wait for the response. */
+    status = MCAPID_RX_Mgmt_Response(mcapi_struct);
+    status_assert(status);
 
     /* Set the state of the test to completed. */
     mcapi_struct->state = 0;
