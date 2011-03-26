@@ -150,16 +150,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_6_2)
      * call should fail.
      */
     mcapi_delete_endpoint(mcapi_struct->local_endp, &mcapi_struct->status);
-
-    if (mcapi_struct->status != MCAPI_ECHAN_OPEN)
-    {
-        mcapi_struct->status = -1;
-    }
-
-    else
-    {
-        mcapi_struct->status = MCAPI_SUCCESS;
-    }
+    status_assert_code(mcapi_struct->status, MCAPI_ECHAN_OPEN);
 
     /* Close the send side of the connection. */
     mcapi_packetchan_send_close_i(mcapi_struct->pkt_tx_handle,
@@ -203,16 +194,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_6_3)
      * call should fail.
      */
     mcapi_delete_endpoint(mcapi_struct->local_endp, &mcapi_struct->status);
-
-    if (mcapi_struct->status != MCAPI_ECHAN_OPEN)
-    {
-        mcapi_struct->status = -1;
-    }
-
-    else
-    {
-        mcapi_struct->status = MCAPI_SUCCESS;
-    }
+    status_assert_code(mcapi_struct->status, MCAPI_ECHAN_OPEN);
 
     /* Close the send side of the connection. */
     mcapi_sclchan_send_close_i(mcapi_struct->scl_tx_handle,
