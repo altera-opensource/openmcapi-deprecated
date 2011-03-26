@@ -103,7 +103,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_33_1)
                     {
                         /* Tell the other side to delete the endpoint. */
                         status =
-                            MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, endpoint,
+                            MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_MGMT_DELETE_ENDP, 1024,
                                                    mcapi_struct->local_endp, 0,
                                                    MCAPI_DEFAULT_PRIO);
 
