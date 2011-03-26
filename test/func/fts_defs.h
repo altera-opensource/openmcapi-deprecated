@@ -67,10 +67,15 @@
         break; \
     }
 
-#define status_assert(s) \
-    if (s != MCAPI_SUCCESS) { \
-        printf("failure status (%d) at %s:%d\n", s, __FILE__, __LINE__); \
-    }
+#define status_assert_code(s,c) \
+    if (s != c) { \
+        printf("status: expected %d, got %d at %s:%d\n", c, s, __FILE__, \
+               __LINE__); \
+    } \
+    /* we reported any error here, so don't report it later too. */ \
+    s = MCAPI_SUCCESS
+
+#define status_assert(s) status_assert_code(s,MCAPI_SUCCESS)
 
 #define MCAPI_MASTER_NODE_ID    0
 
