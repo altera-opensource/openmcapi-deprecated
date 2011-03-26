@@ -48,7 +48,7 @@
 
 /* Management service packet offsets. */
 #define MCAPID_MGMT_TYPE_OFFSET         0
-#define MCAPID_MGMT_FOREIGN_ENDP_OFFSET 4
+#define MCAPID_MGMT_FOREIGN_PORT_OFFSET 4
 #define MCAPID_MGMT_LOCAL_ENDP_OFFSET   8
 #define MCAPID_MGMT_PAUSE_OFFSET        12
 #define MCAPID_MGMT_STATUS_OFFSET       16
@@ -90,9 +90,12 @@
 /* Message transmission macros. */
 #define MCAPID_MSG_LEN                  512
 
-mcapi_status_t MCAPID_TX_Mgmt_Message(MCAPID_STRUCT *, mcapi_uint32_t, mcapi_endpoint_t,
-                                      mcapi_endpoint_t, mcapi_uint32_t,
-                                      mcapi_uint32_t);
+mcapi_status_t MCAPID_TX_Mgmt_Message(MCAPID_STRUCT *mcapi_struct,
+                                      mcapi_uint32_t type,
+                                      mcapi_port_t foreign_port,
+                                      mcapi_endpoint_t local_endp,
+                                      mcapi_uint32_t pause,
+                                      mcapi_uint32_t priority);
 mcapi_status_t MCAPID_RX_Mgmt_Response(MCAPID_STRUCT *);
 MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service);
 

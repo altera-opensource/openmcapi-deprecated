@@ -35,6 +35,7 @@
 *
 *************************************************************************/
 
+#include <stdio.h>
 #include "mgmt_svc.h"
 #include "support_suite/mcapid_support.h"
 #include "mcapid.h"
@@ -66,6 +67,16 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                                 rx_handle_scl_in_use = MCAPI_FALSE;
     mcapi_request_t             pkt_tx_request, pkt_rx_request,
                                 scl_tx_request, scl_rx_request;
+    mcapi_endpoint_t            endpoint;
+    mcapi_node_t                this_node;
+    mcapi_status_t              status;
+    mcapi_port_t                port;
+    mcapi_priority_t            prio;
+    mcapi_boolean_t             complete;
+    mcapi_request_t             request;
+    size_t                      size;
+
+    this_node = mcapi_get_node_id(&status);
 
     for (;;)
     {
@@ -87,61 +98,124 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                 /* Create an endpoint. */
                 case MCAPID_MGMT_CREATE_ENDP:
 
+                    port = mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+
                     /* Create the endpoint with specified port ID. */
-                    mcapi_create_endpoint(mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                          &mcapi_struct->status);
+                    mcapi_create_endpoint(port, &mcapi_struct->status);
+                    if (mcapi_struct->status != MCAPI_SUCCESS)
+                        printf("error creating endport %d (%d)\n", port,
+                               mcapi_struct->status);
 
                     break;
 
                 /* Delete an endpoint. */
                 case MCAPID_MGMT_DELETE_ENDP:
 
-                    /* Delete the endpoint. */
-                    mcapi_delete_endpoint(mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                          &mcapi_struct->status);
+                    port = mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+                    mcapi_get_endpoint_i(this_node, port, &endpoint, &request,
+                                         &status);
+                    complete = mcapi_wait(&request, &size, &status, 0);
+
+                    if (complete && (status == MCAPI_SUCCESS))
+                    {
+                        /* Delete the endpoint. */
+                        mcapi_delete_endpoint(endpoint, &mcapi_struct->status);
+                        if (mcapi_struct->status != MCAPI_SUCCESS)
+                            printf("error deleting endport %d (%d)\n", port,
+                                   mcapi_struct->status);
+                    }
+                    else
+                    {
+                        printf("%s: tried to delete a non-existent endpoint!\n",
+                               __func__);
+                    }
 
                     break;
 
                 /* Send a blocking message. */
                 case MCAPID_MGMT_TX_BLCK_MSG:
 
-                    /* Send this packet back to the other side. */
-                    mcapi_msg_send(mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                   mcapi_get32(buffer, MCAPID_MGMT_LOCAL_ENDP_OFFSET),
-                                   buffer, rx_len,
-                                   mcapi_get32(buffer, MCAPID_MGMT_PRIO_OFFSET),
-                                   &mcapi_struct->status);
+                    port = mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+                    mcapi_get_endpoint_i(this_node, port, &endpoint, &request,
+                                         &status);
+                    complete = mcapi_wait(&request, &size, &status, 0);
+
+                    if (complete && (status == MCAPI_SUCCESS))
+                    {
+                        prio = mcapi_get32(buffer, MCAPID_MGMT_PRIO_OFFSET);
+
+                        /* Send this packet back to the other side. */
+                        mcapi_msg_send(endpoint,
+                                       mcapi_get32(buffer, MCAPID_MGMT_LOCAL_ENDP_OFFSET),
+                                       buffer, rx_len, prio,
+                                       &mcapi_struct->status);
+                    }
+                    else
+                    {
+                        printf("%s: tried to delete a non-existent endpoint!\n",
+                               __func__);
+                    }
 
                     break;
 
                 /* Send a non-blocking message. */
                 case MCAPID_MGMT_TX_NONBLCK_MSG:
 
-                    /* Send this packet back to the other side. */
-                    mcapi_msg_send_i(mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                     mcapi_get32(buffer, MCAPID_MGMT_LOCAL_ENDP_OFFSET),
-                                     buffer, rx_len,
-                                     mcapi_get32(buffer, MCAPID_MGMT_PRIO_OFFSET),
-                                     &mcapi_struct->request, &mcapi_struct->status);
+                    port = mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+                    mcapi_get_endpoint_i(this_node, port, &endpoint, &request,
+                                         &status);
+                    complete = mcapi_wait(&request, &size, &status, 0);
+
+                    if (complete && (status == MCAPI_SUCCESS))
+                    {
+                        prio = mcapi_get32(buffer, MCAPID_MGMT_PRIO_OFFSET);
+
+                        /* Send this packet back to the other side. */
+                        mcapi_msg_send_i(endpoint,
+                                         mcapi_get32(buffer, MCAPID_MGMT_LOCAL_ENDP_OFFSET),
+                                         buffer, rx_len, prio,
+                                         &mcapi_struct->request,
+                                         &mcapi_struct->status);
+                    }
+                    else
+                    {
+                        printf("%s: tried to send msg to a non-existent "
+                               "endpoint!\n", __func__);
+                    }
+
                     break;
 
                 /* Open a local endpoint as a sender. */
                 case MCAPID_MGMT_OPEN_TX_SIDE_PKT:
 
-                    /* Only one transmit handle can be open on the management
-                     * service thread at a time.
+                    /* Only one transmit handle can be open on the
+                     * management service thread at a time.
                      */
                     if (tx_handle_in_use == MCAPI_FALSE)
                     {
-                        mcapi_open_pktchan_send_i(&tx_handle,
-                                                  mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                                  &pkt_tx_request,
-                                                  &mcapi_struct->status);
+                        port = mcapi_get32(buffer,
+                                           MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+                        mcapi_get_endpoint_i(this_node, port, &endpoint,
+                                             &request, &status);
+                        complete = mcapi_wait(&request, &size, &status, 0);
 
-                        if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                             (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                        if (complete && (status == MCAPI_SUCCESS))
                         {
-                            tx_handle_in_use = MCAPI_TRUE;
+                            mcapi_open_pktchan_send_i(&tx_handle,
+                                                      endpoint,
+                                                      &pkt_tx_request,
+                                                      &mcapi_struct->status);
+
+                            if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
+                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                            {
+                                tx_handle_in_use = MCAPI_TRUE;
+                            }
+                        }
+                        else
+                        {
+                            printf("%s: tried to open a non-existent "
+                                   "endpoint (for pktchan send)!\n", __func__);
                         }
                     }
 
@@ -160,15 +234,29 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                      */
                     if (rx_handle_in_use == MCAPI_FALSE)
                     {
-                        mcapi_open_pktchan_recv_i(&rx_handle,
-                                                  mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                                  &pkt_rx_request,
-                                                  &mcapi_struct->status);
+                        port = mcapi_get32(buffer,
+                                           MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+                        mcapi_get_endpoint_i(this_node, port, &endpoint,
+                                             &request, &status);
+                        complete = mcapi_wait(&request, &size, &status, 0);
 
-                        if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                             (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                        if (status == MCAPI_SUCCESS)
                         {
-                            rx_handle_in_use = MCAPI_TRUE;
+                            mcapi_open_pktchan_recv_i(&rx_handle,
+                                                      endpoint,
+                                                      &pkt_rx_request,
+                                                      &mcapi_struct->status);
+
+                            if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
+                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                            {
+                                rx_handle_in_use = MCAPI_TRUE;
+                            }
+                        }
+                        else
+                        {
+                            printf("%s: tried to open a non-existent "
+                                   "endpoint (for pktchan recv)!\n", __func__);
                         }
                     }
 
@@ -220,15 +308,29 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                      */
                     if (tx_handle_scl_in_use == MCAPI_FALSE)
                     {
-                        mcapi_open_sclchan_send_i(&tx_handle_scl,
-                                                  mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                                  &scl_tx_request,
-                                                  &mcapi_struct->status);
+                        port = mcapi_get32(buffer,
+                                           MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+                        mcapi_get_endpoint_i(this_node, port, &endpoint,
+                                             &request, &status);
+                        complete = mcapi_wait(&request, &size, &status, 0);
 
-                        if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                             (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                        if (complete && (status == MCAPI_SUCCESS))
                         {
-                            tx_handle_scl_in_use = MCAPI_TRUE;
+                            mcapi_open_sclchan_send_i(&tx_handle_scl,
+                                                      endpoint,
+                                                      &scl_tx_request,
+                                                      &mcapi_struct->status);
+
+                            if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
+                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                            {
+                                tx_handle_scl_in_use = MCAPI_TRUE;
+                            }
+                        }
+                        else
+                        {
+                            printf("%s: tried to open a non-existent "
+                                   "endpoint (for scalars)!\n", __func__);
                         }
                     }
 
@@ -247,15 +349,29 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                      */
                     if (rx_handle_scl_in_use == MCAPI_FALSE)
                     {
-                        mcapi_open_sclchan_recv_i(&rx_handle_scl,
-                                                  mcapi_get32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET),
-                                                  &scl_rx_request,
-                                                  &mcapi_struct->status);
+                        port = mcapi_get32(buffer,
+                                           MCAPID_MGMT_FOREIGN_PORT_OFFSET);
+                        mcapi_get_endpoint_i(this_node, port, &endpoint,
+                                             &request, &status);
+                        complete = mcapi_wait(&request, &size, &status, 0);
 
-                        if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                             (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                        if (complete && (status == MCAPI_SUCCESS))
                         {
-                            rx_handle_scl_in_use = MCAPI_TRUE;
+                            mcapi_open_sclchan_recv_i(&rx_handle_scl,
+                                                      endpoint,
+                                                      &scl_rx_request,
+                                                      &mcapi_struct->status);
+
+                            if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
+                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                            {
+                                rx_handle_scl_in_use = MCAPI_TRUE;
+                            }
+                        }
+                        else
+                        {
+                            printf("%s: tried to open a non-existent "
+                                   "endpoint (for scalars)!\n", __func__);
                         }
                     }
 
@@ -340,11 +456,12 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
             /* Put the status in the packet. */
             mcapi_put32(buffer, MCAPID_MGMT_STATUS_OFFSET, mcapi_struct->status);
 
+            prio = mcapi_get32(buffer, MCAPID_MGMT_PRIO_OFFSET);
+
             /* Send the response using the specified priority. */
             mcapi_msg_send(mcapi_struct->local_endp,
                            mcapi_get32(buffer, MCAPID_MGMT_LOCAL_ENDP_OFFSET),
-                           buffer, rx_len, mcapi_get32(buffer, MCAPID_MGMT_PRIO_OFFSET),
-                           &mcapi_struct->status);
+                           buffer, rx_len, prio, &mcapi_struct->status);
         }
 
         /* The service has been shut down. */
@@ -372,7 +489,7 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
 *************************************************************************/
 mcapi_status_t MCAPID_TX_Mgmt_Message(MCAPID_STRUCT *mcapi_struct,
                                       mcapi_uint32_t type,
-                                      mcapi_endpoint_t foreign_endp,
+                                      mcapi_port_t foreign_port,
                                       mcapi_endpoint_t local_endp,
                                       mcapi_uint32_t pause,
                                       mcapi_uint32_t priority)
@@ -384,7 +501,7 @@ mcapi_status_t MCAPID_TX_Mgmt_Message(MCAPID_STRUCT *mcapi_struct,
     mcapi_put32(buffer, MCAPID_MGMT_TYPE_OFFSET, type);
 
     /* Set the port of the foreign endpoint to use. */
-    mcapi_put32(buffer, MCAPID_MGMT_FOREIGN_ENDP_OFFSET, foreign_endp);
+    mcapi_put32(buffer, MCAPID_MGMT_FOREIGN_PORT_OFFSET, foreign_port);
 
     /* Zero out status. */
     mcapi_put32(buffer, MCAPID_MGMT_STATUS_OFFSET, 0);
