@@ -451,10 +451,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_27_5)
 
     /* Send a message to the scalar service indicating any type of receive. */
     mcapi_struct->status =
-        MCAPID_TX_Mgmt_Message(mcapi_struct, MCAPID_RX_64_BIT_SCL,
-                               mcapi_struct->foreign_endp,
-                               mcapi_struct->local_endp, 0,
-                               MCAPI_DEFAULT_PRIO);
+        MCAPI_FTS_Specify_Scalar_Size(mcapi_struct, MCAPID_RX_64_BIT_SCL);
 
     if (mcapi_struct->status == MCAPI_SUCCESS)
     {

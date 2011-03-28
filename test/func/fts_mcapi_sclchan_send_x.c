@@ -76,10 +76,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_28_1)
     for (i = MCAPID_RX_64_BIT_SCL; i <= MCAPID_RX_8_BIT_SCL; i ++)
     {
         /* Tell the other side to receive the specified scalar size. */
-        mcapi_struct->status =
-            MCAPID_TX_Mgmt_Message(mcapi_struct, i, mcapi_struct->foreign_endp,
-                                   mcapi_struct->local_endp, 0,
-                                   MCAPI_DEFAULT_PRIO);
+        mcapi_struct->status = MCAPI_FTS_Specify_Scalar_Size(mcapi_struct, i);
 
         if (mcapi_struct->status == MCAPI_SUCCESS)
         {
@@ -220,10 +217,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_28_2)
          * receive side is opened.
          */
         mcapi_struct->status =
-            MCAPID_TX_Mgmt_Message(mcapi_struct, 0xffffffff,
-                                   mcapi_struct->foreign_endp,
-                                   mcapi_struct->local_endp, 0,
-                                   MCAPI_DEFAULT_PRIO);
+            MCAPI_FTS_Specify_Scalar_Size(mcapi_struct, 0xffffffff);
 
         if (mcapi_struct->status == MCAPI_SUCCESS)
         {

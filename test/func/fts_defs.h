@@ -89,6 +89,9 @@
 #define MCAPI_FTS_32BIT_SCALAR 2000000000
 #define MCAPI_FTS_64BIT_SCALAR 2000000000
 
+mcapi_status_t MCAPI_FTS_Specify_Scalar_Size(MCAPID_STRUCT *mcapi_struct,
+                                             mcapi_uint32_t scalar_size);
+
 MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_3_1);
 MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_3_2);
 MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_3_3);

@@ -395,6 +395,17 @@ MCAPI_MUTEX     MCAPID_FTS_Mutex;
 
 extern  MCAPI_GLOBAL_DATA           MCAPI_Global_Struct;
 
+mcapi_status_t MCAPI_FTS_Specify_Scalar_Size(MCAPID_STRUCT *mcapi_struct,
+                                             mcapi_uint32_t scalar_size)
+{
+    /* Note that the foreign port parameter (3rd one) is set to '0'.  This
+     * parameter is not used by the scalar server for scalar size
+     * specification.
+     */
+    return MCAPID_TX_Mgmt_Message(mcapi_struct, scalar_size, 0,
+                                  mcapi_struct->local_endp, 0,
+                                  MCAPI_DEFAULT_PRIO);
+}
 
 int mcapi_test_start(int argc, char *argv[])
 {
