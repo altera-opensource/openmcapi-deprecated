@@ -185,20 +185,37 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_6_2)
 MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_6_3)
 {
     MCAPID_STRUCT       *mcapi_struct = (MCAPID_STRUCT*)argv;
-    mcapi_status_t      status;
+    size_t              rx_len;
+    mcapi_request_t     request;
 
     /* Don't let any other test run while this test is running. */
     MCAPI_Obtain_Mutex(&MCAPID_FTS_Mutex);
 
-    /* Delete the local endpoint - the connection was made at start up, so this
-     * call should fail.
-     */
+    /* Connect the two endpoints. */
+    mcapi_connect_sclchan_i(mcapi_struct->local_endp,
+                            mcapi_struct->foreign_endp,
+                            &mcapi_struct->request,
+                            &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    mcapi_wait(&mcapi_struct->request, &rx_len,
+               &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
+    status_assert(mcapi_struct->status);
+
+    /* Open the local endpoint as the sender. */
+    mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
+                              mcapi_struct->local_endp, &request,
+                              &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
+
+    /* Delete the local endpoint, which should fail. */
     mcapi_delete_endpoint(mcapi_struct->local_endp, &mcapi_struct->status);
     status_assert_code(mcapi_struct->status, MCAPI_ECHAN_OPEN);
 
     /* Close the send side of the connection. */
     mcapi_sclchan_send_close_i(mcapi_struct->scl_tx_handle,
-                               &mcapi_struct->request, &status);
+                               &mcapi_struct->request, &mcapi_struct->status);
+    status_assert(mcapi_struct->status);
 
     /* Set the state of the test to completed. */
     mcapi_struct->state = 0;
