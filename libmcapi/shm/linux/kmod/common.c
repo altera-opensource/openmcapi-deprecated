@@ -50,6 +50,8 @@
 #include <linux/wait.h>
 #include <linux/sched.h>
 #include <linux/uaccess.h>
+#include <linux/hugetlb.h>
+#include <linux/highmem.h>
 
 #include "mcomm.h"
 #include "mcomm_compat.h"
@@ -208,6 +210,112 @@ static long mcomm_fd_ioctl(struct file *fp, unsigned int ioctl,
 	return rc;
 }
 
+static int __mcomm_follow_pte(struct mm_struct *mm, unsigned long address,
+		pte_t **ptepp, spinlock_t **ptlp)
+{
+	pgd_t *pgd;
+	pud_t *pud;
+	pmd_t *pmd;
+	pte_t *ptep;
+
+	pgd = pgd_offset(mm, address);
+	if (pgd_none(*pgd) || unlikely(pgd_bad(*pgd)))
+		goto out;
+
+	pud = pud_offset(pgd, address);
+	if (pud_none(*pud) || unlikely(pud_bad(*pud)))
+		goto out;
+
+	pmd = pmd_offset(pud, address);
+	VM_BUG_ON(pmd_trans_huge(*pmd));
+	if (pmd_none(*pmd) || unlikely(pmd_bad(*pmd)))
+		goto out;
+
+	/* We cannot handle huge page PFN maps. Luckily they don't exist. */
+	if (pmd_huge(*pmd))
+		goto out;
+
+	ptep = pte_offset_map_lock(mm, pmd, address, ptlp);
+	if (!ptep)
+		goto out;
+	if (!pte_present(*ptep))
+		goto unlock;
+	*ptepp = ptep;
+	return 0;
+unlock:
+	pte_unmap_unlock(ptep, *ptlp);
+out:
+	return -EINVAL;
+}
+
+static inline int mcomm_follow_pte(struct mm_struct *mm, unsigned long address,
+			     pte_t **ptepp, spinlock_t **ptlp)
+{
+	int res;
+
+	/* (void) is needed to make gcc happy */
+	(void) __cond_lock(*ptlp,
+			   !(res = __mcomm_follow_pte(mm, address, ptepp, ptlp)));
+	return res;
+}
+
+#ifdef CONFIG_HAVE_IOREMAP_PROT
+static int mcomm_follow_phys(struct vm_area_struct *vma,
+		unsigned long address, unsigned int flags,
+		unsigned long *prot, resource_size_t *phys)
+{
+	int ret = -EINVAL;
+	pte_t *ptep, pte;
+	spinlock_t *ptl;
+
+	if (!(vma->vm_flags & (VM_IO | VM_PFNMAP)))
+		goto out;
+
+	if (mcomm_follow_pte(vma->vm_mm, address, &ptep, &ptl))
+		goto out;
+	pte = *ptep;
+
+	if ((flags & FOLL_WRITE) && !pte_write(pte))
+		goto unlock;
+
+	*prot = pgprot_val(pte_pgprot(pte));
+	*phys = (resource_size_t)pte_pfn(pte) << PAGE_SHIFT;
+
+	ret = 0;
+unlock:
+	pte_unmap_unlock(ptep, ptl);
+out:
+	return ret;
+}
+
+static int mcomm_access_phys(struct vm_area_struct *vma, unsigned long addr,
+                             void *buf, int len, int write)
+{
+	resource_size_t phys_addr = 0;
+	unsigned long prot = 0;
+	void __iomem *maddr;
+	int offset = addr & (PAGE_SIZE-1);
+
+	if (mcomm_follow_phys(vma, addr, write, &prot, &phys_addr))
+		return -EINVAL;
+
+	maddr = ioremap_prot(phys_addr, PAGE_SIZE, prot);
+	if (write)
+		memcpy_toio(maddr + offset, buf, len);
+	else
+		memcpy_fromio(buf, maddr + offset, len);
+	iounmap(maddr);
+
+	return len;
+}
+#endif
+
+static const struct vm_operations_struct mmap_mcomm_ops = {
+#ifdef CONFIG_HAVE_IOREMAP_PROT
+	.access = mcomm_access_phys
+#endif
+};
+
 static int mcomm_mmap(struct file *file, struct vm_area_struct *vma)
 {
 	struct mcomm_devdata *devdata = &_mcomm_devdata;
@@ -217,6 +325,7 @@ static int mcomm_mmap(struct file *file, struct vm_area_struct *vma)
 		return -ENOMEM;
 
 	vma->vm_page_prot = mcomm_platform_ops->mmap_pgprot(vma);
+	vma->vm_ops = &mmap_mcomm_ops;
 
 	start_page = devdata->mem.start >> PAGE_SHIFT;
 	return remap_pfn_range(vma, vma->vm_start,
