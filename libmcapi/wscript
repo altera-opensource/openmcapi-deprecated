@@ -99,7 +99,7 @@ def build(bld):
 		target='mcapi',
 		source=' '.join(sources),
 		includes=' '.join(includes),
-		use='mcapi_shm',
+		use='shm_objs',
 	)
 
 	bld.recurse(subdirs)

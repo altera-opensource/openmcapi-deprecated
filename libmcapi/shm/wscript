@@ -80,8 +80,8 @@ def build(bld):
 	else:
 		sources += extra_sources.get(bld.env.OS, [])
 
-	bld.stlib(
-		target='mcapi_shm',
+	bld.objects(
+		target='shm_objs',
 		source=' '.join(sources),
 		includes=' '.join(includes),
 	)
