@@ -257,6 +257,13 @@ mcapi_status_t openmcapi_shm_os_finalize(void)
         mcapi_status = MCAPI_OS_ERROR;
     }
 
+    /* Don't return until it's dead. */
+    rc = pthread_join(shm_rx_thread, NULL);
+    if (rc) {
+        perror("couldn't joined canceled thread");
+        mcapi_status = MCAPI_OS_ERROR;
+    }
+
     return mcapi_status;
 }
 
