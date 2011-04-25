@@ -183,17 +183,38 @@ out1:
     return NULL;
 }
 
+/* pthread cancellation is tricky.
+ *
+ * First, we need to ensure that if we're blocked in the kernel (ioctl),
+ * pthread_cancel must send us a signal so we return to userspace to handle it.
+ * This is accomplished with PTHREAD_CANCEL_ASYNCHRONOUS, without which glibc
+ * would set some state and then happily wait for us to hit the next
+ * cancellation point (see pthreads(7)). However, we wouldn't, because we'd
+ * never wake from the kernel.
+ *
+ * Second, pthread_cancel() could be called any time outside the
+ * PTHREAD_CANCEL_ASYNCHRONOUS section. Since we don't necessarily have any
+ * cancellation points inside the loop (including the shm_poll() path), we must
+ * manually check by calling pthread_testcancel().
+ */
 static void *mcapi_receive_thread(void *data)
 {
     int rc;
+    int canceltype;
 
     do {
-        /* Block until data for this node is available. */
+        /* Manually check if we're already dead. */
+        pthread_testcancel();
+
+        /* Block until data for this node is available or we are canceled with
+         * a signal. */
+        pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, &canceltype);
         rc = shm_linux_wait_notify(MCAPI_Node_ID);
         if (rc < 0) {
             perror("wait ioctl");
             break;
         }
+        pthread_setcanceltype(canceltype, NULL);
 
         /* Obtain lock so we can safely manipulate the RX_Queue. */
         MCAPI_Lock_RX_Queue();
