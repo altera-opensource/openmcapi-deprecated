@@ -184,13 +184,16 @@ void mcapi_finalize(mcapi_status_t *mcapi_status)
                     cur_buf = mcapi_dequeue(&MCAPI_Buf_Wait_List);
                 }
 
-                /* Shut down each interface. */
+                /* Shut down each interface. Drop the global lock first to
+                 * avoid deadlocks with transport-level threads. */
+                mcapi_unlock_node_data();
                 for (j = 0; j < MCAPI_INTERFACE_COUNT; j++)
                 {
                     /* Shut down the interface. */
                     MCAPI_Interface_List[j].mcapi_ioctl(MCAPI_FINALIZE_DRIVER,
                                                         MCAPI_NULL, 0);
                 }
+                mcapi_lock_node_data();
 
                 /* Remove the first buffer from the pending RX list. */
                 cur_buf = mcapi_dequeue(&MCAPI_RX_Queue);
