@@ -110,7 +110,11 @@ mcapi_endpoint_t mcapi_get_endpoint(mcapi_node_t node_id, mcapi_port_t port_id,
 
                 if (*mcapi_status == MCAPI_ENO_BUFFER)
                 {
+                    /* Must drop and re-acquire the lock so we don't block
+                     * other threads forever. */
+                    mcapi_unlock_node_data();
                     MCAPI_Sleep(1);
+                    mcapi_lock_node_data();
                 }
                 else
                 {
