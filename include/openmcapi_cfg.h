@@ -45,10 +45,6 @@
 /* Disable this macro to disable forwarding capabilities for this node. */
 #define MCAPI_ENABLE_FORWARDING     MCAPI_FALSE
 
-/* The maximum number of endpoints that can be simultaneously open on the
- * node. */
-#define MCAPI_MAX_ENDPOINTS         32
-
 /* The total number of nodes in the system, including this node. */
 #define MCAPI_NODE_COUNT            2
 

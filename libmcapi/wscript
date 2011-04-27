@@ -4,10 +4,14 @@ subdirs = ['shm']
 
 def options(opt):
 	opt.add_option('--max-data-len', default='1024', type='int', help='The maximum size, in bytes, of data that can be sent through an endpoint. The transport-level buffer may be slightly larger, to accommodate transport-specific metadata.')
+	opt.add_option('--max-endpoints', default='1024', type='int', help='The maximum number of endpoints that may be simultaneously open in one node.')
+
 	opt.recurse(subdirs)
 
 def configure(conf):
 	conf.define('MCAPI_MAX_DATA_LEN', conf.options.max_data_len)
+	conf.define('MCAPI_MAX_ENDPOINTS', conf.options.max_endpoints)
+
 	conf.recurse(subdirs)
 
 def build(bld):
