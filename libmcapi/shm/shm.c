@@ -280,11 +280,10 @@ static SHM_BUFF_DESC_Q* get_sm_ring_q(mcapi_uint32_t node_id,
 			unit_id = SHM_Mgmt_Blk->shm_routes[idx].unit_id;
 
 			/* Load unit ID for the caller */
-			if (p_unit_id)
-				*p_unit_id = unit_id;
+			*p_unit_id = unit_id;
 
 			/* Obtain pointer to ring queue */
-			p_sm_ring_queue = &SHM_Mgmt_Blk->shm_queues[idx];
+			p_sm_ring_queue = &SHM_Mgmt_Blk->shm_queues[node_id];
 
 			break;
 		}
@@ -849,7 +848,7 @@ void shm_poll(void)
 #endif
 
 	/* Obtain the SM ring queue for the current Node ID */
-	shm_des_q = get_sm_ring_q(MCAPI_Node_ID, NULL);
+	shm_des_q = &SHM_Mgmt_Blk->shm_queues[MCAPI_Node_ID];
 
 	/* Enqueue all available data packets for this node */
 	for (;;)
