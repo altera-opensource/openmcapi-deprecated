@@ -34,9 +34,6 @@
 #include <openmcapi.h>
 #include <atomic.h>
 
-/* Number of nodes present in the system */
-#define SMDRV_NODE_COUNT        2
-
 /* Configure buffering system */
 
 /* Define the number of shared memory buffers that will be present
