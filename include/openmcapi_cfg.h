@@ -65,10 +65,6 @@
  * and receive data on the node. */
 #define MCAPI_BUF_COUNT             128
 
-/* The maximum size of data that can be sent from an endpoint.  This
- * is also the length of each buffer in the system. */
-#define MCAPI_MAX_DATA_LEN          1024
-
 /* The port used to receive control messages from other nodes in the
  * sytem. */
 #define MCAPI_RX_CONTROL_PORT       900
