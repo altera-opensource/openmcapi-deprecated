@@ -127,8 +127,8 @@ struct _shm_drv_mgmt_struct_
 {
     shm_lock                    shm_init_lock;
     mcapi_uint32_t              shm_init_field;
-    struct _shm_route_          shm_routes[SMDRV_NODE_COUNT];
-    struct _shm_buff_desc_q_    shm_queues[SMDRV_NODE_COUNT];
+    struct _shm_route_          shm_routes[CONFIG_SHM_NR_NODES];
+    struct _shm_buff_desc_q_    shm_queues[CONFIG_SHM_NR_NODES];
     struct _shm_buff_mgmt_blk_  shm_buff_mgmt_blk;
 };
 

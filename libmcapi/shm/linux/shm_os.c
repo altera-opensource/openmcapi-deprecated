@@ -128,7 +128,7 @@ static int shm_linux_init_device(int fd)
     struct mcomm_init_device args;
     struct _shm_drv_mgmt_struct_ *mgmt = NULL;
 
-    args.nr_mboxes = SMDRV_NODE_COUNT;
+    args.nr_mboxes = CONFIG_SHM_NR_NODES;
     args.offset = (unsigned int)&mgmt->shm_queues[0].count;
     args.mbox_size = sizeof(mgmt->shm_queues[0].count);
     args.mbox_stride = (void *)&mgmt->shm_queues[1].count -

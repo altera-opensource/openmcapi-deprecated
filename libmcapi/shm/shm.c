@@ -165,7 +165,7 @@ static MCAPI_BUFFER* shm_get_buffer(mcapi_node_t node_id, size_t size,
 	if ((priority == SHM_PRIO_0) ||
 		(SHM_Mgmt_Blk->shm_buff_mgmt_blk.shm_buff_count <= SHM_LOW_PRI_BUF_CONT))
 	{
-		for (idx = 0; idx < SMDRV_NODE_COUNT; idx++)
+		for (idx = 0; idx < CONFIG_SHM_NR_NODES; idx++)
 		{
 			if (SHM_Mgmt_Blk->shm_routes[idx].node_id == node_id)
 			{
@@ -273,7 +273,7 @@ static SHM_BUFF_DESC_Q* get_sm_ring_q(mcapi_uint32_t node_id,
 	/* Look up routes for the requested node ID
 	 * and obtain the corresponding unit ID and SM ring queue */
 
-	for (idx = 0; idx < SMDRV_NODE_COUNT; idx++)
+	for (idx = 0; idx < CONFIG_SHM_NR_NODES; idx++)
 	{
 		if (SHM_Mgmt_Blk->shm_routes[idx].node_id == node_id)
 		{
@@ -459,7 +459,7 @@ static mcapi_status_t shm_finalize(mcapi_node_t node_id,
 	int i;
 	mcapi_status_t status = MCAPI_ENO_INIT;
 
-	for (i = 0; i < SMDRV_NODE_COUNT; i++)
+	for (i = 0; i < CONFIG_SHM_NR_NODES; i++)
 	{
 		if (SHM_Mgmt_Blk->shm_routes[i].node_id == node_id)
 		{
@@ -615,7 +615,7 @@ static mcapi_status_t shm_master_node_init(mcapi_node_t node_id,
 	 * Initialize SM driver as master node. */
 
 	/* Initialize routes and SM buffer queue data structures */
-	for (i = 0; i < SMDRV_NODE_COUNT; i++)
+	for (i = 0; i < CONFIG_SHM_NR_NODES; i++)
 	{
 		/* Initialize routes */
 		SHM_Mgmt_Blk->shm_routes[i].node_id = SHM_INVALID_NODE;
@@ -687,7 +687,7 @@ static mcapi_status_t shm_slave_node_init(mcapi_node_t node_id,
 	/* Perform slave initialization of SM driver */
 
 	/* Make sure the current node has not been initialized */
-	for (i = 0; i < SMDRV_NODE_COUNT; i++)
+	for (i = 0; i < CONFIG_SHM_NR_NODES; i++)
 	{
 		if (SHM_Mgmt_Blk->shm_routes[i].node_id == node_id)
 		{
@@ -700,7 +700,7 @@ static mcapi_status_t shm_slave_node_init(mcapi_node_t node_id,
 	if (status == MCAPI_SUCCESS)
 	{
 		/* Load the route for the current node */
-		for (i = 0; i < SMDRV_NODE_COUNT; i++)
+		for (i = 0; i < CONFIG_SHM_NR_NODES; i++)
 		{
 			if (SHM_Mgmt_Blk->shm_routes[i].node_id == SHM_INVALID_NODE)
 			{

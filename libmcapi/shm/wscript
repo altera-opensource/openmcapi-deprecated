@@ -54,7 +54,7 @@ def configure(conf):
 	if conf.env.SHM_SYSV:
 		conf.env.NO_KMODS = True
 
-	conf.define('SMDRV_NODE_COUNT', conf.options.shm_nodes)
+	conf.define('CONFIG_SHM_NR_NODES', conf.options.shm_nodes)
 
 def build(bld):
 	includes = [
