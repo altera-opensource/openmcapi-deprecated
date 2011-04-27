@@ -58,6 +58,13 @@ def configure(conf):
 
 	conf.recurse(subdirs)
 
+	# Create config.h and make sure every file uses it, without needing an
+	# explicit #include
+	config_h = 'config.h'
+	cppflags = [ '-I', conf.path.get_bld().abspath(), '-include', config_h, ]
+	conf.env.prepend_value('CPPFLAGS', cppflags)
+	conf.write_config_header(config_h)
+
 def test(tst):
 	global bld_subdirs
 	bld_subdirs += ['test']
