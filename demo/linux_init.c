@@ -5,14 +5,14 @@
 
 #include <mcapi.h>
 
-extern void startup(int node);
-extern void demo(int node, int listen);
+extern void startup(unsigned int local, unsigned int remote);
+extern void demo(unsigned int local, int listen);
 
 static struct sigaction oldactions[32];
 
 static void usage(const char *name)
 {
-	printf("Usage: %s [options] <node id>\n"
+	printf("Usage: %s [options] <local node id> <remote node id>\n"
 			"Options:\n"
 			"  -l, --loop      send and receive messages until killed.\n",
 			name);
@@ -48,7 +48,8 @@ struct sigaction action = {
 
 int main(int argc, char *argv[])
 {
-	unsigned long node;
+	unsigned long local;
+	unsigned long remote;
 	int c;
 	int loop = 0;
 
@@ -74,12 +75,11 @@ int main(int argc, char *argv[])
 		}
 	}
 
-	if (optind + 1 == argc)
-		node = strtoul(argv[optind], NULL, 0);
-	else
+	if (optind == argc - 2) {
+		local = strtoul(argv[optind], NULL, 0);
+		remote = strtoul(argv[optind + 1], NULL, 0);
+	} else
 		usage(argv[0]);
-
-	printf("node %ld\n", node);
 
 	atexit(cleanup);
 	sigaction(SIGQUIT, &action, &oldactions[SIGQUIT]);
@@ -87,9 +87,9 @@ int main(int argc, char *argv[])
 	sigaction(SIGTERM, &action, &oldactions[SIGTERM]);
 	sigaction(SIGINT,  &action, &oldactions[SIGINT]);
 
-	startup(node);
+	startup(local, remote);
 
-	demo(node, loop);
+	demo(local, loop);
 
 	return 0;
 }

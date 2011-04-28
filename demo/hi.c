@@ -15,14 +15,9 @@
 
 #define mcapi_assert_success(s) \
 	if (s != MCAPI_SUCCESS) { printf("%s:%d status %d\n", __FILE__, __LINE__, s); abort(); }
-	
-static const struct {
-	int tx;
-	int rx;
-} ports[2] = {
-	{ 1000, 1001 },
-	{ 2000, 2001 },
-};
+
+const int tx_port = 1000;
+const int rx_port = 1001;
 
 mcapi_pktchan_recv_hndl_t	send_handle;
 mcapi_pktchan_recv_hndl_t	recv_handle;
@@ -38,20 +33,19 @@ static void connect(int local, int remote)
 	mcapi_status_t   status;
 	size_t           size;
 	
-	printf("Node %d: Creating tx port %d\n", local, ports[local].tx);
-	local_send_endpoint = mcapi_create_endpoint(ports[local].tx, &status);
+	printf("Node %d: Creating tx port %d\n", local, tx_port);
+	local_send_endpoint = mcapi_create_endpoint(tx_port, &status);
 	mcapi_assert_success(status);
 
-	printf("Node %d: Creating rx port %d\n", local, ports[local].rx);
-	local_recv_endpoint = mcapi_create_endpoint(ports[local].rx, &status);
+	printf("Node %d: Creating rx port %d\n", local, rx_port);
+	local_recv_endpoint = mcapi_create_endpoint(rx_port, &status);
 	mcapi_assert_success(status);
 
-	remote_recv_endpoint = mcapi_get_endpoint(remote, ports[remote].rx,
-	                                          &status);
+	remote_recv_endpoint = mcapi_get_endpoint(remote, rx_port, &status);
 	mcapi_assert_success(status);
 
-	printf("Node %d: Connecting %d:%d to %d:%d\n",local, local, ports[local].tx,
-	 	       remote, ports[remote].rx);
+	printf("Node %d: Connecting %d:%d to %d:%d\n",local, local, tx_port,
+	       remote, rx_port);
 	mcapi_connect_pktchan_i(local_send_endpoint, remote_recv_endpoint,
 	                        &request, &status);
 	mcapi_assert_success(status);
@@ -78,14 +72,10 @@ static void connect(int local, int remote)
 	printf("Node %d: MCAPI negotiation complete! \n", local);
 }
 
-void startup(unsigned int local)
+void startup(unsigned int local, unsigned int remote)
 {
 	mcapi_status_t status;
 	mcapi_version_t version;
-	unsigned int remote;
-
-	remote = !local;
-	local = !remote; /* ensure it's either 0 or 1 */
 
 	printf("Node %d: MCAPI Initialized\n",local);
 	mcapi_initialize(local, &version, &status);
@@ -94,7 +84,7 @@ void startup(unsigned int local)
 	connect(local, remote);
 }
 
-void demo(int node, int loop)
+void demo(unsigned int node, int loop)
 {
 	char outgoing[16];
 	char *incoming;
