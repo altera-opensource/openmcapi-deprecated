@@ -742,6 +742,9 @@ mcapi_status_t openmcapi_shm_init(mcapi_node_t node_id,
 {
 	mcapi_status_t status = MCAPI_SUCCESS;
 
+	if (node_id >= CONFIG_SHM_NR_NODES)
+		return MCAPI_ENODE_NOTVALID;
+
 	/* Store the name of this interface. */
 	memcpy(int_ptr->mcapi_int_name, OPENMCAPI_SHM_NAME, MCAPI_INT_NAME_LEN);
 
