@@ -434,6 +434,9 @@ void mcapi_init_request(mcapi_request_t *, mcapi_uint8_t);
 mcapi_request_t *mcapi_get_free_request_struct(void);
 void mcapi_release_request_struct(mcapi_request_t *);
 
+mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
+                             mcapi_status_t *mcapi_status);
+
 /* mcapi_os.c */
 mcapi_status_t MCAPI_Resume_Task(mcapi_request_t *);
 mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *, mcapi_request_t *,

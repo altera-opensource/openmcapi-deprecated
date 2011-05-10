@@ -31,40 +31,8 @@
 
 #include <openmcapi.h>
 
-/*************************************************************************
-*
-*   FUNCTION
-*
-*       mcapi_test
-*
-*   DESCRIPTION
-*
-*       Non-blocking API routine to check if a specified non-blocking
-*       routine has completed.  If the specified operation is a send
-*       or receive operation, the number of bytes sent/received will
-*       be returned.
-*
-*   INPUTS
-*
-*       *request                A pointer to the request structure filled
-*                               in by the specific operation being tested
-*                               for completion.
-*       *size                   A pointer to memory that will be filled in
-*                               with the number of bytes sent/received if
-*                               the operation in question is a send or
-*                               receive operation.
-*       *mcapi_status           A pointer to memory that will be filled in
-*                               with the status of the call.
-*
-*   OUTPUTS
-*
-*       MCAPI_TRUE              The operation has completed.
-*       MCAPI_FALSE             The operation has not completed or an
-*                               error has occurred.
-*
-*************************************************************************/
-mcapi_boolean_t mcapi_test(mcapi_request_t *request, size_t *size,
-                           mcapi_status_t *mcapi_status)
+mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
+                             mcapi_status_t *mcapi_status)
 {
     MCAPI_GLOBAL_DATA   *node_data;
     mcapi_boolean_t     ret_val = MCAPI_FALSE;
@@ -84,9 +52,6 @@ mcapi_boolean_t mcapi_test(mcapi_request_t *request, size_t *size,
                 /* Validate size. */
                 if (size)
                 {
-                    /* Get the lock. */
-                    mcapi_lock_node_data();
-
                     /* Get a pointer to the global node list. */
                     node_data = mcapi_get_node_data();
 
@@ -316,9 +281,6 @@ mcapi_boolean_t mcapi_test(mcapi_request_t *request, size_t *size,
                                 break;
                         }
                     }
-
-                    /* Release the lock. */
-                    mcapi_unlock_node_data();
                 }
 
                 /* The size parameter is invalid. */
@@ -344,4 +306,48 @@ mcapi_boolean_t mcapi_test(mcapi_request_t *request, size_t *size,
 
     return (ret_val);
 
+}
+
+/*************************************************************************
+*
+*   FUNCTION
+*
+*       mcapi_test
+*
+*   DESCRIPTION
+*
+*       Non-blocking API routine to check if a specified non-blocking
+*       routine has completed.  If the specified operation is a send
+*       or receive operation, the number of bytes sent/received will
+*       be returned.
+*
+*   INPUTS
+*
+*       *request                A pointer to the request structure filled
+*                               in by the specific operation being tested
+*                               for completion.
+*       *size                   A pointer to memory that will be filled in
+*                               with the number of bytes sent/received if
+*                               the operation in question is a send or
+*                               receive operation.
+*       *mcapi_status           A pointer to memory that will be filled in
+*                               with the status of the call.
+*
+*   OUTPUTS
+*
+*       MCAPI_TRUE              The operation has completed.
+*       MCAPI_FALSE             The operation has not completed or an
+*                               error has occurred.
+*
+*************************************************************************/
+mcapi_boolean_t mcapi_test(mcapi_request_t *request, size_t *size,
+                           mcapi_status_t *mcapi_status)
+{
+    mcapi_boolean_t rc;
+
+    mcapi_lock_node_data();
+    rc = __mcapi_test(request, size, mcapi_status);
+    mcapi_unlock_node_data();
+
+    return rc;
 }

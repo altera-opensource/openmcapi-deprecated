@@ -32,6 +32,8 @@
 #include <openmcapi.h>
 
 void mcapi_copy_request(mcapi_request_t *dest_req, mcapi_request_t *src_req);
+mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
+                           mcapi_status_t *mcapi_status);
 
 /*************************************************************************
 *
@@ -80,15 +82,15 @@ mcapi_boolean_t mcapi_wait(mcapi_request_t *request, size_t *size,
     /* Ensure the status value is valid. */
     if (mcapi_status)
     {
+        /* Get the lock. */
+        mcapi_lock_node_data();
+
         /* Check to see if the request has completed. */
         ret_val = mcapi_test(request, size, mcapi_status);
 
         /* If the request has not been completed. */
         if ( (*mcapi_status == MCAPI_INCOMPLETE) && (ret_val == MCAPI_FALSE) )
         {
-            /* Get the lock. */
-            mcapi_lock_node_data();
-
             /* Get a pointer to the global node list. */
             node_data = mcapi_get_node_data();
 
@@ -140,10 +142,10 @@ mcapi_boolean_t mcapi_wait(mcapi_request_t *request, size_t *size,
                     *size = req_copy.mcapi_byte_count;
                 }
             }
-
-            /* Release the lock. */
-            mcapi_unlock_node_data();
         }
+
+        /* Release the lock. */
+        mcapi_unlock_node_data();
     }
 
     return (ret_val);
