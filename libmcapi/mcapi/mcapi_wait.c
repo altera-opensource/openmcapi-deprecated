@@ -86,7 +86,7 @@ mcapi_boolean_t mcapi_wait(mcapi_request_t *request, size_t *size,
         mcapi_lock_node_data();
 
         /* Check to see if the request has completed. */
-        ret_val = mcapi_test(request, size, mcapi_status);
+        ret_val = __mcapi_test(request, size, mcapi_status);
 
         /* If the request has not been completed. */
         if ( (*mcapi_status == MCAPI_INCOMPLETE) && (ret_val == MCAPI_FALSE) )
