@@ -38,10 +38,6 @@
 
 #define MCAPI_VERSION           0   /* Initial Beta version. */
 
-/* Disable this macro to disable the loopback interface within the MCAPI
- * generic code. */
-#define MCAPI_ENABLE_LOOPBACK       MCAPI_FALSE
-
 /* Disable this macro to disable forwarding capabilities for this node. */
 #define MCAPI_ENABLE_FORWARDING     MCAPI_FALSE
 
@@ -75,12 +71,10 @@
 /* The default priority of all new endpoints in the system. */
 #define MCAPI_DEFAULT_PRIO          1
 
-/* The total number of routes on this node, including a route for the
- * loopback interface. */
+/* The total number of routes on this node. */
 #define MCAPI_ROUTE_COUNT           2
 
-/* The total number of interfaces on this node, including the
- * loopback interface if loopback is enabled. */
+/* The total number of interfaces on this node. */
 #define MCAPI_INTERFACE_COUNT       1
 
 /* The number of available request structures that can service a pending
@@ -89,8 +83,5 @@
 
 /* The max length of an interface name. */
 #define MCAPI_INT_NAME_LEN          8
-
-/* The name of the loopback interface. */
-#define MCAPI_LOOPBACK_NAME         "loop"
 
 #endif  /* #ifndef MCAPI_CFG_H */

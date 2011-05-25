@@ -31,7 +31,6 @@
 
 #include <openmcapi.h>
 
-extern MCAPI_BUF_QUEUE  MCAPI_Buf_Queue;
 extern MCAPI_INTERFACE  MCAPI_Interface_List[];
 extern mcapi_endpoint_t MCAPI_CTRL_TX_Endp;
 

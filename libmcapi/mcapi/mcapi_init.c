@@ -41,11 +41,6 @@ MCAPI_MUTEX             MCAPI_RX_Lock;
 mcapi_endpoint_t        MCAPI_CTRL_RX_Endp;
 mcapi_uint16_t          MCAPI_Next_Port;
 
-#if (MCAPI_ENABLE_LOOPBACK == 1)
-MCAPI_BUFFER            MCAPI_Buf_Structs[MCAPI_BUF_COUNT];
-MCAPI_BUF_QUEUE         MCAPI_Buf_Queue;
-#endif
-
 extern MCAPI_RT_INIT_STRUCT MCAPI_Route_List[];
 
 /*************************************************************************
@@ -102,26 +97,6 @@ void mcapi_initialize(mcapi_node_t node_id, mcapi_version_t *mcapi_version,
                 /* Initialize the wait list. */
                 MCAPI_Buf_Wait_List.head = MCAPI_NULL;
                 MCAPI_Buf_Wait_List.tail = MCAPI_NULL;
-
-#if (MCAPI_ENABLE_LOOPBACK == 1)
-
-                /* Initialize the head and tail of the buffer queue. */
-                MCAPI_Buf_Queue.head = MCAPI_NULL;
-                MCAPI_Buf_Queue.tail = MCAPI_NULL;
-
-                /* Set each transmission buffer in the system to
-                 * "available".
-                 */
-                for (i = 0; i < MCAPI_BUF_COUNT; i++)
-                {
-                    MCAPI_Buf_Structs[i].next_buf = 0;
-                    MCAPI_Buf_Structs[i].prev_buf = 0;
-
-                    /* Put the structure on the queue. */
-                    mcapi_enqueue(&MCAPI_Buf_Queue,
-                                  &MCAPI_Buf_Structs[i]);
-                }
-#endif
 
                 /* Set each global request structure in the system to
                  * available.
@@ -242,18 +217,6 @@ void mcapi_initialize(mcapi_node_t node_id, mcapi_version_t *mcapi_version,
                                      MCAPI_Route_List[j].mcapi_int_name[0] != '0';
                                      j++)
                                 {
-                                    /* If this is the loopback interface. */
-                                    if (strcmp(MCAPI_Route_List[j].mcapi_int_name,
-                                               MCAPI_LOOPBACK_NAME) == 0)
-                                    {
-#if (MCAPI_ENABLE_LOOPBACK == 1)
-                                        /* Set the destination to the local node's ID. */
-                                        MCAPI_Route_List[j].mcapi_rt_dest_id = node_id;
-#else
-                                        continue;
-#endif
-                                    }
-
                                     /* Set the destination of the route. */
                                     node_data->mcapi_node_list[i].mcapi_route_list[k].
                                         mcapi_rt_dest_node_id =

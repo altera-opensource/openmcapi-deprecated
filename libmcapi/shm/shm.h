@@ -38,7 +38,7 @@
 
 /* Define the number of shared memory buffers that will be present
  * in the system */
-#define SHM_BUFF_COUNT       MCAPI_BUF_COUNT
+#define SHM_BUFF_COUNT           128
 
 /* Define the depth of the SM packet descriptor ring queue. */
 #define SHM_BUFF_DESC_Q_SHIFT    4

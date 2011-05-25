@@ -23,7 +23,6 @@ def build(bld):
 
 	sources = [
 		'mcapi_cfg.c',
-		'mcapi/buf_mgmt.c',
 		'mcapi/cntrl_msg.c',
 		'mcapi/connect.c',
 		'mcapi/create_endpoint.c',
@@ -34,7 +33,6 @@ def build(bld):
 		'mcapi/get_endp.c',
 		'mcapi/handle.c',
 		'mcapi/interface.c',
-		'mcapi/loopback.c',
 		'mcapi/mcapi_cancel.c',
 		'mcapi/mcapi_connect_pktchan_i.c',
 		'mcapi/mcapi_connect_sclchan_i.c',
