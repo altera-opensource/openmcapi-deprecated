@@ -341,7 +341,8 @@ static int mcomm_fd_release(struct inode *inode, struct file *fp)
 	/* XXX what happens to a thread blocked in ioctl? */
 
 	if (atomic_dec_and_test(&devdata->refcount)) {
-		free_irq(devdata->irq, devdata);
+		if (devdata->irq != NO_IRQ)
+			free_irq(devdata->irq, devdata);
 		iounmap(devdata->mbox_mapped);
 	}
 
