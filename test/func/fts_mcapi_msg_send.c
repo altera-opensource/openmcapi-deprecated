@@ -237,7 +237,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_10_3)
     status_assert(mcapi_struct->status);
 
     /* If the endpoint was created. */
-    for (i = 0; i < MCAPI_BUF_COUNT; i ++)
+    for (i = 0; i < TEST_BUF_COUNT; i ++)
     {
         /* Issue a NO OP to cause the other side to send an ACK. */
         mcapi_struct->status =

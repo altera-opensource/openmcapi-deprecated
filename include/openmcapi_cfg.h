@@ -53,10 +53,6 @@
  * is created with no specific port. */
 #define MCAPI_ENDP_PORT_INIT        10000
 
-/* The total number of buffers in the system that can be used to send
- * and receive data on the node. */
-#define MCAPI_BUF_COUNT             128
-
 /* The port used to receive control messages from other nodes in the
  * sytem. */
 #define MCAPI_RX_CONTROL_PORT       900

@@ -241,7 +241,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_9_3)
         /* If the endpoint was created. */
         if (mcapi_struct->status == MCAPI_SUCCESS)
         {
-            for (i = 0; i < MCAPI_BUF_COUNT; i ++)
+            for (i = 0; i < TEST_BUF_COUNT; i ++)
             {
                 /* Issue a NO OP to cause the other side to send an ACK. */
                 mcapi_struct->status =

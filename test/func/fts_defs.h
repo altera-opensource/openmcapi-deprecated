@@ -44,6 +44,9 @@
 #include <openmcapi.h>
 #include "mgmt_svc.h"
 
+/* XXX MUST match the number of buffers used in the transport. */
+#define TEST_BUF_COUNT             128
+
 /****** Begin User Configurable Section.  ******/
 /****** These values must match on all nodes ******/
 

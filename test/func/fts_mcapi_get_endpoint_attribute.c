@@ -115,7 +115,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_7_2)
 
     /* Ensure the proper value was returned. */
     if ( (mcapi_struct->status != MCAPI_SUCCESS) ||
-         (buf_count != MCAPI_BUF_COUNT) )
+         (buf_count != TEST_BUF_COUNT) )
     {
         mcapi_struct->status = -1;
     }

@@ -66,7 +66,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_22_1)
     mcapi_status_t              status;
     mcapi_endpoint_t            tx_endp, rx_endp;
     mcapi_request_t             request;
-    char                        *buffer[MCAPI_BUF_COUNT];
+    char                        *buffer[TEST_BUF_COUNT];
     int                         i, count;
 
     /* Don't let any other test run while this test is running. */
@@ -133,7 +133,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_22_1)
                                     /* Exhaust all local buffers except one - we need to
                                      * receive the incoming response for the final request.
                                      */
-                                    for (i = 0; i < (MCAPI_BUF_COUNT - 1); i ++)
+                                    for (i = 0; i < (TEST_BUF_COUNT - 1); i ++)
                                     {
                                         /* Tell the other side to send some data. */
                                         mcapi_struct->status =
@@ -263,7 +263,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_22_2)
     mcapi_status_t              status;
     mcapi_endpoint_t            tx_endp, rx_endp;
     mcapi_request_t             request;
-    char                        *buffer[MCAPI_BUF_COUNT];
+    char                        *buffer[TEST_BUF_COUNT];
     int                         i, count;
 
     /* Don't let any other test run while this test is running. */
@@ -330,7 +330,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_22_2)
                                     /* Exhaust all local buffers except one - we need to
                                      * receive the incoming response for the final request.
                                      */
-                                    for (i = 0; i < (MCAPI_BUF_COUNT - 1); i ++)
+                                    for (i = 0; i < (TEST_BUF_COUNT - 1); i ++)
                                     {
                                         /* Tell the other side to send some data. */
                                         mcapi_struct->status =
@@ -525,7 +525,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_22_3)
                                     /* Exhaust all local buffers except one - we need to
                                      * receive the incoming response for the final request.
                                      */
-                                    for (i = 0; i < (MCAPI_BUF_COUNT - 1); i ++)
+                                    for (i = 0; i < (TEST_BUF_COUNT - 1); i ++)
                                     {
                                         /* Tell the other side to send some data. */
                                         mcapi_struct->status =
