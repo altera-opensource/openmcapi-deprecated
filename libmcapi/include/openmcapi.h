@@ -33,7 +33,6 @@
 #define MCAPI_DEFS_H
 
 #include <mcapi.h>
-#include <mcapi_os.h>
 #include <openmcapi_cfg.h>
 
 #ifdef          __cplusplus

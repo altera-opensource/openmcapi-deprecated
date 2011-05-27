@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2010, Mentor Graphics Corporation
+ * Copyright (c) 2011, Mentor Graphics Corporation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -31,46 +31,23 @@
 #ifndef MCAPI_OS_LINUX_H
 #define MCAPI_OS_LINUX_H
 
-#include <stddef.h>  /* for size_t */
 #include <stdint.h>
-#include <string.h>
 #include <pthread.h>
+
+/* XXX include these directly from files that actually need them */
+#include <string.h>
 #include <unistd.h>
 
 /********************* Porting Section **************************/
-
-typedef int                 mcapi_node_t;
-typedef int                 mcapi_port_t;
-typedef uint32_t            mcapi_endpoint_t;
-typedef uint32_t            mcapi_pktchan_recv_hndl_t;
-typedef uint32_t            mcapi_pktchan_send_hndl_t;
-typedef uint32_t            mcapi_sclchan_recv_hndl_t;
-typedef uint32_t            mcapi_sclchan_send_hndl_t;
-typedef uint64_t            mcapi_uint64_t;
-typedef uint32_t            mcapi_uint32_t;
-typedef uint16_t            mcapi_uint16_t;
-typedef uint8_t             mcapi_uint8_t;
-typedef int32_t             mcapi_int_t;
-typedef uint32_t            mcapi_uint_t;
-typedef int                 mcapi_status_t;
-typedef int                 mcapi_timeout_t;
-typedef uint8_t             mcapi_boolean_t;
-typedef int                 mcapi_version_t;
-typedef int                 mcapi_priority_t;
-typedef uint32_t            mcapi_unsigned_t;
-typedef pthread_cond_t      mcapi_cond_t;
 
 /* This type must match across all reachable nodes in the system.
  * This type is used within the MCAPI_BUFFER data structure to represent
  * data pointers in that structure.  Since the MCAPI_BUFFER structure
  * is shared across reachable nodes, this type must be consistent.
  */
-typedef mcapi_uint32_t      MCAPI_POINTER;
+typedef uint32_t      MCAPI_POINTER;
 
-#define MCAPI_TRUE                  1
-#define MCAPI_FALSE                 0
-#define MCAPI_NULL                  NULL
-
+typedef pthread_cond_t      mcapi_cond_t;
 typedef pthread_mutex_t     MCAPI_MUTEX;
 typedef pthread_t           MCAPI_THREAD;
 

@@ -2,6 +2,8 @@
  * Copyright (c) 2010, Mentor Graphics Corporation
  * All rights reserved.
  *
+ * Copyright (c) 2011, The Multicore Association All rights reserved.
+ *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
  *
@@ -27,17 +29,104 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef MCAPI_H
+#define MCAPI_H
 
+#include <stddef.h>					/* Required for size_t */
+#include "mca.h"
 
-#ifndef MCAPI_EXTR_H
-#define MCAPI_EXTR_H
+#ifdef __cplusplus
+extern "C" {
+#endif /* __cplusplus */
 
-#include <mcapi_os.h>
-#include <openmcapi_cfg.h>
+/*
+ * MCAPI type definitions
+ * (Additional typedefs under the attribute and initialization sections below)
+ */
+typedef mca_int_t			mcapi_int_t;
+typedef mca_int8_t			mcapi_int8_t;
+typedef mca_int16_t			mcapi_int16_t;
+typedef mca_int32_t			mcapi_int32_t;
+typedef mca_int64_t			mcapi_int64_t;
+typedef mca_uint_t			mcapi_uint_t;
+typedef mca_uint8_t			mcapi_uint8_t;
+typedef mca_uint16_t		mcapi_uint16_t;
+typedef mca_uint32_t		mcapi_uint32_t;
+typedef mca_uint64_t		mcapi_uint64_t;
+typedef mca_boolean_t		mcapi_boolean_t;
+typedef mca_domain_t		mcapi_domain_t;
+typedef mca_node_t			mcapi_node_t;
+typedef unsigned int    	mcapi_port_t;				//Changed from int to unsigned int
+typedef mca_status_t		mcapi_status_t;
+typedef mca_timeout_t		mcapi_timeout_t;
+typedef unsigned int		mcapi_priority_t;
 
-#ifdef          __cplusplus
-extern  "C" {                               /* C declarations in C++     */
-#endif /* _cplusplus */
+/*
+ * The mcapi_impl_spec.h header file is vendor/implementation specific,
+ * and should contain declarations and definitions specific to a particular
+ * implementation.
+ *
+ * This file must be provided by each implementation.
+ *
+ * It MUST contain type definitions for the following types, which must be either
+ * pointers or 32 bit scalars, allowing simple arithmetic equality comparison (a == b).
+ * Implementers may which of these type are used.
+ *
+ * mcapi_endpoint_t;			Note: The endpoint identifier must be topology unique.
+ * mcapi_pktchan_recv_hndl_t;
+ * mcapi_pktchan_send_hndl_t;
+ * mcapi_sclchan_send_hndl_t;
+ * mcapi_sclchan_recv_hndl_t;
+ *
+ *
+ * It MUST contain the following definition:
+ * mcapi_param_t;
+ *
+ * It MUST contain the following definitions:
+ *
+ * Number of MCAPI reserved ports, starting at port 0. Reserved ports can be used for implementation specific purposes.
+ *
+ * MCAPI_NUM_RESERVED_PORTS				1	Number of reserved ports starting at port 0
+ *
+ *
+ * Implementation defined MCAPI MIN and MAX values.
+ *
+ * Implementations may parameterize implementation specific max values,
+ * smaller that the MCAPI max values. Implementations must specify what
+ * those smaller values are and how they are set.
+ *
+ * MCAPI_MAX_DOMAIN				Maximum value for domain
+ * MCAPI_MAX_NODE				Maximum value for node
+ * MCAPI_MAX_PORT				Maximum value for port
+ * MCAPI_MAX_MESSAGE_SIZE		Maximum message size
+ * MCAPI_MAX_PACKET_SIZE		Maximum packet size
+ *
+ * Implementations may parameterize implementation specific priority min value
+ * and set the number of reserved ports. Implementations must specify what
+ * those values are and how they are set.
+ *
+ * MCAPI_MIN_PORT				Minimum value for port
+ * MCAPI_MIN_PRORITY			Minimum priority value
+ *
+ */
+#include "mcapi_impl_spec.h"
+
+typedef int mcapi_version_t; /* XXX remove me */
+
+/* The following constants are not implementation defined */
+#define MCAPI_VERSION					2014		/* Version 2.014 (major #
+													+ minor # (3-digit)) */
+#define MCAPI_TRUE						MCA_TRUE
+#define MCAPI_FALSE						MCA_FALSE
+#define MCAPI_NULL						MCA_NULL	/* MCAPI Zero value */
+#define MCAPI_PORT_ANY					(~0)		/* Create endpoint using the next available port */
+#define	MCAPI_TIMEOUT_INFINITE			(~0)		/* Wait forever, no timeout */
+#define	MCAPI_TIMEOUT_IMMEDIATE			  0			/* Return immediately, with success or failure */
+#define MCAPI_NODE_INVALID 				(~0)		/* Return value for	invalid node */
+#define MCAPI_DOMAIN_INVALID			(~0)		/* Return value for	invalid domain */
+#define MCAPI_RETURN_VALUE_INVALID		(~0)		/* Invalid return value */
+#define MCAPI_MAX_PRORITY				  0			/* Maximum priority value */
+#define MCAPI_MAX_STATUS_MSG_LEN		32			/* Maximum status code message length */
 
 #define MCAPI_MSG_TYPE          0
 #define MCAPI_CHAN_PKT_TYPE     1
@@ -84,67 +173,12 @@ extern  "C" {                               /* C declarations in C++     */
 #define MCAPI_EREQ_ERROR        -237
 #define MCAPI_OS_ERROR          -238
 
-/* Macro for specifying that the next available port should be used when
- * creating a new endpoint.
- */
-#define MCAPI_PORT_ANY          0xffffffff
-
 /* Macro for specifying that an infinite timeout should be used in the
  * blocking operation.
  */
 #define MCAPI_INFINITE          0xffffffff
 
 extern mcapi_node_t MCAPI_Node_ID;
-
-/*
- * NOTE: Application code should consider this type opaque, and must not
- * directly access these members.
- */
-typedef struct
-{
-    mcapi_cond_t    mcapi_cond;
-    mcapi_cond_t    *mcapi_cond_ptr;
-} MCAPI_COND_STRUCT;
-
-/* Data structure that is used in non-blocking operations.  The fields are
- * populated for later use to check the status of the original non-blocking
- * call.
- *
- * NOTE: Application code should consider this type opaque, and must not
- * directly access these members.
- */
-struct _mcapi_request
-{
-    struct _mcapi_request   *mcapi_next;
-    struct _mcapi_request   *mcapi_prev;
-    mcapi_status_t          mcapi_status;
-    mcapi_uint8_t           mcapi_type;
-    mcapi_uint8_t           mcapi_chan_type;
-    mcapi_node_t            mcapi_requesting_node_id; /* The node ID of the node
-                                                       * making the call. */
-    mcapi_port_t            mcapi_requesting_port_id;
-    mcapi_endpoint_t        mcapi_target_endp;
-    mcapi_endpoint_t        *mcapi_endp_ptr;        /* The application's
-                                                     * pointer to an endpoint
-                                                     * structure. */
-
-    mcapi_node_t            mcapi_target_node_id;   /* The target node ID. */
-
-    mcapi_port_t            mcapi_target_port_id;   /* The target endpoint
-                                                     * port. */
-    size_t                  mcapi_byte_count;
-    void                    *mcapi_buffer;          /* Application buffer to
-                                                     * fill in. */
-
-    size_t                  mcapi_buf_size;         /* Application buffer
-                                                     * size. */
-
-    void                    **mcapi_pkt;            /* Application packet
-                                                     * pointer to fill in. */
-    mcapi_uint32_t          mcapi_pending_count;
-    MCAPI_COND_STRUCT       mcapi_cond;
-};
-typedef struct  _mcapi_request      mcapi_request_t;
 
 void mcapi_cancel(mcapi_request_t *, mcapi_status_t *);
 void mcapi_connect_pktchan_i(mcapi_endpoint_t, mcapi_endpoint_t, mcapi_request_t *,
@@ -222,4 +256,4 @@ mcapi_int_t mcapi_wait_any(size_t, mcapi_request_t **, size_t *,
 }
 #endif /* _cplusplus */
 
-#endif /* MCAPI_EXTR_H */
+#endif /* MCAPI_H */

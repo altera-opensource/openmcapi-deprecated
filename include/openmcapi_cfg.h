@@ -34,10 +34,6 @@
 #ifndef OPENMCAPI_CFG_H
 #define OPENMCAPI_CFG_H
 
-#include <mcapi_os.h>
-
-#define MCAPI_VERSION           0   /* Initial Beta version. */
-
 /* Disable this macro to disable forwarding capabilities for this node. */
 #define MCAPI_ENABLE_FORWARDING     MCAPI_FALSE
 
