@@ -85,27 +85,27 @@ void mcapi_data_available(MCAPI_ENDPOINT *rx_endp_ptr, mcapi_uint32_t type,
                 /* This is a scalar channel. */
                 else
                 {
-                    *mcapi_status = MCAPI_ECHAN_TYPE;
+                    *mcapi_status = MCAPI_ERR_CHAN_TYPE;
                 }
             }
 
             /* The connection has not been made yet. */
             else
             {
-                *mcapi_status = MCAPI_ENOT_CONNECTED;
+                *mcapi_status = MGC_MCAPI_ERR_NOT_CONNECTED;
             }
         }
 
         /* Data cannot be received on a send handle. */
         else if (rx_endp_ptr->mcapi_state & MCAPI_ENDP_TX)
         {
-            *mcapi_status = MCAPI_EDIR;
+            *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
         }
 
         /* The receive handle has been closed. */
         else
         {
-            *mcapi_status = MCAPI_ENOT_HANDLE;
+            *mcapi_status = MCAPI_ERR_CHAN_INVALID;
         }
     }
 

@@ -109,7 +109,7 @@ void mcapi_delete_endpoint(mcapi_endpoint_t endpoint,
                      * error in the request structure.
                      */
                     mcapi_check_resume(MCAPI_REQ_DELETED, endpoint, MCAPI_NULL, 0,
-                                       MCAPI_EPORT_NOTVALID);
+                                       MCAPI_ERR_PORT_INVALID);
 
                     /* Set the state of the entry to closed. */
                     endp_ptr->mcapi_state = MCAPI_ENDP_CLOSED;
@@ -135,14 +135,14 @@ void mcapi_delete_endpoint(mcapi_endpoint_t endpoint,
 
                 else
                 {
-                    *mcapi_status = MCAPI_ENOT_ENDP;
+                    *mcapi_status = MCAPI_ERR_ENDP_INVALID;
                 }
             }
 
             /* Channel must be closed before deleting an endpoint. */
             else
             {
-                *mcapi_status = MCAPI_ECHAN_OPEN;
+                *mcapi_status = MCAPI_ERR_CHAN_OPEN;
             }
         }
 

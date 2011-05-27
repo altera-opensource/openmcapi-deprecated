@@ -97,13 +97,13 @@ mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
                     mcapi_test(requests[i], size, mcapi_status);
 
                     /* If the request structure is not valid. */
-                    if (*mcapi_status == MCAPI_ENOTREQ_HANDLE)
+                    if (*mcapi_status == MCAPI_ERR_REQUEST_INVALID)
                     {
                         break;
                     }
 
                     /* If the request has completed or been canceled. */
-                    else if (*mcapi_status != MCAPI_INCOMPLETE)
+                    else if (*mcapi_status != MCAPI_PENDING)
                     {
                         req_idx = i;
                         break;
@@ -113,19 +113,19 @@ mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
                 /* The request is either invalid or null. */
                 else
                 {
-                    *mcapi_status = MCAPI_ENOTREQ_HANDLE;
+                    *mcapi_status = MCAPI_ERR_REQUEST_INVALID;
                     break;
                 }
             }
 
             /* If none of the requests has completed. */
-            if ( (*mcapi_status != MCAPI_ENOTREQ_HANDLE) &&
+            if ( (*mcapi_status != MCAPI_ERR_REQUEST_INVALID) &&
                  (i == number) )
             {
                 /* Initialize the status to indicate that the operation
                  * timed out.
                  */
-                *mcapi_status = MCAPI_EREQ_TIMEOUT;
+                *mcapi_status = MCAPI_TIMEOUT;
 
                 /* Get the lock. */
                 mcapi_lock_node_data();
@@ -167,7 +167,7 @@ mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
                     /* There are no request structures available. */
                     else
                     {
-                        *mcapi_status = MCAPI_ENO_REQUEST;
+                        *mcapi_status = MCAPI_ERR_REQUEST_LIMIT;
 
                         /* Remove any requests that were put on the queue.  If all
                          * requests cannot be serviced, then no requests get
@@ -190,7 +190,7 @@ mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
                 }
 
                 /* If all requests can be serviced with this call. */
-                if (*mcapi_status != MCAPI_ENO_REQUEST)
+                if (*mcapi_status != MCAPI_ERR_REQUEST_LIMIT)
                 {
                     /* Suspend this task, passing in MCAPI_NULL as the
                      * request structure since all request structures have
@@ -212,7 +212,7 @@ mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
                         /* If the wait operation timed out before the operation being
                          * tested could finish.
                          */
-                        if (req_list[i]->mcapi_status == MCAPI_EREQ_PENDING)
+                        if (req_list[i]->mcapi_status == MCAPI_PENDING)
                         {
                             /* Remove the request from the list. */
                             mcapi_remove(&node_data->mcapi_local_req_queue, req_list[i]);
@@ -225,7 +225,7 @@ mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
                          * and the status is not "pending".
                          */
                         if ( (req_idx == -1) &&
-                             (req_list[i]->mcapi_status != MCAPI_EREQ_PENDING) )
+                             (req_list[i]->mcapi_status != MCAPI_PENDING) )
                         {
                             /* Return the status of the request. */
                             *mcapi_status = req_list[i]->mcapi_status;
@@ -269,7 +269,7 @@ mcapi_int_t mcapi_wait_any(size_t number, mcapi_request_t **requests,
         /* The request pointer or size value is not valid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

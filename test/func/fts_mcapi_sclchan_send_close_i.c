@@ -68,7 +68,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_32_1)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Close the send side. */
         mcapi_sclchan_send_close_i(mcapi_struct->scl_tx_handle,
@@ -128,13 +128,13 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_32_2)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Close the receive side as the send side. */
         mcapi_sclchan_send_close_i(mcapi_struct->scl_rx_handle,
                                    &request, &mcapi_struct->status);
 
-        if (mcapi_struct->status == MCAPI_EDIR)
+        if (mcapi_struct->status == MCAPI_ERR_CHAN_DIRECTION)
         {
             mcapi_struct->status = MCAPI_SUCCESS;
         }
@@ -312,7 +312,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_32_4)
                                           mcapi_struct->local_endp,
                                           &request, &mcapi_struct->status);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Connect the two endpoints. */
                     mcapi_connect_sclchan_i(mcapi_struct->local_endp, rx_endp,
@@ -412,7 +412,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_32_5)
                 mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
                                           tx_endp, &request, &mcapi_struct->status);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the receive side endpoint. */
                     rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);

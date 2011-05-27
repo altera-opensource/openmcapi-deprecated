@@ -108,14 +108,14 @@ void mcapi_set_endpoint_attribute(mcapi_endpoint_t endpoint,
 
                                 else
                                 {
-                                    *mcapi_status = MCAPI_EPARAM;
+                                    *mcapi_status = MCAPI_ERR_PARAMETER;
                                 }
                             }
 
                             /* The priority value is the wrong size. */
                             else
                             {
-                                *mcapi_status = MCAPI_EATTR_SIZE;
+                                *mcapi_status = MCAPI_ERR_ATTR_SIZE;
                             }
 
                             break;
@@ -141,7 +141,7 @@ void mcapi_set_endpoint_attribute(mcapi_endpoint_t endpoint,
                         else
                         {
                             /* Unknown attribute. */
-                            *mcapi_status = MCAPI_EATTR_NUM;
+                            *mcapi_status = MCAPI_ERR_ATTR_NUM;
                         }
 
                         break;
@@ -153,7 +153,7 @@ void mcapi_set_endpoint_attribute(mcapi_endpoint_t endpoint,
                  */
                 else
                 {
-                    *mcapi_status = MCAPI_ECONNECTED;
+                    *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
                 }
             }
 
@@ -164,7 +164,7 @@ void mcapi_set_endpoint_attribute(mcapi_endpoint_t endpoint,
         /* The pointer for attribute is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

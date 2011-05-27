@@ -111,13 +111,13 @@ void mcapi_connect(mcapi_endpoint_t send_endpoint,
                 /* If the endpoint has not been created on the node. */
                 if (!local_endp)
                 {
-                    *mcapi_status = request->mcapi_status = MCAPI_ENOT_ENDP;
+                    *mcapi_status = request->mcapi_status = MCAPI_ERR_ENDP_INVALID;
                 }
 
                 /* If the endpoint is already connected set an error. */
                 else if (local_endp->mcapi_state & MCAPI_ENDP_CONNECTING)
                 {
-                    *mcapi_status = request->mcapi_status = MCAPI_ECONNECTED;
+                    *mcapi_status = request->mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
                 }
 
                 /* If the endpoint has been opened as a conflicting channel
@@ -126,7 +126,7 @@ void mcapi_connect(mcapi_endpoint_t send_endpoint,
                 else if ( (local_endp->mcapi_chan_type != 0) &&
                           (local_endp->mcapi_chan_type != type) )
                 {
-                    *mcapi_status = request->mcapi_status = MCAPI_ECHAN_TYPE;
+                    *mcapi_status = request->mcapi_status = MCAPI_ERR_CHAN_TYPE;
                 }
             }
 
@@ -142,13 +142,13 @@ void mcapi_connect(mcapi_endpoint_t send_endpoint,
                 /* If the endpoint has not been created on the node. */
                 if (!local_endp)
                 {
-                    *mcapi_status = request->mcapi_status = MCAPI_ENOT_ENDP;
+                    *mcapi_status = request->mcapi_status = MCAPI_ERR_ENDP_INVALID;
                 }
 
                 /* If the endpoint is already connected, set an error. */
                 else if (local_endp->mcapi_state & MCAPI_ENDP_CONNECTING)
                 {
-                    *mcapi_status = request->mcapi_status = MCAPI_ECONNECTED;
+                    *mcapi_status = request->mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
                 }
 
                 /* If the endpoint has been opened as a conflicting channel
@@ -157,7 +157,7 @@ void mcapi_connect(mcapi_endpoint_t send_endpoint,
                 else if ( (local_endp->mcapi_chan_type != 0) &&
                           (local_endp->mcapi_chan_type != type) )
                 {
-                    *mcapi_status = request->mcapi_status = MCAPI_ECHAN_TYPE;
+                    *mcapi_status = request->mcapi_status = MCAPI_ERR_CHAN_TYPE;
                 }
             }
 
@@ -228,7 +228,7 @@ void mcapi_connect(mcapi_endpoint_t send_endpoint,
         /* The request structure is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 
@@ -334,7 +334,7 @@ void mcapi_open(mcapi_endpoint_t local_endpoint, mcapi_uint32_t type,
 
                                     else
                                     {
-                                        *mcapi_status = MCAPI_EDIR;
+                                        *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                                     }
                                 }
 
@@ -358,7 +358,7 @@ void mcapi_open(mcapi_endpoint_t local_endpoint, mcapi_uint32_t type,
 
                                     else
                                     {
-                                        *mcapi_status = MCAPI_EDIR;
+                                        *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                                     }
                                 }
 
@@ -386,7 +386,7 @@ void mcapi_open(mcapi_endpoint_t local_endpoint, mcapi_uint32_t type,
                             /* The endpoint is of a conflicting channel type. */
                             else
                             {
-                                *mcapi_status = MCAPI_ECHAN_TYPE;
+                                *mcapi_status = MCAPI_ERR_CHAN_TYPE;
                             }
                         }
 
@@ -415,7 +415,7 @@ void mcapi_open(mcapi_endpoint_t local_endpoint, mcapi_uint32_t type,
                             /* Return a status indicating that the endpoint
                              * is still waiting to be officially connected.
                              */
-                            *mcapi_status = MCAPI_ENOT_CONNECTED;
+                            *mcapi_status = MGC_MCAPI_ERR_NOT_CONNECTED;
                         }
                     }
 
@@ -428,12 +428,12 @@ void mcapi_open(mcapi_endpoint_t local_endpoint, mcapi_uint32_t type,
                              ((flag == MCAPI_ENDP_RX) &&
                               (endp_ptr->mcapi_state & MCAPI_ENDP_TX)) )
                         {
-                            *mcapi_status = MCAPI_EDIR;
+                            *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                         }
 
                         else
                         {
-                            *mcapi_status = MCAPI_ECONNECTED;
+                            *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
                         }
                     }
                 }
@@ -441,7 +441,7 @@ void mcapi_open(mcapi_endpoint_t local_endpoint, mcapi_uint32_t type,
                 /* The endpoint has not been connected yet. */
                 else
                 {
-                    *mcapi_status = MCAPI_ECONNECTED;
+                    *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
                 }
             }
 
@@ -452,7 +452,7 @@ void mcapi_open(mcapi_endpoint_t local_endpoint, mcapi_uint32_t type,
         /* Request is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 
@@ -518,12 +518,12 @@ void mcapi_close(MCAPI_ENDPOINT *endp_ptr, mcapi_uint32_t type,
                         /* If this is the receive side of the connection. */
                         if (endp_ptr->mcapi_state & MCAPI_ENDP_RX)
                         {
-                            *mcapi_status = MCAPI_EDIR;
+                            *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                         }
 
                         else
                         {
-                            *mcapi_status = MCAPI_ENOT_OPEN;
+                            *mcapi_status = MCAPI_ERR_CHAN_NOTOPEN;
                         }
                     }
 
@@ -535,7 +535,7 @@ void mcapi_close(MCAPI_ENDPOINT *endp_ptr, mcapi_uint32_t type,
                          */
                         mcapi_check_resume(MCAPI_REQ_TX_OPEN,
                                            endp_ptr->mcapi_endp_handle,
-                                           MCAPI_NULL, 0, MCAPI_ENOT_OPEN);
+                                           MCAPI_NULL, 0, MCAPI_ERR_CHAN_NOTOPEN);
                     }
                 }
 
@@ -569,18 +569,18 @@ void mcapi_close(MCAPI_ENDPOINT *endp_ptr, mcapi_uint32_t type,
                          */
                         mcapi_check_resume(MCAPI_REQ_RX_OPEN,
                                            endp_ptr->mcapi_endp_handle,
-                                           MCAPI_NULL, 0, MCAPI_ENOT_OPEN);
+                                           MCAPI_NULL, 0, MCAPI_ERR_CHAN_NOTOPEN);
                     }
 
                     /* If this endpoint is open for sending. */
                     else if (endp_ptr->mcapi_state & MCAPI_ENDP_TX)
                     {
-                        *mcapi_status = MCAPI_EDIR;
+                        *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                     }
 
                     else
                     {
-                        *mcapi_status = MCAPI_ENOT_OPEN;
+                        *mcapi_status = MCAPI_ERR_CHAN_NOTOPEN;
                     }
                 }
 
@@ -621,21 +621,21 @@ void mcapi_close(MCAPI_ENDPOINT *endp_ptr, mcapi_uint32_t type,
                      * any reason.
                      */
                     mcapi_check_resume(MCAPI_REQ_CLOSED, endp_ptr->mcapi_endp_handle,
-                                       MCAPI_NULL, 0, MCAPI_ENOT_CONNECTED);
+                                       MCAPI_NULL, 0, MGC_MCAPI_ERR_NOT_CONNECTED);
                 }
             }
 
             /* The endpoint is of a conflicting channel type. */
             else
             {
-                *mcapi_status = MCAPI_ECHAN_TYPE;
+                *mcapi_status = MCAPI_ERR_CHAN_TYPE;
             }
         }
 
         /* Request is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

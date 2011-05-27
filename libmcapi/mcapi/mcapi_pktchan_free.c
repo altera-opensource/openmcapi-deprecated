@@ -100,7 +100,7 @@ void mcapi_pktchan_free(void *buffer, mcapi_status_t *mcapi_status)
             /* The buffer was not found. */
             else
             {
-                *mcapi_status = MCAPI_ENOT_VALID_BUF;
+                *mcapi_status = MCAPI_ERR_BUF_INVALID;
             }
 
             /* Release the lock. */
@@ -110,7 +110,7 @@ void mcapi_pktchan_free(void *buffer, mcapi_status_t *mcapi_status)
         /* The buffer is not valid. */
         else
         {
-            *mcapi_status = MCAPI_ENOT_VALID_BUF;
+            *mcapi_status = MCAPI_ERR_BUF_INVALID;
         }
     }
 

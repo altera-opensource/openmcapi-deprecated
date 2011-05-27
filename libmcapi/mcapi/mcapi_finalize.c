@@ -112,7 +112,7 @@ void mcapi_finalize(mcapi_status_t *mcapi_status)
                          */
                         mcapi_check_resume(MCAPI_REQ_DELETED,
                                            endp_ptr->mcapi_endp_handle,
-                                           MCAPI_NULL, 0, MCAPI_EREQ_CANCELED);
+                                           MCAPI_NULL, 0, MCAPI_ERR_REQUEST_CANCELLED);
 
                         /* Remove the first buffer from the receive queue. */
                         cur_buf = mcapi_dequeue(&endp_ptr->mcapi_rx_queue);
@@ -146,7 +146,7 @@ void mcapi_finalize(mcapi_status_t *mcapi_status)
                     /* Resume this thread indicating that the request has
                      * been canceled.
                      */
-                    mcapi_resume(node_data, request, MCAPI_EREQ_CANCELED);
+                    mcapi_resume(node_data, request, MCAPI_ERR_REQUEST_CANCELLED);
 
                     /* Get the next request structure. */
                     request = mcapi_dequeue(&node_data->mcapi_local_req_queue);
@@ -161,7 +161,7 @@ void mcapi_finalize(mcapi_status_t *mcapi_status)
                 while (request)
                 {
                     /* Indicate that the node has shut down. */
-                    request->mcapi_status = MCAPI_ENODE_NOTVALID;
+                    request->mcapi_status = MCAPI_ERR_NODE_INVALID;
 
                     /* Send the response to the foreign node. */
                     mcapi_tx_response(node_data, request);
@@ -225,7 +225,7 @@ void mcapi_finalize(mcapi_status_t *mcapi_status)
 
             else
             {
-                *mcapi_status = MCAPI_ENO_FINAL;
+                *mcapi_status = MCAPI_ERR_NODE_FINALFAILED;
             }
 
             /* Release the lock. */

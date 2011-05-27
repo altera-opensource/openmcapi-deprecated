@@ -176,7 +176,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_9_2)
                             /* No data should be received. */
                             mcapi_wait(&mcapi_struct->request, &rx_len, &status, 2000);
 
-                            if (status != MCAPI_EREQ_TIMEOUT)
+                            if (status != MCAPI_TIMEOUT)
                             {
                                 mcapi_struct->status = -1;
                                 break;
@@ -260,7 +260,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_9_3)
                              buffer, MCAPID_MSG_LEN, MCAPI_DEFAULT_PRIO,
                              &mcapi_struct->request, &mcapi_struct->status);
 
-            if (mcapi_struct->status != MCAPI_ENO_BUFFER)
+            if (mcapi_struct->status != MCAPI_ERR_TRANSMISSION)
             {
                 mcapi_struct->status = -1;
             }

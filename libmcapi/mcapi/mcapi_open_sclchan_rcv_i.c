@@ -75,7 +75,7 @@ void mcapi_open_sclchan_recv_i(mcapi_sclchan_recv_hndl_t *receive_handle,
 
         /* If the call was successful. */
         if ( (mcapi_status) && ((*mcapi_status == MCAPI_SUCCESS) ||
-             (*mcapi_status == MCAPI_ENOT_CONNECTED)) )
+             (*mcapi_status == MGC_MCAPI_ERR_NOT_CONNECTED)) )
         {
             /* The receive handle is the same as the endpoint handle. */
             *receive_handle = receive_endpoint;
@@ -85,7 +85,7 @@ void mcapi_open_sclchan_recv_i(mcapi_sclchan_recv_hndl_t *receive_handle,
     /* The receive handle pointer is invalid. */
     else if (mcapi_status)
     {
-        *mcapi_status = MCAPI_EPARAM;
+        *mcapi_status = MCAPI_ERR_PARAMETER;
     }
 
 }

@@ -148,7 +148,7 @@ void msg_recv(mcapi_endpoint_t receive_endpoint, void *buffer,
                         else
                         {
                             *mcapi_status = request->mcapi_status =
-                                MCAPI_ETRUNCATED;
+                                MCAPI_ERR_MSG_TRUNCATED;
                         }
                     }
 
@@ -183,14 +183,14 @@ void msg_recv(mcapi_endpoint_t receive_endpoint, void *buffer,
                 /* This endpoint is part of a connected channel. */
                 else
                 {
-                    *mcapi_status = MCAPI_ECONNECTED;
+                    *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
                 }
             }
 
             /* The endpoint is invalid. */
             else
             {
-                *mcapi_status = MCAPI_ENOT_ENDP;
+                *mcapi_status = MCAPI_ERR_ENDP_INVALID;
             }
 
             /* Release the lock. */
@@ -200,7 +200,7 @@ void msg_recv(mcapi_endpoint_t receive_endpoint, void *buffer,
         /* The request structure is not valid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

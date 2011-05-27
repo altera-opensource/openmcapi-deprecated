@@ -102,7 +102,7 @@ void mcapi_get_endpoint_attribute(mcapi_endpoint_t endpoint,
                         /* The buffer is too small to store the value. */
                         else
                         {
-                            *mcapi_status = MCAPI_EATTR_SIZE;
+                            *mcapi_status = MCAPI_ERR_ATTR_SIZE;
                         }
 
                         break;
@@ -128,7 +128,7 @@ void mcapi_get_endpoint_attribute(mcapi_endpoint_t endpoint,
                         else
                         {
                             /* We don't know what interface to query. */
-                            *mcapi_status = MCAPI_ENOT_CONNECTED;
+                            *mcapi_status = MGC_MCAPI_ERR_NOT_CONNECTED;
                         }
 
                         break;
@@ -142,7 +142,7 @@ void mcapi_get_endpoint_attribute(mcapi_endpoint_t endpoint,
         /* The pointer for attribute is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

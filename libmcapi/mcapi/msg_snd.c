@@ -214,14 +214,14 @@ void msg_send(mcapi_endpoint_t send_endpoint, mcapi_endpoint_t receive_endpoint,
                                      */
                                     else
                                     {
-                                        *mcapi_status = MCAPI_ENO_BUFFER;
+                                        *mcapi_status = MCAPI_ERR_TRANSMISSION;
                                     }
                                 }
 
                                 /* Message size exceeds the maximum size allowed. */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_EMESS_LIMIT;
+                                    *mcapi_status = MCAPI_ERR_MSG_SIZE;
                                 }
                             }
 
@@ -230,42 +230,42 @@ void msg_send(mcapi_endpoint_t send_endpoint, mcapi_endpoint_t receive_endpoint,
                              */
                             else
                             {
-                                *mcapi_status = MCAPI_ENODE_NOTVALID;
+                                *mcapi_status = MCAPI_ERR_NODE_INVALID;
                             }
                         }
 
                         /* The endpoint is not valid. */
                         else
                         {
-                            *mcapi_status = MCAPI_ENOT_ENDP;
+                            *mcapi_status = MCAPI_ERR_ENDP_INVALID;
                         }
                     }
 
                     /* The priority is not valid. */
                     else
                     {
-                        *mcapi_status = MCAPI_EPRIO;
+                        *mcapi_status = MCAPI_ERR_PRIORITY;
                     }
                 }
 
                 /* One or both endpoints are connected to a channel. */
                 else
                 {
-                    *mcapi_status = MCAPI_ECONNECTED;
+                    *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
                 }
             }
 
             /* The endpoint is not valid. */
             else
             {
-                *mcapi_status = MCAPI_ENOT_ENDP;
+                *mcapi_status = MCAPI_ERR_ENDP_INVALID;
             }
         }
 
         /* The buffer parameter is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

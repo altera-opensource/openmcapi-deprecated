@@ -100,7 +100,7 @@ mcapi_uint_t mcapi_msg_available(mcapi_endpoint_t receive_endpoint,
              */
             else
             {
-                *mcapi_status = MCAPI_ECONNECTED;
+                *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
             }
         }
 

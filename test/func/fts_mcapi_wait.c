@@ -77,7 +77,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_1)
                               &mcapi_struct->status, 250);
 
         if ( (finished == MCAPI_FALSE) &&
-             (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) )
+             (mcapi_struct->status == MCAPI_TIMEOUT) )
         {
             mcapi_struct->status = MCAPI_SUCCESS;
         }
@@ -142,7 +142,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_2)
                               MCAPI_FTS_TIMEOUT);
 
         if ( (finished == MCAPI_FALSE) &&
-             (mcapi_struct->status == MCAPI_EREQ_CANCELED) )
+             (mcapi_struct->status == MCAPI_ERR_REQUEST_CANCELLED) )
         {
             mcapi_struct->status = MCAPI_SUCCESS;
         }
@@ -449,7 +449,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_6)
         finished =
             mcapi_wait(&mcapi_struct->request, &rx_len, &mcapi_struct->status, 250);
 
-        if ( (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) &&
+        if ( (mcapi_struct->status == MCAPI_TIMEOUT) &&
              (finished == MCAPI_FALSE) )
         {
             mcapi_struct->status = MCAPI_SUCCESS;
@@ -629,7 +629,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_8)
                                       &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
                 if ( (finished == MCAPI_FALSE) &&
-                     (mcapi_struct->status == MCAPI_EREQ_CANCELED) )
+                     (mcapi_struct->status == MCAPI_ERR_REQUEST_CANCELLED) )
                 {
                     mcapi_struct->status = MCAPI_SUCCESS;
                 }
@@ -790,13 +790,13 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_10)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Wait for completion to timeout. */
         finished = mcapi_wait(&mcapi_struct->request, &rx_len,
                               &mcapi_struct->status, 250);
 
-        if ( (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) &&
+        if ( (mcapi_struct->status == MCAPI_TIMEOUT) &&
              (finished == MCAPI_FALSE) )
         {
             mcapi_struct->status = MCAPI_SUCCESS;
@@ -867,7 +867,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_11)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
                 tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -977,7 +977,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_12)
                               &svc_struct.request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Cause the call to be canceled in 1 second. */
         mcapi_struct->status =
@@ -990,7 +990,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_12)
             finished = mcapi_wait(&svc_struct.request, &rx_len,
                                   &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
-            if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
+            if ( (mcapi_struct->status == MCAPI_ERR_REQUEST_CANCELLED) &&
                  (finished == MCAPI_FALSE) )
             {
                 mcapi_struct->status = MCAPI_SUCCESS;
@@ -1045,13 +1045,13 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_13)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Wait for completion to timeout. */
         finished = mcapi_wait(&mcapi_struct->request, &rx_len,
                               &mcapi_struct->status, 250);
 
-        if ( (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) &&
+        if ( (mcapi_struct->status == MCAPI_TIMEOUT) &&
              (finished == MCAPI_FALSE) )
         {
             mcapi_struct->status = MCAPI_SUCCESS;
@@ -1122,7 +1122,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_14)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
                 rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1232,7 +1232,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_15)
                               &svc_struct.request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Cause the call to be canceled in 1 second. */
         mcapi_struct->status =
@@ -1245,7 +1245,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_15)
             finished = mcapi_wait(&svc_struct.request, &rx_len,
                                   &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
-            if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
+            if ( (mcapi_struct->status == MCAPI_ERR_REQUEST_CANCELLED) &&
                  (finished == MCAPI_FALSE) )
             {
                 mcapi_struct->status = MCAPI_SUCCESS;
@@ -1377,7 +1377,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_17)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
                 tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1413,7 +1413,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_17)
                                                       &mcapi_struct->status, 250);
 
                                 if ( (finished == MCAPI_FALSE) &&
-                                     (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) )
+                                     (mcapi_struct->status == MCAPI_TIMEOUT) )
                                 {
                                     mcapi_struct->status = MCAPI_SUCCESS;
                                 }
@@ -1524,7 +1524,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_18)
                 /* Wait for the response. */
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1707,7 +1707,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_19)
                 /* Wait for the response. */
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1759,7 +1759,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_19)
                                                               MCAPI_FTS_TIMEOUT);
 
                                         if ( (finished != MCAPI_FALSE) ||
-                                             (mcapi_struct->status != MCAPI_EREQ_CANCELED) )
+                                             (mcapi_struct->status != MCAPI_ERR_REQUEST_CANCELLED) )
                                         {
                                             mcapi_struct->status = -1;
                                         }
@@ -1852,7 +1852,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_20)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Close the receive side. */
         mcapi_packetchan_recv_close_i(mcapi_struct->pkt_rx_handle,
@@ -1929,7 +1929,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_21)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Open the receive side. */
                 mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
@@ -1937,7 +1937,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_21)
                                           &mcapi_struct->request,
                                           &mcapi_struct->status);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Close the receive side. */
                     mcapi_packetchan_recv_close_i(mcapi_struct->pkt_rx_handle,
@@ -2042,7 +2042,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_22)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the send side endpoint. */
                 tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -2164,7 +2164,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_23)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Close the send side. */
         mcapi_packetchan_send_close_i(mcapi_struct->pkt_tx_handle,
@@ -2241,7 +2241,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_24)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Open the send side. */
                 mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
@@ -2249,7 +2249,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_24)
                                           &mcapi_struct->request,
                                           &mcapi_struct->status);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Close the send side. */
                     mcapi_packetchan_send_close_i(mcapi_struct->pkt_tx_handle,
@@ -2354,7 +2354,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_25)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the receive side endpoint. */
                 rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -2570,13 +2570,13 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_27)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Wait for completion to timeout. */
         finished = mcapi_wait(&mcapi_struct->request, &rx_len,
                               &mcapi_struct->status, 250);
 
-        if ( (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) &&
+        if ( (mcapi_struct->status == MCAPI_TIMEOUT) &&
              (finished == MCAPI_FALSE) )
         {
             mcapi_struct->status = MCAPI_SUCCESS;
@@ -2647,7 +2647,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_28)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
                 tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -2757,7 +2757,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_29)
                               &svc_struct.request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Cause the call to be canceled in 1 second. */
         mcapi_struct->status =
@@ -2770,7 +2770,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_29)
             finished = mcapi_wait(&svc_struct.request, &rx_len,
                                   &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
-            if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
+            if ( (mcapi_struct->status == MCAPI_ERR_REQUEST_CANCELLED) &&
                  (finished == MCAPI_FALSE) )
             {
                 mcapi_struct->status = MCAPI_SUCCESS;
@@ -2825,13 +2825,13 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_30)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Wait for completion to timeout. */
         finished = mcapi_wait(&mcapi_struct->request, &rx_len,
                               &mcapi_struct->status, 250);
 
-        if ( (mcapi_struct->status == MCAPI_EREQ_TIMEOUT) &&
+        if ( (mcapi_struct->status == MCAPI_TIMEOUT) &&
              (finished == MCAPI_FALSE) )
         {
             mcapi_struct->status = MCAPI_SUCCESS;
@@ -2902,7 +2902,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_31)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the foreign endpoint. */
                 rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -3012,7 +3012,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_32)
                               &svc_struct.request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Cause the call to be canceled in 1 second. */
         mcapi_struct->status =
@@ -3025,7 +3025,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_32)
             finished = mcapi_wait(&svc_struct.request, &rx_len,
                                   &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
-            if ( (mcapi_struct->status == MCAPI_EREQ_CANCELED) &&
+            if ( (mcapi_struct->status == MCAPI_ERR_REQUEST_CANCELLED) &&
                  (finished == MCAPI_FALSE) )
             {
                 mcapi_struct->status = MCAPI_SUCCESS;
@@ -3081,7 +3081,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_33)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Close the receive side. */
         mcapi_sclchan_recv_close_i(mcapi_struct->scl_rx_handle,
@@ -3158,7 +3158,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_34)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Open the receive side. */
                 mcapi_open_sclchan_recv_i(&mcapi_struct->scl_rx_handle,
@@ -3166,7 +3166,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_34)
                                           &mcapi_struct->request,
                                           &mcapi_struct->status);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Close the receive side. */
                     mcapi_sclchan_recv_close_i(mcapi_struct->scl_rx_handle,
@@ -3271,7 +3271,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_35)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the send side endpoint. */
                 tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -3393,7 +3393,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_36)
                               &mcapi_struct->request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Close the send side. */
         mcapi_sclchan_send_close_i(mcapi_struct->scl_tx_handle,
@@ -3470,7 +3470,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_37)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Open the send side. */
                 mcapi_open_sclchan_send_i(&mcapi_struct->scl_tx_handle,
@@ -3478,7 +3478,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_37)
                                           &mcapi_struct->request,
                                           &mcapi_struct->status);
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Close the send side. */
                     mcapi_sclchan_send_close_i(mcapi_struct->scl_tx_handle,
@@ -3583,7 +3583,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_34_38)
             /* Wait for the response. */
             mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
-            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
             {
                 /* Get the receive side endpoint. */
                 rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);

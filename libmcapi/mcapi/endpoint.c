@@ -249,14 +249,14 @@ MCAPI_ENDPOINT *mcapi_decode_local_endpoint(MCAPI_GLOBAL_DATA *node_data,
         /* The endpoint does not exist. */
         else
         {
-            *mcapi_status = MCAPI_ENOT_ENDP;
+            *mcapi_status = MCAPI_ERR_ENDP_INVALID;
         }
     }
 
     /* The node is not a local node. */
     else
     {
-        *mcapi_status = MCAPI_ENOT_OWNER;
+        *mcapi_status = MCAPI_ERR_ENDP_NOTOWNER;
     }
 
     return (endp_ptr);

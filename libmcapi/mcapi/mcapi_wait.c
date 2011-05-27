@@ -89,7 +89,7 @@ mcapi_boolean_t mcapi_wait(mcapi_request_t *request, size_t *size,
         ret_val = __mcapi_test(request, size, mcapi_status);
 
         /* If the request has not been completed. */
-        if ( (*mcapi_status == MCAPI_INCOMPLETE) && (ret_val == MCAPI_FALSE) )
+        if ( (*mcapi_status == MCAPI_PENDING) && (ret_val == MCAPI_FALSE) )
         {
             /* Get a pointer to the global node list. */
             node_data = mcapi_get_node_data();
@@ -112,9 +112,9 @@ mcapi_boolean_t mcapi_wait(mcapi_request_t *request, size_t *size,
             /* The wait operation timed out before the operation being
              * tested could finish.
              */
-            if (req_copy.mcapi_status == MCAPI_EREQ_PENDING)
+            if (req_copy.mcapi_status == MCAPI_PENDING)
             {
-                *mcapi_status = MCAPI_EREQ_TIMEOUT;
+                *mcapi_status = MCAPI_TIMEOUT;
 
                 /* Remove the request from the list. */
                 mcapi_remove(&node_data->mcapi_local_req_queue, &req_copy);

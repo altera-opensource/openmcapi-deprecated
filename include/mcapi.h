@@ -128,50 +128,59 @@ typedef int mcapi_version_t; /* XXX remove me */
 #define MCAPI_MAX_PRORITY				  0			/* Maximum priority value */
 #define MCAPI_MAX_STATUS_MSG_LEN		32			/* Maximum status code message length */
 
+/*
+ * MCAPI Status codes
+ */
+enum mcapi_status_codes {
+	MCAPI_SUCCESS = 1,				// Indicates operation was successful
+	MCAPI_PENDING,					// Indicates operation is pending without errors
+	MCAPI_TIMEOUT,					// The operation timed out
+	MCAPI_ERR_PARAMETER,			// Incorrect parameter
+	MCAPI_ERR_DOMAIN_INVALID,		// The parameter is not a valid domain
+	MCAPI_ERR_NODE_INVALID,			// The parameter is not a valid node
+	MCAPI_ERR_NODE_INITFAILED,		// The MCAPI node could not be initialized
+	MCAPI_ERR_NODE_INITIALIZED,		// MCAPI node is already initialized
+	MCAPI_ERR_NODE_NOTINIT,			// The MCAPI node is not initialized
+	MCAPI_ERR_NODE_FINALFAILED,		// The MCAPI could not be finalized
+	MCAPI_ERR_PORT_INVALID,			// The parameter is not a valid port
+	MCAPI_ERR_ENDP_INVALID,			// The parameter is not a valid endpoint descriptor
+	MCAPI_ERR_ENDP_EXISTS,			// The endpoint is already created
+	MCAPI_ERR_ENDP_GET_LIMIT,		// Endpoint get reference count is to high
+	MCAPI_ERR_ENDP_DELETED,			// The endpoint has been deleted
+	MCAPI_ERR_ENDP_NOTOWNER,		// An endpoint can only be deleted by its creator
+	MCAPI_ERR_ENDP_REMOTE,			// Certain operations are only allowed on the node local endpoints
+	MCAPI_ERR_ATTR_INCOMPATIBLE,	// Connection of endpoints with incompatible attributes not allowed
+	MCAPI_ERR_ATTR_SIZE,			// Incorrect attribute size
+	MCAPI_ERR_ATTR_NUM,				// Incorrect attribute number
+	MCAPI_ERR_ATTR_VALUE,			// Incorrect attribute vale
+	MCAPI_ERR_ATTR_NOTSUPPORTED,	// Attribute not supported by the implementation
+	MCAPI_ERR_ATTR_READONLY,		// Attribute is read only
+	MCAPI_ERR_MSG_SIZE,				// The message size exceeds the maximum size allowed by the MCAPI implementation
+	MCAPI_ERR_MSG_TRUNCATED,		// The message size exceeds the buffer size
+	MCAPI_ERR_CHAN_OPEN,			// A channel is open, certain operations are not allowed
+	MCAPI_ERR_CHAN_TYPE,			// Attempt to open a packet/scalar channel on an endpoint that has been connected with a different channel type
+	MCAPI_ERR_CHAN_DIRECTION,		// Attempt to open a send handle on a port that was connected as a receiver, or vice versa
+	MCAPI_ERR_CHAN_CONNECTED,		// A channel connection has already been established for one or both of the specified endpoints
+	MCAPI_ERR_CHAN_OPENPENDING,		// An open request is pending
+	MCAPI_ERR_CHAN_CLOSEPENDING,	// A close request is pending.
+	MCAPI_ERR_CHAN_NOTOPEN,			// The channel is not open (cannot be closed)
+	MCAPI_ERR_CHAN_INVALID,			// Argument is not a channel handle
+	MCAPI_ERR_PKT_SIZE,				// The packet size exceeds the maximum size allowed by the MCAPI implementation
+	MCAPI_ERR_TRANSMISSION,			// Transmission failure
+	MCAPI_ERR_PRIORITY,				// Incorrect priority level
+	MCAPI_ERR_BUF_INVALID,			// Not a valid buffer descriptor
+	MCAPI_ERR_MEM_LIMIT,			// Out of memory
+	MCAPI_ERR_REQUEST_INVALID,		// Argument is not a valid request handle
+	MCAPI_ERR_REQUEST_LIMIT,		// Out of request handles
+	MCAPI_ERR_REQUEST_CANCELLED,	// The request was already canceled
+	MCAPI_ERR_WAIT_PENDING,			// A wait is pending
+	MCAPI_ERR_GENERAL,				// To be used by implementations for error conditions not covered by the other status codes
+	MCAPI_STATUSCODE_END			// This should always be last
+};
+
 #define MCAPI_MSG_TYPE          0
 #define MCAPI_CHAN_PKT_TYPE     1
 #define MCAPI_CHAN_SCAL_TYPE    2
-
-#define MCAPI_SUCCESS           0
-#define MCAPI_ENO_INIT          -200
-#define MCAPI_INITIALIZED       -201
-#define MCAPI_ENODE_NOTVALID    -202
-#define MCAPI_EPARAM            -203
-#define MCAPI_ENO_FINAL         -204
-#define MCAPI_ENODE_NOTINIT     -205
-#define MCAPI_EPORT_NOTVALID    -206
-#define MCAPI_EENDP_ISCREATED   -207
-#define MCAPI_EENDP_LIMIT       -208
-#define MCAPI_EEP_NOTALLOWED    -209
-#define MCAPI_ENOT_ENDP         -210
-#define MCAPI_ECHAN_OPEN        -211
-#define MCAPI_ENOT_OWNER        -212
-#define MCAPI_EATTR_NUM         -213
-#define MCAPI_EATTR_SIZE        -214
-#define MCAPI_ECONNECTED        -215
-#define MCAPI_EREAD_ONLY        -216
-#define MCAPI_EMESS_LIMIT       -217
-#define MCAPI_ENO_BUFFER        -218
-#define MCAPI_ENO_REQUEST       -219
-#define MCAPI_ENO_MEM           -220
-#define MCAPI_EPRIO             -221
-#define MCAPI_ETRUNCATED        -222
-#define MCAPI_EATTR_INCOMP      -223
-#define MCAPI_ENOT_CONNECTED    -224
-#define MCAPI_ECHAN_TYPE        -225
-#define MCAPI_EDIR              -226
-#define MCAPI_ENOT_HANDLE       -227
-#define MCAPI_EPACK_LIMIT       -228
-#define MCAPI_ENOT_VALID_BUF    -229
-#define MCAPI_ENOT_OPEN         -230
-#define MCAPI_ESCL_SIZE         -231
-#define MCAPI_EREQ_CANCELED     -232
-#define MCAPI_EREQ_TIMEOUT      -233
-#define MCAPI_EREQ_PENDING      -234
-#define MCAPI_ENOTREQ_HANDLE    -235
-#define MCAPI_INCOMPLETE        -236
-#define MCAPI_EREQ_ERROR        -237
-#define MCAPI_OS_ERROR          -238
 
 extern mcapi_node_t MCAPI_Node_ID;
 

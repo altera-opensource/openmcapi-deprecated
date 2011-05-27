@@ -174,7 +174,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_10_2)
                             /* No data should be received. */
                             mcapi_wait(&mcapi_struct->request, &rx_len, &status, MCAPI_FTS_TIMEOUT);
 
-                            if (status != MCAPI_EREQ_TIMEOUT)
+                            if (status != MCAPI_TIMEOUT)
                             {
                                 mcapi_struct->status = -1;
                                 break;
@@ -254,7 +254,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_10_3)
     mcapi_msg_send(mcapi_struct->local_endp, mcapi_struct->foreign_endp,
                    buffer, MCAPID_MSG_LEN, MCAPI_DEFAULT_PRIO,
                    &mcapi_struct->status);
-    status_assert_code(mcapi_struct->status, MCAPI_ENO_BUFFER);
+    status_assert_code(mcapi_struct->status, MCAPI_ERR_TRANSMISSION);
 
     /* Receive all the pending data. */
     for (j = 0; j < i; j ++)

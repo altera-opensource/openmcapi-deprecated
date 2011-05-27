@@ -77,7 +77,7 @@ void mcapi_pktchan_recv(mcapi_pktchan_recv_hndl_t receive_handle,
 
     else
     {
-        *mcapi_status = MCAPI_ENODE_NOTINIT;
+        *mcapi_status = MCAPI_ERR_NODE_NOTINIT;
     }
 
 }

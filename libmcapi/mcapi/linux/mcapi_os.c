@@ -49,7 +49,7 @@ pthread_t   MCAPI_Control_Task_TCB;
 *   OUTPUTS
 *
 *       MCAPI_SUCCESS
-*       MCAPI_OS_ERROR
+*       MCAPI_ERR_GENERAL
 *
 *************************************************************************/
 mcapi_status_t MCAPI_Init_OS(void)
@@ -63,7 +63,7 @@ mcapi_status_t MCAPI_Init_OS(void)
                             mcapi_process_ctrl_msg, NULL);
 
     if (status)
-        return MCAPI_OS_ERROR;
+        return MCAPI_ERR_GENERAL;
 
     return MCAPI_SUCCESS;
 }
@@ -109,7 +109,7 @@ void MCAPI_Exit_OS(void)
 *   OUTPUTS
 *
 *       MCAPI_SUCCESS
-*       MCAPI_OS_ERROR
+*       MCAPI_ERR_GENERAL
 *
 *************************************************************************/
 mcapi_status_t MCAPI_Resume_Task(mcapi_request_t *request)
@@ -124,7 +124,7 @@ mcapi_status_t MCAPI_Resume_Task(mcapi_request_t *request)
         status = pthread_cond_signal(&request->mcapi_cond.mcapi_cond);
 
     if (status)
-        return MCAPI_OS_ERROR;
+        return MCAPI_ERR_GENERAL;
 
     return MCAPI_SUCCESS;
 }
@@ -153,7 +153,7 @@ mcapi_status_t MCAPI_Resume_Task(mcapi_request_t *request)
 *   OUTPUTS
 *
 *       MCAPI_SUCCESS
-*       MCAPI_OS_ERROR
+*       MCAPI_ERR_GENERAL
 *
 *************************************************************************/
 mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
@@ -205,7 +205,7 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
     }
 
     if (status)
-        return MCAPI_OS_ERROR;
+        return MCAPI_ERR_GENERAL;
 
     return MCAPI_SUCCESS;
 }
@@ -339,7 +339,7 @@ mcapi_status_t MCAPI_Create_Mutex(MCAPI_MUTEX *mutex, char *name)
     status = pthread_mutex_init(mutex, NULL);
 
     if (status)
-        return MCAPI_OS_ERROR;
+        return MCAPI_ERR_GENERAL;
 
     return MCAPI_SUCCESS;
 }
@@ -361,7 +361,7 @@ mcapi_status_t MCAPI_Create_Mutex(MCAPI_MUTEX *mutex, char *name)
 *   OUTPUTS
 *
 *       MCAPI_SUCCESS
-*       MCAPI_OS_ERROR
+*       MCAPI_ERR_GENERAL
 *
 *************************************************************************/
 mcapi_status_t MCAPI_Delete_Mutex(MCAPI_MUTEX *mutex)
@@ -371,7 +371,7 @@ mcapi_status_t MCAPI_Delete_Mutex(MCAPI_MUTEX *mutex)
     status = pthread_mutex_destroy(mutex);
 
     if (status)
-        return MCAPI_OS_ERROR;
+        return MCAPI_ERR_GENERAL;
 
     return MCAPI_SUCCESS;
 }
@@ -393,7 +393,7 @@ mcapi_status_t MCAPI_Delete_Mutex(MCAPI_MUTEX *mutex)
 *   OUTPUTS
 *
 *       MCAPI_SUCCESS
-*       MCAPI_OS_ERROR
+*       MCAPI_ERR_GENERAL
 *
 *************************************************************************/
 mcapi_status_t MCAPI_Obtain_Mutex(MCAPI_MUTEX *mutex)
@@ -403,7 +403,7 @@ mcapi_status_t MCAPI_Obtain_Mutex(MCAPI_MUTEX *mutex)
     status = pthread_mutex_lock(mutex);
 
     if (status)
-        return MCAPI_OS_ERROR;
+        return MCAPI_ERR_GENERAL;
 
     return MCAPI_SUCCESS;
 }
@@ -425,7 +425,7 @@ mcapi_status_t MCAPI_Obtain_Mutex(MCAPI_MUTEX *mutex)
 *   OUTPUTS
 *
 *       MCAPI_SUCCESS
-*       MCAPI_OS_ERROR
+*       MCAPI_ERR_GENERAL
 *
 *************************************************************************/
 mcapi_status_t MCAPI_Release_Mutex(MCAPI_MUTEX *mutex)
@@ -435,7 +435,7 @@ mcapi_status_t MCAPI_Release_Mutex(MCAPI_MUTEX *mutex)
     status = pthread_mutex_unlock(mutex);
 
     if (status)
-        return MCAPI_OS_ERROR;
+        return MCAPI_ERR_GENERAL;
 
     return MCAPI_SUCCESS;
 }

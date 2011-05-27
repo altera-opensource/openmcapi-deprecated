@@ -88,7 +88,7 @@ mcapi_status_t mcapi_init_interfaces(mcapi_node_t node_id)
 
             else
             {
-                status = MCAPI_EPRIO;
+                status = MCAPI_ERR_PRIORITY;
                 break;
             }
         }

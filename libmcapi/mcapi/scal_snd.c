@@ -197,14 +197,14 @@ void scal_send(mcapi_pktchan_send_hndl_t send_handle, MCAPI_SCALAR *buffer,
                      */
                     else
                     {
-                        *mcapi_status = MCAPI_ENO_BUFFER;
+                        *mcapi_status = MCAPI_ERR_TRANSMISSION;
                     }
                 }
 
                 /* The handle is for a packet channel. */
                 else
                 {
-                    *mcapi_status = MCAPI_ECHAN_TYPE;
+                    *mcapi_status = MCAPI_ERR_CHAN_TYPE;
                 }
             }
 
@@ -214,20 +214,20 @@ void scal_send(mcapi_pktchan_send_hndl_t send_handle, MCAPI_SCALAR *buffer,
                 /* If this is a receive channel. */
                 if (tx_endp_ptr->mcapi_state & MCAPI_ENDP_RX)
                 {
-                    *mcapi_status = MCAPI_EDIR;
+                    *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                 }
 
                 /* Otherwise, the connection has been closed. */
                 else
                 {
-                    *mcapi_status = MCAPI_ENOT_HANDLE;
+                    *mcapi_status = MCAPI_ERR_CHAN_INVALID;
                 }
             }
         }
 
         else
         {
-            *mcapi_status = MCAPI_ENOT_HANDLE;
+            *mcapi_status = MCAPI_ERR_CHAN_INVALID;
         }
 
         /* Unlock the global data structure. */

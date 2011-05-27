@@ -183,7 +183,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_2)
         /* Wait for a response from the thread waiting for the request. */
         mcapi_struct->status = MCAPID_RX_Mgmt_Response(&svc_struct);
 
-        if (mcapi_struct->status != MCAPI_EREQ_CANCELED)
+        if (mcapi_struct->status != MCAPI_ERR_REQUEST_CANCELLED)
         {
             mcapi_struct->status = -1;
         }
@@ -375,7 +375,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_4)
                                   &mcapi_struct->request,
                                   &mcapi_struct->status);
 
-        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
         {
             /* Cancel the request. */
             mcapi_cancel(&mcapi_struct->request, &mcapi_struct->status);
@@ -406,7 +406,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_4)
                     }
                 }
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024,
@@ -435,7 +435,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_4)
                                 /* An error should be returned since the call to open
                                  * the receive side was canceled.
                                  */
-                                if (mcapi_struct->status == MCAPI_ENOT_OPEN)
+                                if (mcapi_struct->status == MCAPI_ERR_CHAN_NOTOPEN)
                                 {
                                     mcapi_struct->status = MCAPI_SUCCESS;
                                 }
@@ -526,7 +526,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_5)
                                   &mcapi_struct->request,
                                   &mcapi_struct->status);
 
-        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
         {
             /* Cancel the request. */
             mcapi_cancel(&mcapi_struct->request, &mcapi_struct->status);
@@ -557,7 +557,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_5)
                     }
                 }
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
                     rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024,
@@ -586,7 +586,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_5)
                                 /* An error should be returned since the call to open
                                  * the receive side was canceled.
                                  */
-                                if (mcapi_struct->status == MCAPI_ENOT_OPEN)
+                                if (mcapi_struct->status == MCAPI_ERR_CHAN_NOTOPEN)
                                 {
                                     mcapi_struct->status = MCAPI_SUCCESS;
                                 }
@@ -696,7 +696,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_6)
             }
         }
 
-        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
         {
             /* Get the foreign endpoint. */
             tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024,
@@ -844,7 +844,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_7)
                                   &mcapi_struct->request,
                                   &mcapi_struct->status);
 
-        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
         {
             /* Cancel the request. */
             mcapi_cancel(&mcapi_struct->request, &mcapi_struct->status);
@@ -875,7 +875,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_7)
                     }
                 }
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024,
@@ -904,7 +904,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_7)
                                 /* An error should be returned since the call to open
                                  * the receive side was canceled.
                                  */
-                                if (mcapi_struct->status == MCAPI_ENOT_OPEN)
+                                if (mcapi_struct->status == MCAPI_ERR_CHAN_NOTOPEN)
                                 {
                                     mcapi_struct->status = MCAPI_SUCCESS;
                                 }
@@ -995,7 +995,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_8)
                                   &mcapi_struct->request,
                                   &mcapi_struct->status);
 
-        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
         {
             /* Cancel the request. */
             mcapi_cancel(&mcapi_struct->request, &mcapi_struct->status);
@@ -1026,7 +1026,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_8)
                     }
                 }
 
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the foreign endpoint. */
                     rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024,
@@ -1055,7 +1055,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_36_8)
                                 /* An error should be returned since the call to open
                                  * the receive side was canceled.
                                  */
-                                if (mcapi_struct->status == MCAPI_ENOT_OPEN)
+                                if (mcapi_struct->status == MCAPI_ERR_CHAN_NOTOPEN)
                                 {
                                     mcapi_struct->status = MCAPI_SUCCESS;
                                 }

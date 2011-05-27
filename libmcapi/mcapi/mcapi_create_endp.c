@@ -92,7 +92,7 @@ mcapi_endpoint_t mcapi_create_endpoint(mcapi_port_t port_id,
             /* The node has not been initialized. */
             else
             {
-                *mcapi_status = MCAPI_ENODE_NOTINIT;
+                *mcapi_status = MCAPI_ERR_NODE_NOTINIT;
             }
 
             /* Release the lock. */
@@ -102,7 +102,7 @@ mcapi_endpoint_t mcapi_create_endpoint(mcapi_port_t port_id,
         /* Ports can be only 16-bits in length. */
         else
         {
-            *mcapi_status = MCAPI_EPORT_NOTVALID;
+            *mcapi_status = MCAPI_ERR_PORT_INVALID;
         }
     }
 

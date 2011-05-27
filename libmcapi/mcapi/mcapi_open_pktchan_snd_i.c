@@ -75,7 +75,7 @@ void mcapi_open_pktchan_send_i(mcapi_pktchan_send_hndl_t *send_handle,
 
         /* If the send side was opened successfully. */
         if ( (mcapi_status) && ((*mcapi_status == MCAPI_SUCCESS) ||
-             (*mcapi_status == MCAPI_ENOT_CONNECTED)) )
+             (*mcapi_status == MGC_MCAPI_ERR_NOT_CONNECTED)) )
         {
             /* Set up the send handle to be returned. */
             *send_handle = send_endpoint;
@@ -85,7 +85,7 @@ void mcapi_open_pktchan_send_i(mcapi_pktchan_send_hndl_t *send_handle,
     /* Send handle is not valid. */
     else if (mcapi_status)
     {
-        *mcapi_status = MCAPI_EPARAM;
+        *mcapi_status = MCAPI_ERR_PARAMETER;
     }
 
 }

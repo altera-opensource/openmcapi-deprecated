@@ -181,7 +181,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
                                 request->mcapi_target_node_id = MCAPI_Node_ID;
                                 request->mcapi_requesting_node_id = node_id;
                                 request->mcapi_requesting_port_id = port_id;
-                                request->mcapi_status = MCAPI_EREQ_PENDING;
+                                request->mcapi_status = MCAPI_PENDING;
                                 request->mcapi_pending_count = 1;
 
                                 /* Add the structure to the wait list. */
@@ -193,7 +193,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
                             {
                                 /* Set an error. */
                                 MCAPI_PUT32(buffer, MCAPI_GETENDP_STATUS,
-                                            (mcapi_uint32_t)MCAPI_ENO_REQUEST);
+                                            (mcapi_uint32_t)MCAPI_ERR_REQUEST_LIMIT);
 
                                 /* Set the type. */
                                 MCAPI_PUT16(buffer, MCAPI_PROT_TYPE,
@@ -314,7 +314,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
                     /* The endpoint is not valid. */
                     else
                     {
-                        mcapi_status = MCAPI_ENOT_ENDP;
+                        mcapi_status = MCAPI_ERR_ENDP_INVALID;
                     }
 
                     /* Set the type to ACK. */
@@ -449,7 +449,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                     else
                     {
-                        mcapi_status = MCAPI_ENOT_ENDP;
+                        mcapi_status = MCAPI_ERR_ENDP_INVALID;
                     }
 
                     /* Set the type to TX_ACK. */
@@ -507,7 +507,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                     else
                     {
-                        mcapi_status = MCAPI_ENOT_ENDP;
+                        mcapi_status = MCAPI_ERR_ENDP_INVALID;
                     }
 
                     /* Set the type to RX_ACK. */
@@ -681,7 +681,7 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
                          */
                         mcapi_check_resume(MCAPI_REQ_CLOSED,
                                            endp_ptr->mcapi_endp_handle, MCAPI_NULL,
-                                           0, MCAPI_ENOT_CONNECTED);
+                                           0, MGC_MCAPI_ERR_NOT_CONNECTED);
 
                     }
 
@@ -787,14 +787,14 @@ static void mcapi_connect_endpoints(MCAPI_GLOBAL_DATA *node_data,
         /* This endpoint is already connected. */
         else
         {
-            *mcapi_status = MCAPI_ECONNECTED;
+            *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
         }
     }
 
     /* This endpoint is not a valid endpoint. */
     else
     {
-        *mcapi_status = MCAPI_ENOT_ENDP;
+        *mcapi_status = MCAPI_ERR_ENDP_INVALID;
     }
 
 }
@@ -910,20 +910,20 @@ static void mcapi_setup_connection(MCAPI_GLOBAL_DATA *node_data,
             /* The node is not reachable from this node. */
             else
             {
-                *mcapi_status = MCAPI_ENOT_ENDP;
+                *mcapi_status = MCAPI_ERR_ENDP_INVALID;
             }
         }
 
         /* The node is not reachable from this node. */
         else
         {
-            *mcapi_status = MCAPI_ENOT_ENDP;
+            *mcapi_status = MCAPI_ERR_ENDP_INVALID;
         }
     }
 
     else
     {
-        *mcapi_status = MCAPI_ECONNECTED;
+        *mcapi_status = MCAPI_ERR_CHAN_CONNECTED;
     }
 
 }
@@ -1007,7 +1007,7 @@ void mcapi_tx_response(MCAPI_GLOBAL_DATA *node_data, mcapi_request_t *request)
     unsigned char       buffer[MCAPI_GET_ENDP_LEN];
 
     /* If the get request was successful, send the response. */
-    if (request->mcapi_status != MCAPI_EREQ_CANCELED)
+    if (request->mcapi_status != MCAPI_ERR_REQUEST_CANCELLED)
     {
         MCAPI_PUT16(buffer, MCAPI_PROT_TYPE,  MCAPI_GETENDP_RESPONSE);
 

@@ -207,7 +207,7 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                                                       &mcapi_struct->status);
 
                             if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                                 (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED) )
                             {
                                 tx_handle_in_use = MCAPI_TRUE;
                             }
@@ -248,7 +248,7 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                                                       &mcapi_struct->status);
 
                             if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                                 (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED) )
                             {
                                 rx_handle_in_use = MCAPI_TRUE;
                             }
@@ -322,7 +322,7 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                                                       &mcapi_struct->status);
 
                             if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                                 (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED) )
                             {
                                 tx_handle_scl_in_use = MCAPI_TRUE;
                             }
@@ -363,7 +363,7 @@ MCAPI_THREAD_ENTRY(MCAPID_Mgmt_Service)
                                                       &mcapi_struct->status);
 
                             if ( (mcapi_struct->status == MCAPI_SUCCESS) ||
-                                 (mcapi_struct->status == MCAPI_ENOT_CONNECTED) )
+                                 (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED) )
                             {
                                 rx_handle_scl_in_use = MCAPI_TRUE;
                             }

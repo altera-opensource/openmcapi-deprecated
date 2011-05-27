@@ -174,7 +174,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_11_2)
                 mcapi_msg_recv(mcapi_struct->local_endp, buffer, 1, &rx_len,
                                &mcapi_struct->status);
 
-                if (mcapi_struct->status == MCAPI_ETRUNCATED)
+                if (mcapi_struct->status == MCAPI_ERR_MSG_TRUNCATED)
                 {
                     mcapi_struct->status = MCAPI_SUCCESS;
                 }

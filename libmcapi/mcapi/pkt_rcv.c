@@ -181,33 +181,33 @@ void pkt_rcv(mcapi_pktchan_recv_hndl_t receive_handle, void **buffer,
                         /* The connection has been closed. */
                         else
                         {
-                            *mcapi_status = MCAPI_ENOT_HANDLE;
+                            *mcapi_status = MCAPI_ERR_CHAN_INVALID;
                         }
                     }
 
                     /* The handle is for a scalar channel. */
                     else
                     {
-                        *mcapi_status = MCAPI_ECHAN_TYPE;
+                        *mcapi_status = MCAPI_ERR_CHAN_TYPE;
                     }
                 }
 
                 /* Attempting to receive on a send handle. */
                 else if (rx_endp_ptr->mcapi_state & MCAPI_ENDP_TX)
                 {
-                    *mcapi_status = MCAPI_EDIR;
+                    *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                 }
 
                 /* The receive side has been closed. */
                 else
                 {
-                    *mcapi_status = MCAPI_ENOT_HANDLE;
+                    *mcapi_status = MCAPI_ERR_CHAN_INVALID;
                 }
             }
 
             else
             {
-                *mcapi_status = MCAPI_ENOT_HANDLE;
+                *mcapi_status = MCAPI_ERR_CHAN_INVALID;
             }
 
             /* Unlock the global data structure. */
@@ -217,7 +217,7 @@ void pkt_rcv(mcapi_pktchan_recv_hndl_t receive_handle, void **buffer,
         /* The request structure is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

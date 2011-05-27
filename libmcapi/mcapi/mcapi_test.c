@@ -47,7 +47,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
         if (request)
         {
             /* Check if the request has been canceled. */
-            if (request->mcapi_status != MCAPI_EREQ_CANCELED)
+            if (request->mcapi_status != MCAPI_ERR_REQUEST_CANCELLED)
             {
                 /* Validate size. */
                 if (size)
@@ -83,12 +83,12 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                             /* The endpoint has not been created on the node. */
                             else
                             {
-                                *mcapi_status = MCAPI_INCOMPLETE;
+                                *mcapi_status = MCAPI_PENDING;
                             }
                         }
 
                         /* If the remote request has completed or failed. */
-                        else if (request->mcapi_status != MCAPI_EREQ_PENDING)
+                        else if (request->mcapi_status != MCAPI_PENDING)
                         {
                             *mcapi_status = request->mcapi_status;
 
@@ -98,7 +98,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                         /* The endpoint has not been created. */
                         else
                         {
-                            *mcapi_status = MCAPI_INCOMPLETE;
+                            *mcapi_status = MCAPI_PENDING;
                         }
                     }
 
@@ -125,7 +125,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                 /* If data was transmitted or an error
                                  * occurred.
                                  */
-                                if (request->mcapi_status != MCAPI_EREQ_PENDING)
+                                if (request->mcapi_status != MCAPI_PENDING)
                                 {
                                     /* Set the status. */
                                     *mcapi_status = request->mcapi_status;
@@ -136,7 +136,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                 /* The data has not been transmitted. */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_INCOMPLETE;
+                                    *mcapi_status = MCAPI_PENDING;
                                 }
 
                                 break;
@@ -161,10 +161,10 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                     }
 
                                     /* No data has been received on the endpoint. */
-                                    else if (request->mcapi_status == MCAPI_EREQ_PENDING)
+                                    else if (request->mcapi_status == MCAPI_PENDING)
                                     {
                                         /* Set the status. */
-                                        *mcapi_status = MCAPI_INCOMPLETE;
+                                        *mcapi_status = MCAPI_PENDING;
 
                                         /* Indicate that no data has been received. */
                                         *size = 0;
@@ -186,7 +186,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                  */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_ENOTREQ_HANDLE;
+                                    *mcapi_status = MCAPI_ERR_REQUEST_INVALID;
                                 }
 
                                 break;
@@ -194,7 +194,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                             case MCAPI_REQ_CONNECTED:
 
                                 /* If the request is no longer in the pending state. */
-                                if (request->mcapi_status != MCAPI_EREQ_PENDING)
+                                if (request->mcapi_status != MCAPI_PENDING)
                                 {
                                     /* Set the status. */
                                     *mcapi_status = request->mcapi_status;
@@ -205,7 +205,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                 /* The endpoint has not been connected. */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_INCOMPLETE;
+                                    *mcapi_status = MCAPI_PENDING;
                                 }
 
                                 break;
@@ -227,7 +227,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                 /* The endpoint is not open for receive. */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_INCOMPLETE;
+                                    *mcapi_status = MCAPI_PENDING;
                                 }
 
                                 break;
@@ -248,7 +248,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                 /* The endpoint is not open for receive. */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_INCOMPLETE;
+                                    *mcapi_status = MCAPI_PENDING;
                                 }
 
                                 break;
@@ -270,14 +270,14 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                                 /* The endpoint is not open for transmit. */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_INCOMPLETE;
+                                    *mcapi_status = MCAPI_PENDING;
                                 }
 
                                 break;
 
                             default:
 
-                                *mcapi_status = MCAPI_ENOTREQ_HANDLE;
+                                *mcapi_status = MCAPI_ERR_REQUEST_INVALID;
                                 break;
                         }
                     }
@@ -286,21 +286,21 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
                 /* The size parameter is invalid. */
                 else
                 {
-                    *mcapi_status = MCAPI_EPARAM;
+                    *mcapi_status = MCAPI_ERR_PARAMETER;
                 }
             }
 
             /* The request has been canceled. */
             else
             {
-                *mcapi_status = MCAPI_EREQ_CANCELED;
+                *mcapi_status = MCAPI_ERR_REQUEST_CANCELLED;
             }
         }
 
         /* The request parameter is invalid. */
         else
         {
-            *mcapi_status = MCAPI_ENOTREQ_HANDLE;
+            *mcapi_status = MCAPI_ERR_REQUEST_INVALID;
         }
     }
 

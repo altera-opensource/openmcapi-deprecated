@@ -189,14 +189,14 @@ void pkt_send(mcapi_pktchan_send_hndl_t send_handle, void *buffer,
                              */
                             else
                             {
-                                *mcapi_status = MCAPI_ENO_BUFFER;
+                                *mcapi_status = MCAPI_ERR_TRANSMISSION;
                             }
                         }
 
                         /* Trying to send a packet over a scalar channel. */
                         else
                         {
-                            *mcapi_status = MCAPI_ECHAN_TYPE;
+                            *mcapi_status = MCAPI_ERR_CHAN_TYPE;
                         }
                     }
 
@@ -206,13 +206,13 @@ void pkt_send(mcapi_pktchan_send_hndl_t send_handle, void *buffer,
                         /* If this is a receive channel. */
                         if (tx_endp_ptr->mcapi_state & MCAPI_ENDP_RX)
                         {
-                            *mcapi_status = MCAPI_EDIR;
+                            *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
                         }
 
                         /* Otherwise, the connection has been closed. */
                         else
                         {
-                            *mcapi_status = MCAPI_ENOT_HANDLE;
+                            *mcapi_status = MCAPI_ERR_CHAN_INVALID;
                         }
                     }
                 }
@@ -220,14 +220,14 @@ void pkt_send(mcapi_pktchan_send_hndl_t send_handle, void *buffer,
                 /* The data size is too big. */
                 else
                 {
-                    *mcapi_status = MCAPI_EPACK_LIMIT;
+                    *mcapi_status = MCAPI_ERR_PKT_SIZE;
                 }
             }
 
             /* One of the endpoints is invalid. */
             else
             {
-                *mcapi_status = MCAPI_ENOT_HANDLE;
+                *mcapi_status = MCAPI_ERR_CHAN_INVALID;
             }
 
             /* Unlock the global data structure. */
@@ -237,7 +237,7 @@ void pkt_send(mcapi_pktchan_send_hndl_t send_handle, void *buffer,
         /* The buffer is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

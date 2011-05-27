@@ -202,7 +202,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_2)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the send side endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -214,7 +214,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_2)
                                                   mcapi_struct->local_endp,
                                                   &request, &mcapi_struct->status);
 
-                        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                         {
                             /* Connect the two endpoints. */
                             mcapi_connect_pktchan_i(tx_endp, mcapi_struct->local_endp,
@@ -314,7 +314,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_3)
 
     /* Wait for a response. */
     mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
-    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
+    status_assert_code(mcapi_struct->status, MGC_MCAPI_ERR_NOT_CONNECTED);
 
     /* Get the receive side endpoint. */
     rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -324,7 +324,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_3)
     mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
                               mcapi_struct->local_endp,
                               &request, &mcapi_struct->status);
-    status_assert_code(mcapi_struct->status, MCAPI_ENOT_CONNECTED);
+    status_assert_code(mcapi_struct->status, MGC_MCAPI_ERR_NOT_CONNECTED);
 
     /* Connect the two endpoints. */
     mcapi_connect_pktchan_i(mcapi_struct->local_endp, rx_endp,
@@ -449,7 +449,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_4)
                                     /* If both endpoints are local, the routine will return
                                      * an error.
                                      */
-                                    if (mcapi_struct->status == MCAPI_ECONNECTED)
+                                    if (mcapi_struct->status == MCAPI_ERR_CHAN_CONNECTED)
                                     {
                                         mcapi_struct->status = MCAPI_SUCCESS;
                                     }
@@ -464,7 +464,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_4)
                                                    &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
                                         /* An error should have been returned. */
-                                        if (mcapi_struct->status == MCAPI_ECONNECTED)
+                                        if (mcapi_struct->status == MCAPI_ERR_CHAN_CONNECTED)
                                         {
                                             mcapi_struct->status = MCAPI_SUCCESS;
                                         }
@@ -572,7 +572,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_5)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the send side endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -584,7 +584,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_5)
                                                   mcapi_struct->local_endp,
                                                   &request, &mcapi_struct->status);
 
-                        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                         {
                             /* Connect the two endpoints. */
                             mcapi_connect_pktchan_i(tx_endp, mcapi_struct->local_endp,
@@ -607,7 +607,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_5)
                                     /* If both endpoints are local, the routine will return
                                      * an error.
                                      */
-                                    if (mcapi_struct->status == MCAPI_ECONNECTED)
+                                    if (mcapi_struct->status == MCAPI_ERR_CHAN_CONNECTED)
                                     {
                                         mcapi_struct->status = MCAPI_SUCCESS;
                                     }
@@ -622,7 +622,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_5)
                                                    &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
                                         /* An error should have been returned. */
-                                        if (mcapi_struct->status == MCAPI_ECONNECTED)
+                                        if (mcapi_struct->status == MCAPI_ERR_CHAN_CONNECTED)
                                         {
                                             mcapi_struct->status = MCAPI_SUCCESS;
                                         }
@@ -733,7 +733,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_6)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the receive side endpoint. */
                     rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -745,7 +745,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_6)
                                                   mcapi_struct->local_endp,
                                                   &request, &mcapi_struct->status);
 
-                        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                         {
                             /* Connect the two endpoints. */
                             mcapi_connect_pktchan_i(mcapi_struct->local_endp, rx_endp,
@@ -768,7 +768,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_6)
                                     /* If both endpoints are local, the routine will return
                                      * an error.
                                      */
-                                    if (mcapi_struct->status == MCAPI_ECONNECTED)
+                                    if (mcapi_struct->status == MCAPI_ERR_CHAN_CONNECTED)
                                     {
                                         mcapi_struct->status = MCAPI_SUCCESS;
                                     }
@@ -783,7 +783,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_6)
                                                    &mcapi_struct->status, MCAPI_FTS_TIMEOUT);
 
                                         /* An error should have been returned. */
-                                        if (mcapi_struct->status == MCAPI_ECONNECTED)
+                                        if (mcapi_struct->status == MCAPI_ERR_CHAN_CONNECTED)
                                         {
                                             mcapi_struct->status = MCAPI_SUCCESS;
                                         }
@@ -894,14 +894,14 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_7)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Open the local endpoint as the receiver. */
                     mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
                                               mcapi_struct->local_endp,
                                               &request, &mcapi_struct->status);
 
-                    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                     {
                         /* Get the send side endpoint. */
                         tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1283,7 +1283,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_10)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the send side endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1410,7 +1410,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_11)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send receive was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the receive side endpoint. */
                     rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1537,14 +1537,14 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_12)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the receive was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Open the local endpoint as the sender. */
                     mcapi_open_pktchan_send_i(&mcapi_struct->pkt_tx_handle,
                                               mcapi_struct->local_endp, &request,
                                               &mcapi_struct->status);
 
-                    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                     {
                         /* Get the receive side endpoint. */
                         rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1876,7 +1876,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_14)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the send side endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -1888,7 +1888,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_14)
                                                   mcapi_struct->local_endp,
                                                   &request, &mcapi_struct->status);
 
-                        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                         {
                             /* Connect the two endpoints. */
                             mcapi_connect_pktchan_i(tx_endp, mcapi_struct->local_endp,
@@ -1936,14 +1936,14 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_14)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Open the local endpoint as the receiver. */
                     mcapi_open_pktchan_recv_i(&mcapi_struct->pkt_rx_handle,
                                               mcapi_struct->local_endp,
                                               &request, &mcapi_struct->status);
 
-                    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                     {
                         /* Connect the two endpoints. */
                         mcapi_connect_pktchan_i(tx_endp, mcapi_struct->local_endp,
@@ -2055,7 +2055,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_15)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the receive side endpoint. */
                     rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -2067,7 +2067,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_15)
                                                   mcapi_struct->local_endp,
                                                   &request, &mcapi_struct->status);
 
-                        if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                        if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                         {
                             /* Connect the two endpoints. */
                             mcapi_connect_pktchan_i(mcapi_struct->local_endp, rx_endp,
@@ -2114,7 +2114,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_15)
                     mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                     /* If the send side was opened. */
-                    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                     {
                         /* Get the receive side endpoint. */
                         rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -2126,7 +2126,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_14_15)
                                                       mcapi_struct->local_endp,
                                                       &request, &mcapi_struct->status);
 
-                            if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                            if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                             {
                                 /* Connect the two endpoints. */
                                 mcapi_connect_pktchan_i(mcapi_struct->local_endp, rx_endp,

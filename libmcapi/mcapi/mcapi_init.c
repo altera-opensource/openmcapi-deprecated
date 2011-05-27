@@ -233,21 +233,21 @@ void mcapi_initialize(mcapi_node_t node_id, mcapi_version_t *mcapi_version,
 
                         else
                         {
-                            *mcapi_status = MCAPI_ENO_MEM;
+                            *mcapi_status = MCAPI_ERR_TRANSMISSION;
                         }
                     }
 
                     /* The Node ID is not unique. */
                     else
                     {
-                        *mcapi_status = MCAPI_ENODE_NOTVALID;
+                        *mcapi_status = MCAPI_ERR_NODE_INVALID;
                     }
                 }
 
                 /* The Node ID is not the local node's ID. */
                 else
                 {
-                    *mcapi_status = MCAPI_ENODE_NOTVALID;
+                    *mcapi_status = MCAPI_ERR_NODE_INVALID;
                 }
 
                 /* Release the lock. */
@@ -257,14 +257,14 @@ void mcapi_initialize(mcapi_node_t node_id, mcapi_version_t *mcapi_version,
             /* Initialization has already been called for this node. */
             else
             {
-                *mcapi_status = MCAPI_INITIALIZED;
+                *mcapi_status = MCAPI_ERR_NODE_INITIALIZED;
             }
         }
 
         /* The version parameter is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

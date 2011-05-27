@@ -203,7 +203,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_12_2)
                 mcapi_wait(&mcapi_struct->request, &rx_len, &mcapi_struct->status,
                            MCAPI_FTS_TIMEOUT);
 
-                if (mcapi_struct->status == MCAPI_ETRUNCATED)
+                if (mcapi_struct->status == MCAPI_ERR_MSG_TRUNCATED)
                 {
                     mcapi_struct->status = MCAPI_SUCCESS;
                 }

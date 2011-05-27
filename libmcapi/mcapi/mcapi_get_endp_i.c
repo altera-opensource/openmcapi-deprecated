@@ -121,7 +121,7 @@ void mcapi_get_endpoint_i(mcapi_node_t node_id, mcapi_port_t port_id,
         /* An input parameter is invalid. */
         else
         {
-            *mcapi_status = MCAPI_EPARAM;
+            *mcapi_status = MCAPI_ERR_PARAMETER;
         }
     }
 

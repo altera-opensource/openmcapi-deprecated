@@ -91,7 +91,7 @@ void mcapi_cancel(mcapi_request_t *request, mcapi_status_t *mcapi_status)
                 while (req_ptr)
                 {
                     /* If the status is pending, cancel the operation. */
-                    if (req_ptr->mcapi_status == MCAPI_EREQ_PENDING)
+                    if (req_ptr->mcapi_status == MCAPI_PENDING)
                     {
                         /* If this is a get endpoint request for a foreign
                          * endpoint.
@@ -100,7 +100,7 @@ void mcapi_cancel(mcapi_request_t *request, mcapi_status_t *mcapi_status)
                              (req_ptr->mcapi_target_node_id != MCAPI_Node_ID) )
                         {
                             /* Set the status to canceled. */
-                            req_ptr->mcapi_status = MCAPI_EREQ_CANCELED;
+                            req_ptr->mcapi_status = MCAPI_ERR_REQUEST_CANCELLED;
 
                             /* Cancel the outstanding operation. */
                             mcapi_tx_response(node_data, req_ptr);
@@ -143,7 +143,7 @@ void mcapi_cancel(mcapi_request_t *request, mcapi_status_t *mcapi_status)
                     }
 
                     /* Resume the request. */
-                    mcapi_resume(node_data, req_ptr, MCAPI_EREQ_CANCELED);
+                    mcapi_resume(node_data, req_ptr, MCAPI_ERR_REQUEST_CANCELLED);
 
                     /* Find another matching request. */
                     req_ptr =
@@ -157,9 +157,9 @@ void mcapi_cancel(mcapi_request_t *request, mcapi_status_t *mcapi_status)
                 /* If the request that was passed in is pending, set
                  * the status to canceled.
                  */
-                if (request->mcapi_status == MCAPI_EREQ_PENDING)
+                if (request->mcapi_status == MCAPI_PENDING)
                 {
-                    request->mcapi_status = MCAPI_EREQ_CANCELED;
+                    request->mcapi_status = MCAPI_ERR_REQUEST_CANCELLED;
 
                     /* This request structure does not get stored on
                      * the node's request list.
@@ -169,7 +169,7 @@ void mcapi_cancel(mcapi_request_t *request, mcapi_status_t *mcapi_status)
 
                 else
                 {
-                    *mcapi_status = MCAPI_ENOTREQ_HANDLE;
+                    *mcapi_status = MCAPI_ERR_REQUEST_INVALID;
                 }
             }
 
@@ -180,7 +180,7 @@ void mcapi_cancel(mcapi_request_t *request, mcapi_status_t *mcapi_status)
         /* Request is not valid. */
         else
         {
-            *mcapi_status = MCAPI_ENOTREQ_HANDLE;
+            *mcapi_status = MCAPI_ERR_REQUEST_INVALID;
         }
     }
 

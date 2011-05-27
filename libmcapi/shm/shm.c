@@ -96,7 +96,7 @@ static mcapi_uint32_t get_first_zero_bit(mcapi_int_t value)
 static mcapi_status_t get_sm_buff_index(mcapi_uint32_t* p_idx)
 {
 	mcapi_uint32_t i, tmp32;
-	mcapi_status_t status = MCAPI_ENO_BUFFER;
+	mcapi_status_t status = MCAPI_ERR_TRANSMISSION;
 
 	/* Find first available buffer */
 	for (i = 0; i < BITMASK_WORD_COUNT; i++)
@@ -335,7 +335,7 @@ static mcapi_status_t enqueue_sm_ring_q(SHM_BUFF_DESC_Q *shm_des_q,
 	if (shm_des_q->count == SHM_BUFF_DESC_Q_SIZE)
 	{
 		/* Queue is full fail denqueue operation */
-		status = MCAPI_ENO_BUFFER;
+		status = MCAPI_ERR_TRANSMISSION;
 	}
 	else
 	{
@@ -420,7 +420,7 @@ static mcapi_status_t shm_tx(MCAPI_BUFFER *buffer, size_t buffer_size,
 	else
 	{
 		/* TX request to unrecognized node ID */
-		status = MCAPI_ENODE_NOTINIT;
+		status = MCAPI_ERR_NODE_NOTINIT;
 
 #ifdef MCAPI_SM_DBG_SUPPORT
 		printf("TX buffer - TX Failed \r\n");
@@ -457,7 +457,7 @@ static mcapi_status_t shm_finalize(mcapi_node_t node_id,
                                    SHM_MGMT_BLOCK *SHM_Mgmt_Blk)
 {
 	int i;
-	mcapi_status_t status = MCAPI_ENO_INIT;
+	mcapi_status_t status = MCAPI_ERR_NODE_INITFAILED;
 
 	for (i = 0; i < CONFIG_SHM_NR_NODES; i++)
 	{
@@ -499,8 +499,8 @@ static mcapi_status_t shm_finalize(mcapi_node_t node_id,
 *   OUTPUTS
 *
 *       MCAPI_SUCCESS           The call was successful.
-*       MCAPI_EATTR_NUM         Unrecognized option.
-*       MCAPI_EATTR_SIZE        The size of option is invalid.
+*       MCAPI_ERR_ATTR_NUM         Unrecognized option.
+*       MCAPI_ERR_ATTR_SIZE        The size of option is invalid.
 *
 *************************************************************************/
 static mcapi_status_t shm_ioctl(mcapi_uint_t optname, void *option,
@@ -517,7 +517,7 @@ static mcapi_status_t shm_ioctl(mcapi_uint_t optname, void *option,
 			if (optlen >= sizeof(mcapi_uint32_t))
 				*(mcapi_uint32_t *)option = SHM_BUFF_COUNT;
 			else
-				status = MCAPI_EATTR_SIZE;
+				status = MCAPI_ERR_ATTR_SIZE;
 
 			break;
 
@@ -528,7 +528,7 @@ static mcapi_status_t shm_ioctl(mcapi_uint_t optname, void *option,
 			if (optlen >= sizeof(mcapi_uint32_t))
 				*(mcapi_uint32_t *)option = MCAPI_MAX_DATA_LEN;
 			else
-				status = MCAPI_EATTR_SIZE;
+				status = MCAPI_ERR_ATTR_SIZE;
 
 			break;
 
@@ -539,7 +539,7 @@ static mcapi_status_t shm_ioctl(mcapi_uint_t optname, void *option,
 			if (optlen >= sizeof(mcapi_uint32_t))
 				*(mcapi_uint32_t *)option = SHM_Mgmt_Blk->shm_buff_mgmt_blk.shm_buff_count;
 			else
-				status = MCAPI_EATTR_SIZE;
+				status = MCAPI_ERR_ATTR_SIZE;
 
 			break;
 
@@ -550,7 +550,7 @@ static mcapi_status_t shm_ioctl(mcapi_uint_t optname, void *option,
 			if (optlen >= sizeof(mcapi_uint32_t))
 				*(mcapi_uint32_t *)option = SHM_NUM_PRIORITIES;
 			else
-				status = MCAPI_EATTR_SIZE;
+				status = MCAPI_ERR_ATTR_SIZE;
 
 			break;
 
@@ -576,7 +576,7 @@ static mcapi_status_t shm_ioctl(mcapi_uint_t optname, void *option,
 
 		default:
 
-			status = MCAPI_EATTR_NUM;
+			status = MCAPI_ERR_ATTR_NUM;
 			break;
 	}
 
@@ -691,7 +691,7 @@ static mcapi_status_t shm_slave_node_init(mcapi_node_t node_id,
 	{
 		if (SHM_Mgmt_Blk->shm_routes[i].node_id == node_id)
 		{
-			status = MCAPI_ENO_INIT;
+			status = MCAPI_ERR_NODE_INITFAILED;
 
 			break;
 		}
@@ -743,7 +743,7 @@ mcapi_status_t openmcapi_shm_init(mcapi_node_t node_id,
 	mcapi_status_t status = MCAPI_SUCCESS;
 
 	if (node_id >= CONFIG_SHM_NR_NODES)
-		return MCAPI_ENODE_NOTVALID;
+		return MCAPI_ERR_NODE_INVALID;
 
 	/* Store the name of this interface. */
 	memcpy(int_ptr->mcapi_int_name, OPENMCAPI_SHM_NAME, MCAPI_INT_NAME_LEN);
@@ -788,7 +788,7 @@ mcapi_status_t openmcapi_shm_init(mcapi_node_t node_id,
 	}
 	else
 	{
-		status = MCAPI_OS_ERROR;
+		status = MCAPI_ERR_GENERAL;
 	}
 
 	/* Obtain pointer to the local interface */

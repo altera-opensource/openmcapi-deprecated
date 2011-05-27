@@ -92,7 +92,7 @@ mcapi_endpoint_t mcapi_get_endpoint(mcapi_node_t node_id, mcapi_port_t port_id,
             /* The node has not yet been initialized. */
             else
             {
-                *mcapi_status = MCAPI_EREQ_PENDING;
+                *mcapi_status = MCAPI_PENDING;
             }
         }
 
@@ -108,7 +108,7 @@ mcapi_endpoint_t mcapi_get_endpoint(mcapi_node_t node_id, mcapi_port_t port_id,
                 /* Issue the call to get a remote endpoint. */
                 get_remote_endpoint(node_id, port_id, mcapi_status, 0xffffffff);
 
-                if (*mcapi_status == MCAPI_ENO_BUFFER)
+                if (*mcapi_status == MCAPI_ERR_TRANSMISSION)
                 {
                     /* Must drop and re-acquire the lock so we don't block
                      * other threads forever. */
@@ -125,12 +125,12 @@ mcapi_endpoint_t mcapi_get_endpoint(mcapi_node_t node_id, mcapi_port_t port_id,
             /* The get remote endpoint request was successfully sent. */
             if (*mcapi_status == MCAPI_SUCCESS)
             {
-                *mcapi_status = MCAPI_EREQ_PENDING;
+                *mcapi_status = MCAPI_PENDING;
             }
         }
 
         /* If the endpoint is not immediately available. */
-        if (*mcapi_status == MCAPI_EREQ_PENDING)
+        if (*mcapi_status == MCAPI_PENDING)
         {
             /* Initialize the request structure. */
             mcapi_init_request(&request, MCAPI_REQ_CREATED);

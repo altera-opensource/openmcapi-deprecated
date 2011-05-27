@@ -143,7 +143,7 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                             break;
 
                     } while ( (mcapi_struct->status != MCAPI_SUCCESS) &&
-                              (mcapi_struct->status != MCAPI_EENDP_LIMIT) );
+                              (mcapi_struct->status != MCAPI_ERR_GENERAL) );
 
                     break;
 
@@ -271,7 +271,7 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
 
         /* If an error occurred. */
         if ( (mcapi_struct->status != MCAPI_SUCCESS) &&
-             (mcapi_struct->status != MCAPI_ENOT_CONNECTED) )
+             (mcapi_struct->status != MGC_MCAPI_ERR_NOT_CONNECTED) )
         {
             /* Delete the endpoint since the service could not be
              * registered / retrieved.  The call has failed for this

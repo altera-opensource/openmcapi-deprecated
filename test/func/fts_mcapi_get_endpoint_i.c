@@ -133,7 +133,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_4_2)
         /* The test call should return incomplete. */
         mcapi_test(&mcapi_struct->request, &rx_len, &status);
 
-        if (status != MCAPI_INCOMPLETE)
+        if (status != MCAPI_PENDING)
         {
             mcapi_struct->status = -1;
         }

@@ -93,7 +93,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_21_1)
                 mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                 /* If the send side was opened. */
-                if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                 {
                     /* Get the send side endpoint. */
                     tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -234,7 +234,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_21_2)
                     mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                     /* If the send side was opened. */
-                    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                     {
                         /* Get the send side endpoint. */
                         tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);
@@ -388,7 +388,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_21_3)
                     mcapi_struct->status = MCAPID_RX_Mgmt_Response(mcapi_struct);
 
                     /* If the send side was opened. */
-                    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+                    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
                     {
                         /* Get the send side endpoint. */
                         tx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, 1024, &mcapi_struct->status);

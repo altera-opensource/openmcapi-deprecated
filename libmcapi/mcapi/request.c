@@ -61,7 +61,7 @@ void mcapi_init_request(mcapi_request_t *request, mcapi_uint8_t type)
     /* Initialize the common parameters. */
     request->mcapi_requesting_node_id = MCAPI_Node_ID;
     request->mcapi_type = type;
-    request->mcapi_status = MCAPI_EREQ_PENDING;
+    request->mcapi_status = MCAPI_PENDING;
 
 }
 

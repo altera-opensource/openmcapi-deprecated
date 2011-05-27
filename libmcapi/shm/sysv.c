@@ -69,7 +69,7 @@ mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unit_id,
 
     rc = msgsnd(msgqid, &msg, 0, 0);
     if (rc == -1)
-        rc = MCAPI_ENOT_CONNECTED;
+        rc = MGC_MCAPI_ERR_NOT_CONNECTED;
 
     return rc;
 }
@@ -169,7 +169,7 @@ mcapi_status_t openmcapi_shm_os_init(void)
     rc = pthread_create(&shm_rx_thread, NULL, mcapi_receive_thread, NULL);
     if (rc) {
         perror("couldn't create pthread");
-        mcapi_status = MCAPI_OS_ERROR;
+        mcapi_status = MCAPI_ERR_GENERAL;
     }
 
     return mcapi_status;
@@ -184,7 +184,7 @@ mcapi_status_t openmcapi_shm_os_finalize(void)
     rc = pthread_cancel(shm_rx_thread);
     if (rc) {
         perror("couldn't cancel thread");
-        mcapi_status = MCAPI_OS_ERROR;
+        mcapi_status = MCAPI_ERR_GENERAL;
     }
 
     return mcapi_status;

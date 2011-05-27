@@ -81,7 +81,7 @@ mcapi_node_t mcapi_get_node_id(mcapi_status_t *mcapi_status)
         /* The local node has not been initialized yet. */
         else
         {
-            *mcapi_status = MCAPI_ENODE_NOTINIT;
+            *mcapi_status = MCAPI_ERR_NODE_NOTINIT;
         }
 
         mcapi_unlock_node_data();

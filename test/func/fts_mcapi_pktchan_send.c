@@ -73,7 +73,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_18_1)
                               mcapi_struct->local_endp, &request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Get the receive side endpoint. */
         rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, mcapi_struct->foreign_endp,
@@ -146,7 +146,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_18_2)
                               mcapi_struct->local_endp, &request,
                               &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_ENOT_CONNECTED)
+    if (mcapi_struct->status == MGC_MCAPI_ERR_NOT_CONNECTED)
     {
         /* Get the receive side endpoint. */
         rx_endp = mcapi_get_endpoint(FUNC_BACKEND_NODE_ID, mcapi_struct->foreign_endp,
@@ -182,7 +182,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_18_2)
                             mcapi_pktchan_send(mcapi_struct->pkt_tx_handle, buffer,
                                                MCAPID_MSG_LEN, &mcapi_struct->status);
 
-                            if (mcapi_struct->status == MCAPI_ENOT_HANDLE)
+                            if (mcapi_struct->status == MCAPI_ERR_CHAN_INVALID)
                             {
                                 mcapi_struct->status = MCAPI_SUCCESS;
                             }
@@ -286,7 +286,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_18_3)
                                          MCAPID_MSG_LEN, &mcapi_struct->status);
 
                     /* Ensure the proper error code was returned. */
-                    if (mcapi_struct->status == MCAPI_ENO_BUFFER)
+                    if (mcapi_struct->status == MCAPI_ERR_TRANSMISSION)
                     {
                         mcapi_struct->status = MCAPI_SUCCESS;
                     }

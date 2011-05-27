@@ -82,7 +82,7 @@ mcapi_endpoint_t create_endpoint(MCAPI_NODE *node_ptr,
             /* If a matching endpoint already exists. */
             if (mcapi_find_endpoint(port_id, node_ptr) != -1)
             {
-                *mcapi_status = MCAPI_EENDP_ISCREATED;
+                *mcapi_status = MCAPI_ERR_ENDP_EXISTS;
             }
         }
 
@@ -104,7 +104,7 @@ mcapi_endpoint_t create_endpoint(MCAPI_NODE *node_ptr,
             /* If an unused port could not be found. */
             if (port_id == MCAPI_PORT_ANY)
             {
-                *mcapi_status = MCAPI_EPORT_NOTVALID;
+                *mcapi_status = MCAPI_ERR_PORT_INVALID;
             }
         }
 
@@ -202,7 +202,7 @@ mcapi_endpoint_t create_endpoint(MCAPI_NODE *node_ptr,
     /* There are no available endpoint entries in the system. */
     else
     {
-        *mcapi_status = MCAPI_EENDP_LIMIT;
+        *mcapi_status = MCAPI_ERR_GENERAL; /* XXX document me */
     }
 
 #else

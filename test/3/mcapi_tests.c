@@ -488,7 +488,7 @@ void MCAPI_TEST_mcapi_initialize(void)
     /* 1.1.2.1 - Test an invalid version. */
     mcapi_initialize(FUNC_FRONTEND_NODE_ID, 0, &mcapi_status);
 
-    if (mcapi_status != MCAPI_EPARAM)
+    if (mcapi_status != MCAPI_ERR_PARAMETER)
         MCAPI_TEST_Error();
 
     /* 1.1.2.2 - Test invalid version and status. */
@@ -506,7 +506,7 @@ void MCAPI_TEST_mcapi_initialize(void)
     /* 1.1.5.1 - Attempt to initialize again. */
     mcapi_initialize(FUNC_FRONTEND_NODE_ID, &mcapi_version, &mcapi_status);
 
-    if (mcapi_status != MCAPI_INITIALIZED)
+    if (mcapi_status != MCAPI_ERR_NODE_INITIALIZED)
         MCAPI_TEST_Error();
 
     /* Let the MCAPI tasks start back up. */
@@ -1320,7 +1320,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Request = &request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
@@ -1350,7 +1350,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Request = &request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
@@ -1399,7 +1399,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Request = &recv_request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
@@ -1448,7 +1448,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Request = &send_request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
@@ -1515,7 +1515,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Request = &request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
@@ -1564,7 +1564,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Request = &recv_request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
@@ -1613,7 +1613,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Request = &send_request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
@@ -1649,7 +1649,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Any_Request[0] = &request;
     MCAPI_TEST_Wait_Any_Request[1] = &recv_request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = 0;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 2;
@@ -1699,7 +1699,7 @@ void MCAPI_TEST_mcapi_finalize(void)
 
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Any_Request[0] = &recv_request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = 0;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 1;
@@ -1774,7 +1774,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Any_Request[0] = &send_request;
     MCAPI_TEST_Wait_Any_Request[1] = &send_request2;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = 0;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 2;
@@ -1869,7 +1869,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     /* Cause another thread to also wait for this request to finish. */
     MCAPI_TEST_Wait_Any_Request[0] = &request;
     MCAPI_TEST_Wait_Any_Request[1] = &recv_request;
-    MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
+    MCAPI_TEST_Wait_Status = MCAPI_ERR_REQUEST_CANCELLED;
     MCAPI_TEST_Wait_Finished = 0;
     MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 2;
@@ -1918,7 +1918,7 @@ void MCAPI_TEST_mcapi_get_node_id(int type)
         /* Get the node ID before the node is initialized. */
         mcapi_get_node_id(&mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTINIT)
+        if (mcapi_status != MCAPI_ERR_NODE_NOTINIT)
             MCAPI_TEST_Error();
     }
 
@@ -1961,7 +1961,7 @@ void MCAPI_TEST_mcapi_create_endpoint(int type)
         /* Try to create a port before the node is initialized. */
         endpoint = mcapi_create_endpoint(port, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTINIT)
+        if (mcapi_status != MCAPI_ERR_NODE_NOTINIT)
             MCAPI_TEST_Error();
     }
 
@@ -1971,7 +1971,7 @@ void MCAPI_TEST_mcapi_create_endpoint(int type)
         /* 1.3.2.1 - Create an endpoint of greater than 16-bits. */
         endpoint = mcapi_create_endpoint(65536, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPORT_NOTVALID)
+        if (mcapi_status != MCAPI_ERR_PORT_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.3.2.2 - Test with invalid port ID and invalid status. */
@@ -2030,28 +2030,28 @@ void MCAPI_TEST_mcapi_get_endpoint_i(int type)
         mcapi_get_endpoint_i(MCAPI_Node_ID + 100, MCAPI_RX_CONTROL_PORT,
                              &endpoint, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTVALID)
+        if (mcapi_status != MCAPI_ERR_NODE_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.4.1.2 - Test with an invalid node and port ID. */
         mcapi_get_endpoint_i(MCAPI_Node_ID + 100, MCAPI_Next_Port,
                              &endpoint, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTVALID)
+        if (mcapi_status != MCAPI_ERR_NODE_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.4.1.3 - Test with an invalid node, port ID and endpoint. */
         mcapi_get_endpoint_i(MCAPI_Node_ID + 100, MCAPI_Next_Port,
                              0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.1.4 - Test with an invalid node, port ID, endpoint and request. */
         mcapi_get_endpoint_i(MCAPI_Node_ID + 100, MCAPI_Next_Port,
                              0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.1.5 - Test with an invalid node, port ID, endpoint, request and
@@ -2063,14 +2063,14 @@ void MCAPI_TEST_mcapi_get_endpoint_i(int type)
         mcapi_get_endpoint_i(MCAPI_Node_ID, MCAPI_RX_CONTROL_PORT,
                              0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.2.2 - Test with an invalid endpoint structure and request. */
         mcapi_get_endpoint_i(MCAPI_Node_ID, MCAPI_RX_CONTROL_PORT,
                              0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.2.3 - Test with an invalid endpoint structure, request
@@ -2082,14 +2082,14 @@ void MCAPI_TEST_mcapi_get_endpoint_i(int type)
         mcapi_get_endpoint_i(MCAPI_Node_ID + 100, MCAPI_RX_CONTROL_PORT, 0,
                              &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.3.1 - Test with an invalid request structure. */
         mcapi_get_endpoint_i(MCAPI_Node_ID, MCAPI_RX_CONTROL_PORT,
                              &endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.3.2 - Test with an invalid request and status. */
@@ -2100,14 +2100,14 @@ void MCAPI_TEST_mcapi_get_endpoint_i(int type)
         mcapi_get_endpoint_i(MCAPI_Node_ID + 100, MCAPI_RX_CONTROL_PORT,
                              &endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.3.4 - Test with an invalid node ID, port and request structure. */
         mcapi_get_endpoint_i(MCAPI_Node_ID + 100, 65536,
                              &endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.4.4.1 - Test with an invalid status structure. */
@@ -2154,7 +2154,7 @@ void MCAPI_TEST_mcapi_get_endpoint(int type)
         mcapi_get_endpoint(MCAPI_Node_ID + 100, MCAPI_RX_CONTROL_PORT,
                            &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTVALID)
+        if (mcapi_status != MCAPI_ERR_NODE_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.5.1.2 - Test with invalid node ID, invalid port ID.  A route
@@ -2162,7 +2162,7 @@ void MCAPI_TEST_mcapi_get_endpoint(int type)
          */
         mcapi_get_endpoint(MCAPI_Node_ID + 100, MCAPI_Next_Port, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTVALID)
+        if (mcapi_status != MCAPI_ERR_NODE_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.5.1.3 - Test with invalid node ID, invalid port ID and invalid
@@ -2216,7 +2216,7 @@ void MCAPI_TEST_mcapi_delete_endpoint(int type)
         mcapi_delete_endpoint(mcapi_encode_endpoint(MCAPI_Node_ID,
                               MCAPI_TEST_Array[MCAPI_TEST_Array_Count] + 1), &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.6.1.2 - Invalid endpoint, invalid status. */
@@ -2299,7 +2299,7 @@ void MCAPI_TEST_mcapi_delete_endpoint(int type)
         /* 1.6.1.5 - Attempt to delete receive endpoint. */
         mcapi_delete_endpoint(endpoint[0], &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_OPEN)
+        if (mcapi_status != MCAPI_ERR_CHAN_OPEN)
             MCAPI_TEST_Error();
 
         /* 1.6.1.6 - Receive endpoint, invalid status. */
@@ -2322,7 +2322,7 @@ void MCAPI_TEST_mcapi_delete_endpoint(int type)
         /* 1.6.1.7 - Attempt to delete the send endpoint. */
         mcapi_delete_endpoint(endpoint[1], &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_OPEN)
+        if (mcapi_status != MCAPI_ERR_CHAN_OPEN)
             MCAPI_TEST_Error();
 
         /* 1.6.1.8 - Send endpoint, invalid status. */
@@ -2436,7 +2436,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.7.1.2 - Invalid endpoint, invalid attribute number. */
@@ -2444,7 +2444,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.7.1.3 - Invalid endpoint, invalid attribute number, invalid
@@ -2453,7 +2453,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
         mcapi_get_endpoint_attribute(endpoint, 0xffffffff, 0, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.7.1.4 - Invalid endpoint, invalid attribute number, invalid
@@ -2461,7 +2461,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
          */
         mcapi_get_endpoint_attribute(endpoint, 0xffffffff, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.7.1.5 - Invalid endpoint, invalid attribute number, invalid
@@ -2477,14 +2477,14 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EATTR_NUM)
+        if (mcapi_status != MCAPI_ERR_ATTR_NUM)
             MCAPI_TEST_Error();
 
         /* 1.7.2.2 - Get an unknown attribute with invalid attribute pointer. */
         mcapi_get_endpoint_attribute(endpoint, 0xffffffff, 0, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.7.2.3 - Get an unknown attribute with invalid attribute pointer
@@ -2492,7 +2492,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
          */
         mcapi_get_endpoint_attribute(endpoint, 0xffffffff, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.7.2.4 - Get an unknown attribute with invalid attribute pointer,
@@ -2504,7 +2504,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
         mcapi_get_endpoint_attribute(endpoint, MCAPI_ATTR_ENDP_PRIO,
                                      0, sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.7.3.2 - Pass an invalid attribute pointer and invalid attribute
@@ -2513,7 +2513,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
         mcapi_get_endpoint_attribute(endpoint, MCAPI_ATTR_ENDP_PRIO,
                                      0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.7.3.3 - Pass an invalid attribute pointer, invalid attribute
@@ -2528,7 +2528,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
         mcapi_get_endpoint_attribute(endpoint, MCAPI_ATTR_ENDP_PRIO, 0,
                                      sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -2539,7 +2539,7 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(mcapi_uint8_t),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EATTR_SIZE)
+        if (mcapi_status != MCAPI_ERR_ATTR_SIZE)
             MCAPI_TEST_Error();
 
         /* 1.7.4.2 - Pass an invalid size and status. */
@@ -2554,14 +2554,14 @@ void MCAPI_TEST_mcapi_get_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(mcapi_uint8_t),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.7.4.4 - Pass an invalid endpoint, attribute number and size. */
         mcapi_get_endpoint_attribute(endpoint, 0xffffffff, (void*)&priority,
                                      sizeof(mcapi_uint8_t), &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -2629,7 +2629,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.8.1.2 - Invalid endpoint, invalid attribute number. */
@@ -2637,7 +2637,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.8.1.3 - Invalid endpoint, invalid attribute number, invalid
@@ -2646,7 +2646,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff, 0,
                                      sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.4 - Invalid endpoint, invalid attribute number, invalid
@@ -2655,7 +2655,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff, 0,
                                      0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.5 - Invalid endpoint, invalid attribute number, invalid
@@ -2686,7 +2686,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.8.1.7 - Set the priority of a connected endpoint, invalid
@@ -2695,7 +2695,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff, (void*)&priority,
                                      sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.8.1.8 - Set the priority of a connected endpoint, invalid
@@ -2704,7 +2704,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff, 0,
                                      sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.9 - Set the priority of a connected endpoint, invalid
@@ -2713,7 +2713,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff, 0, 0,
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.10 - Set the priority of a connected endpoint, invalid
@@ -2734,7 +2734,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.8.1.12 - Set the priority of an open receive endpoint, invalid
@@ -2744,7 +2744,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.8.1.13 - Set the priority of an open receive endpoint, invalid
@@ -2753,7 +2753,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff, 0,
                                      sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.14 - Set the priority of an open receive endpoint, invalid
@@ -2762,7 +2762,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff, 0, 0,
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.15 - Set the priority of an open receive endpoint, invalid
@@ -2791,7 +2791,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.8.1.17 - Set the priority of an open send endpoint, invalid
@@ -2801,7 +2801,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.8.1.18 - Set the priority of an open send endpoint, invalid
@@ -2810,7 +2810,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[1], 0xffffffff, 0, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.19 - Set the priority of an open send endpoint, invalid
@@ -2819,7 +2819,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[1], 0xffffffff, 0, 0,
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.1.20 - Set the priority of an open send endpoint, invalid
@@ -2877,14 +2877,14 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(priority),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EATTR_NUM)
+        if (mcapi_status != MCAPI_ERR_ATTR_NUM)
             MCAPI_TEST_Error();
 
         /* 1.8.2.2 - Set an unknown attribute, invalid attribute pointer. */
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff,
                                      0, sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.2.3 - Set an unknown attribute, invalid attribute pointer,
@@ -2893,7 +2893,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], 0xffffffff,
                                      0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.2.4 - Set an unknown attribute, invalid attribute pointer,
@@ -2905,14 +2905,14 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], MCAPI_ATTR_ENDP_PRIO,
                                      0, sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.3.2 - Pass an invalid attribute pointer and invalid size. */
         mcapi_set_endpoint_attribute(endpoint[0], MCAPI_ATTR_ENDP_PRIO,
                                      0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.3.3 - Pass an invalid attribute pointer, invalid size and
@@ -2928,7 +2928,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], MCAPI_ATTR_ENDP_PRIO,
                                      0, sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -2940,7 +2940,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
         mcapi_set_endpoint_attribute(endpoint[0], MCAPI_ATTR_ENDP_PRIO,
                                      (void*)&priority, sizeof(priority), &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.8.4.1 - Pass an invalid size for priority attribute. */
@@ -2948,7 +2948,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(mcapi_uint8_t),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_EATTR_SIZE)
+        if (mcapi_status != MCAPI_ERR_ATTR_SIZE)
             MCAPI_TEST_Error();
 
         /* 1.8.4.2 - Pass an invalid size and status */
@@ -2963,7 +2963,7 @@ void MCAPI_TEST_mcapi_set_endpoint_attribute(int type)
                                      (void*)&priority, sizeof(mcapi_uint8_t),
                                      &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.8.4.4 - Pass an invalid endpoint, size and status. */
@@ -3039,7 +3039,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -3054,7 +3054,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.10.1.3 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3062,7 +3062,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
          */
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.4 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3071,7 +3071,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.5 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3080,7 +3080,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, -1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.6 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3114,7 +3114,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -3129,7 +3129,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* The fin may or may not have reached the send side by this point,
          * so there are two possible valid return values.
          */
-        if ( (mcapi_status != MCAPI_ENOT_ENDP) && (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (mcapi_status != MCAPI_ERR_ENDP_INVALID) && (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.10.1.9 - Try to send data over connected endpoints with an invalid
@@ -3137,7 +3137,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
          */
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.10 - Try to send data over connected endpoints with an invalid
@@ -3146,7 +3146,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.11 - Try to send data over connected endpoints with an invalid
@@ -3156,7 +3156,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.12 - Try to send data over connected endpoints with an invalid
@@ -3196,7 +3196,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* 1.10.1.13 - Try to send data over a half open connection. */
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Delete the receive endpoint. */
@@ -3210,7 +3210,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* There are two valid return values here since the fin may or may not
          * have reached the send side yet.
          */
-        if ( (mcapi_status != MCAPI_ENOT_ENDP) && (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (mcapi_status != MCAPI_ERR_ENDP_INVALID) && (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.10.1.15 - Try to send data over connected endpoints with an invalid
@@ -3218,7 +3218,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
          */
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.16 - Try to send data over connected endpoints with an invalid
@@ -3227,7 +3227,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.17 - Try to send data over connected endpoints with an invalid
@@ -3237,7 +3237,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.1.18 - Try to send data over connected endpoints with an invalid
@@ -3277,7 +3277,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
          */
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTVALID)
+        if (mcapi_status != MCAPI_ERR_NODE_INVALID)
             MCAPI_TEST_Error();
 
 #ifdef MCAPI_FOREIGN_TEST
@@ -3299,7 +3299,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* 1.10.2.3 - Invalid receive endpoint, invalid buffer. */
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.2.4 - Invalid receive endpoint, invalid buffer, invalid buffer
@@ -3308,7 +3308,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.2.5 - Invalid receive endpoint, invalid buffer, invalid buffer size,
@@ -3317,7 +3317,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.2.6 - Invalid receive endpoint, invalid buffer, invalid buffer size,
@@ -3350,7 +3350,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* 1.10.2.7 - Try to send data over a half open connection. */
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.10.2.8 - Try to send data over connected endpoints with an invalid
@@ -3358,7 +3358,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
          */
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.2.9 - Try to send data over connected endpoints with an invalid buffer
@@ -3367,7 +3367,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.2.10 - Try to send data over connected endpoints with an invalid
@@ -3376,7 +3376,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.2.11 - Try to send data over connected endpoints with an invalid
@@ -3430,7 +3430,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* 1.10.1.7 - Try to send data over connected endpoints. */
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Open the send side of the scalar channel. */
@@ -3440,7 +3440,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* 1.10.1.13 - Try to send data over a half open connection. */
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Open the receive side of the scalar channel. */
@@ -3460,7 +3460,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         /* 1.10.1.14 - Try to send data over an open connection. */
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128, 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -3503,21 +3503,21 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, 128, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.3.3 - Specify an invalid buffer, invalid size. */
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                        &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.3.4 - Specify an invalid buffer, invalid size, invalid priority. */
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.10.3.5 - Specify an invalid buffer, invalid size, invalid priority,
@@ -3542,14 +3542,14 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                        1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EMESS_LIMIT)
+        if (mcapi_status != MCAPI_ERR_MSG_SIZE)
             MCAPI_TEST_Error();
 
         /* 1.10.4.2 - Specify a larger send size than valid, invalid priority. */
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPRIO)
+        if (mcapi_status != MCAPI_ERR_PRIORITY)
             MCAPI_TEST_Error();
 
         /* 1.10.4.3 - Specify a larger send size than valid, invalid priority,
@@ -3565,7 +3565,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                        1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -3577,7 +3577,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                        1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -3591,7 +3591,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPRIO)
+        if (mcapi_status != MCAPI_ERR_PRIORITY)
             MCAPI_TEST_Error();
 
         /* 1.10.5.2 - Specify an invalid priority, invalid status. */
@@ -3605,7 +3605,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -3617,7 +3617,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, buffer, 128,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.10.5.5 - Specify an invalid send endpoint, invalid receive endpoint,
@@ -3626,7 +3626,7 @@ void MCAPI_TEST_mcapi_msg_send_i(int type)
         mcapi_msg_send(send_endpoint, recv_endpoint, 0, 128,
                        MCAPI_PRIO_COUNT, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -3705,7 +3705,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -3720,7 +3720,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.9.1.3 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3729,7 +3729,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.4 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3738,7 +3738,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.5 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3747,7 +3747,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.6 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3756,7 +3756,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.7 - Invalid send endpoint, invalid receive endpoint, invalid
@@ -3790,7 +3790,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -3805,7 +3805,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         /* There are two possible valid return statuses since the send side may
          * not have yet received the fin message.
          */
-        if ( (mcapi_status != MCAPI_ENOT_ENDP) && (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (mcapi_status != MCAPI_ERR_ENDP_INVALID) && (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.9.1.9 - Try to send data over connected endpoints with an invalid
@@ -3814,7 +3814,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.10 - Try to send data over connected endpoints with an invalid
@@ -3823,7 +3823,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.11 - Try to send data over connected endpoints with an invalid
@@ -3833,7 +3833,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.12 - Try to send data over connected endpoints with an invalid
@@ -3843,7 +3843,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.13 - Try to send data over connected endpoints with an invalid
@@ -3884,7 +3884,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Delete the receive endpoint. */
@@ -3899,7 +3899,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         /* There are two possible valid return values since the send side may not
          * have received the fin yet.
          */
-        if ( (mcapi_status != MCAPI_ENOT_ENDP) && (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (mcapi_status != MCAPI_ERR_ENDP_INVALID) && (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.9.1.16 - Try to send data over connected endpoints with an invalid
@@ -3908,7 +3908,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.17 - Try to send data over connected endpoints with an invalid
@@ -3917,7 +3917,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.18 - Try to send data over connected endpoints with an invalid
@@ -3927,7 +3927,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.19 - Try to send data over connected endpoints with an invalid
@@ -3937,7 +3937,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.1.20 - Try to send data over connected endpoints with an invalid
@@ -3978,7 +3978,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENODE_NOTVALID)
+        if (mcapi_status != MCAPI_ERR_NODE_INVALID)
             MCAPI_TEST_Error();
 
 #ifdef MCAPI_FOREIGN_TEST
@@ -4002,7 +4002,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.4 - Invalid receive endpoint, invalid buffer, invalid buffer
@@ -4011,7 +4011,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.5 - Invalid receive endpoint, invalid buffer, invalid buffer size,
@@ -4020,7 +4020,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.6 - Invalid receive endpoint, invalid buffer, invalid buffer size,
@@ -4029,7 +4029,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.7 - Invalid receive endpoint, invalid buffer, invalid buffer size,
@@ -4063,7 +4063,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.9.2.9 - Try to send data over connected endpoints with an invalid
@@ -4072,7 +4072,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.10 - Try to send data over connected endpoints with an invalid buffer
@@ -4081,7 +4081,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.11 - Try to send data over connected endpoints with an invalid
@@ -4090,7 +4090,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.12 - Try to send data over connected endpoints with an invalid
@@ -4099,7 +4099,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.2.13 - Try to send data over connected endpoints with an invalid
@@ -4155,7 +4155,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Open the send side of the scalar channel. */
@@ -4166,7 +4166,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Open the receive side of the scalar channel. */
@@ -4187,7 +4187,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -4231,14 +4231,14 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.3.3 - Specify an invalid buffer, invalid size. */
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                          &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.3.4 - Specify an invalid buffer, valid size. */
@@ -4252,7 +4252,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.3.6 - Specify an invalid buffer, invalid size, invalid priority,
@@ -4261,7 +4261,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.3.7 - Specify an invalid buffer, invalid size, invalid priority,
@@ -4286,14 +4286,14 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                          1, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EMESS_LIMIT)
+        if (mcapi_status != MCAPI_ERR_MSG_SIZE)
             MCAPI_TEST_Error();
 
         /* 1.9.4.2 - Specify a larger send size than valid, invalid priority. */
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPRIO)
+        if (mcapi_status != MCAPI_ERR_PRIORITY)
             MCAPI_TEST_Error();
 
         /* 1.9.4.3 - Specify a larger send size than valid, invalid priority,
@@ -4302,7 +4302,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.4.4 - Specify a larger send size than valid, invalid priority,
@@ -4318,7 +4318,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                          1, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -4330,7 +4330,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, MCAPI_MAX_DATA_LEN + 1,
                          1, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -4343,14 +4343,14 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPRIO)
+        if (mcapi_status != MCAPI_ERR_PRIORITY)
             MCAPI_TEST_Error();
 
         /* 1.9.5.2 - Specify an invalid priority, invalid request. */
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128,
                          MCAPI_PRIO_COUNT, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.5.3 - Specify an invalid priority, invalid request, invalid status. */
@@ -4364,7 +4364,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128,
                          MCAPI_PRIO_COUNT,  &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -4376,7 +4376,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.9.5.6 - Specify an invalid send endpoint, invalid receive endpoint,
@@ -4385,7 +4385,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128,
                          MCAPI_PRIO_COUNT, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -4399,7 +4399,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.6.2 - Specify an invalid request and status. */
@@ -4413,7 +4413,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -4425,7 +4425,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, buffer, 128, 1,
                          0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.6.5 - Specify an invalid request, invalid send endpoint, invalid
@@ -4434,7 +4434,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, 128, 1,
                          0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.9.6.6 - Specify an invalid request, invalid send endpoint, invalid
@@ -4443,7 +4443,7 @@ void MCAPI_TEST_mcapi_msg_send(int type)
         mcapi_msg_send_i(send_endpoint, recv_endpoint, 0, MCAPI_MAX_DATA_LEN + 1, 1,
                          0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Create a new endpoint. */
@@ -4532,7 +4532,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         /* 1.12.1.1 - Try to receive data on the closed endpoint. */
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.12.1.2 - Try to receive data on the closed endpoint, invalid
@@ -4540,7 +4540,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.3 - Try to receive data on the closed endpoint, invalid
@@ -4548,7 +4548,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.4 - Try to receive data on the closed endpoint, invalid
@@ -4556,7 +4556,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.5 - Try to receive data on the closed endpoint, invalid
@@ -4584,13 +4584,13 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         /* 1.12.1.6 - Try to receive data over connected endpoints. */
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.12.1.7 - Try to receive data over connected endpoints, invalid buffer. */
         mcapi_msg_recv_i(recv_endpoint, 0, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.8 - Try to receive data over connected endpoints, invalid buffer,
@@ -4598,7 +4598,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.9 - Try to receive data over connected endpoints, invalid buffer,
@@ -4606,7 +4606,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.10 - Try to receive data over connected endpoints, invalid buffer,
@@ -4622,7 +4622,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, &request,
                          &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Open the receive side of the packet channel. */
@@ -4642,13 +4642,13 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         /* 1.12.1.11 - Try to receive data over an open connection. */
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* 1.12.1.12 - Try to receive data over an open connection, invalid buffer. */
         mcapi_msg_recv_i(recv_endpoint, 0, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.13 - Try to receive data over an open connection, invalid buffer,
@@ -4656,7 +4656,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.14 - Try to receive data over an open connection, invalid buffer,
@@ -4664,7 +4664,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.1.15 - Try to receive data over an open connection, invalid buffer,
@@ -4727,7 +4727,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, &request,
                          &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Open the send side of the scalar channel. */
@@ -4738,7 +4738,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, &request,
                          &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Open the receive side of the scalar channel. */
@@ -4759,7 +4759,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, &request,
                          &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -4793,13 +4793,13 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         /* 1.12.2.1 - Specify an invalid buffer structure. */
         mcapi_msg_recv_i(recv_endpoint, 0, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.2.2 - Specify an invalid buffer structure, invalid buffer size. */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.2.3 - Specify an invalid buffer structure, invalid buffer size,
@@ -4807,7 +4807,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.2.4 - Specify an invalid buffer structure, invalid buffer size,
@@ -4818,13 +4818,13 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         /* 1.12.3.1 - Specify an invalid buffer size. */
         mcapi_msg_recv_i(recv_endpoint, buffer, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.3.2 - Specify an invalid buffer size, invalid request. */
         mcapi_msg_recv_i(recv_endpoint, buffer, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.3.3 - Specify an invalid buffer size, invalid request, invalid
@@ -4838,7 +4838,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         /* 1.12.3.4 - Specify an invalid buffer size, invalid receive endpoint. */
         mcapi_msg_recv_i(recv_endpoint, buffer, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Create another receive endpoint. */
@@ -4847,7 +4847,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
         /* 1.12.4.1 - Specify an invalid request structure. */
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.4.2 - Specify an invalid request structure, invalid status. */
@@ -4861,7 +4861,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, buffer, 128, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.12.4.4 - Specify an invalid request structure, invalid receive
@@ -4869,7 +4869,7 @@ void MCAPI_TEST_mcapi_msg_recv_i(int type)
          */
         mcapi_msg_recv_i(recv_endpoint, 0, 128, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Create another receive endpoint. */
@@ -4940,13 +4940,13 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.1.1 - Invalid receive endpoint. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, &size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.11.1.2 - Invalid receive endpoint, invalid buffer. */
         mcapi_msg_recv(recv_endpoint, 0, 128, &size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.1.3 - Invalid receive endpoint, invalid buffer, invalid buffer
@@ -4954,7 +4954,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 0, &size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.1.4 - Invalid receive endpoint, invalid buffer, invalid buffer
@@ -4962,7 +4962,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.1.5 - Invalid receive endpoint, invalid buffer, invalid buffer
@@ -4990,7 +4990,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.1.6 - Try to receive data over connected endpoints. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_ECONNECTED) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* 1.11.1.7 - Try to receive data over connected endpoints, invalid
@@ -4998,7 +4998,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_EPARAM) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_PARAMETER) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* 1.11.1.8 - Try to receive data over connected endpoints, invalid
@@ -5006,7 +5006,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 0, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_EPARAM) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_PARAMETER) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* 1.11.1.9 - Try to receive data over connected endpoints, invalid
@@ -5014,7 +5014,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.1.10 - Try to receive data over connected endpoints, invalid
@@ -5029,7 +5029,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* Try to receive over a half open connection. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_ECONNECTED) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* Open the receive side of the packet channel. */
@@ -5049,7 +5049,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.1.11 - Try to receive data over an open connection. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_ECONNECTED) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* 1.11.1.12 - Try to receive data over an open connection, invalid
@@ -5057,7 +5057,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_EPARAM) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_PARAMETER) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* 1.11.1.13 - Try to receive data over an open connection, invalid
@@ -5065,7 +5065,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 0, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_EPARAM) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_PARAMETER) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* 1.11.1.14 - Try to receive data over an open connection, invalid
@@ -5073,7 +5073,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.1.15 - Try to receive data over an open connection, invalid
@@ -5135,7 +5135,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.1.6 - Try to receive data over connected endpoints. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_ECONNECTED) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* Open the send side of the scalar channel. */
@@ -5145,7 +5145,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.1.6 - Try to receive data over a half open connection. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_ECONNECTED) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* Open the receive side of the scalar channel. */
@@ -5165,7 +5165,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.1.11 - Try to receive data over an open connection. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, &size, &mcapi_status);
 
-        if ( (mcapi_status != MCAPI_ECONNECTED) || (size != 0) )
+        if ( (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) || (size != 0) )
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -5199,13 +5199,13 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.2.1 - Specify an invalid buffer structure. */
         mcapi_msg_recv(recv_endpoint, 0, 128, &size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.2.2 - Specify an invalid buffer structure, invalid buffer size. */
         mcapi_msg_recv(recv_endpoint, 0, 0, &size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.2.3 - Specify an invalid buffer structure, invalid buffer size,
@@ -5213,7 +5213,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.2.4 - Specify an invalid buffer structure, invalid buffer size,
@@ -5224,13 +5224,13 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.3.1 - Specify an invalid buffer size. */
         mcapi_msg_recv(recv_endpoint, buffer, 0, &size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.3.2 - Specify an invalid buffer size, invalid received size. */
         mcapi_msg_recv(recv_endpoint, buffer, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.3.3 - Specify an invalid buffer size, invalid received size,
@@ -5244,7 +5244,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.3.4 - Specify an invalid buffer size, invalid receive endpoint. */
         mcapi_msg_recv(recv_endpoint, buffer, 0, &size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Open the receive side back up. */
@@ -5253,7 +5253,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.4.1 - Specify an invalid received size. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.4.2 - Specify an invalid received size, invalid status. */
@@ -5265,7 +5265,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
         /* 1.11.4.3 - Specify an invalid received size, invalid receive endpoint. */
         mcapi_msg_recv(recv_endpoint, buffer, 128, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* 1.11.4.4 - Specify an invalid received size, invalid receive endpoint,
@@ -5273,7 +5273,7 @@ void MCAPI_TEST_mcapi_msg_recv(int type)
          */
         mcapi_msg_recv(recv_endpoint, 0, 128, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
         /* Open the receive side back up. */
@@ -5342,7 +5342,7 @@ void MCAPI_TEST_mcapi_msg_available(int type)
         /* 1.13.1.1 - Check if data is available on a closed endpoint. */
         byte_count = mcapi_msg_available(recv_endpoint, &mcapi_status);
 
-        if ( (byte_count != 0) || (mcapi_status != MCAPI_ENOT_ENDP) )
+        if ( (byte_count != 0) || (mcapi_status != MCAPI_ERR_ENDP_INVALID) )
             MCAPI_TEST_Error();
 
         /* 1.13.1.2 - Check if data is available on a closed endpoint, invalid
@@ -5373,7 +5373,7 @@ void MCAPI_TEST_mcapi_msg_available(int type)
         /* 1.13.1.3 - Check if data is available on a packet connected endpoint. */
         byte_count = mcapi_msg_available(recv_endpoint, &mcapi_status);
 
-        if ( (byte_count != 0) || (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (byte_count != 0) || (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.13.1.4 - Check if data is available on a packet connected endpoint,
@@ -5391,7 +5391,7 @@ void MCAPI_TEST_mcapi_msg_available(int type)
         /* 1.13.1.5 - Check if data is available on an open endpoint. */
         byte_count = mcapi_msg_available(recv_endpoint, &mcapi_status);
 
-        if ( (byte_count != 0) || (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (byte_count != 0) || (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.13.1.6 - Check if data is available on an open endpoint, invalid
@@ -5442,7 +5442,7 @@ void MCAPI_TEST_mcapi_msg_available(int type)
         /* 1.13.1.3 - Check if data is available on a scalar connected endpoint. */
         byte_count = mcapi_msg_available(recv_endpoint, &mcapi_status);
 
-        if ( (byte_count != 0) || (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (byte_count != 0) || (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.13.1.4 - Check if data is available on a scalar connected endpoint,
@@ -5460,7 +5460,7 @@ void MCAPI_TEST_mcapi_msg_available(int type)
         /* 1.13.1.5 - Check if data is available on a receive open endpoint. */
         byte_count = mcapi_msg_available(recv_endpoint, &mcapi_status);
 
-        if ( (byte_count != 0) || (mcapi_status != MCAPI_ECONNECTED) )
+        if ( (byte_count != 0) || (mcapi_status != MCAPI_ERR_CHAN_CONNECTED) )
             MCAPI_TEST_Error();
 
         /* 1.13.1.6 - Check if data is available on a receive open endpoint,
@@ -5540,7 +5540,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -5565,7 +5565,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -5577,7 +5577,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the scalar connection. */
@@ -5618,7 +5618,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -5630,7 +5630,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -5649,7 +5649,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -5664,7 +5664,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #ifdef MCAPI_FOREIGN_TEST
@@ -5678,7 +5678,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #endif
@@ -5695,7 +5695,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, 0,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -5727,7 +5727,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (status != MCAPI_ENOT_ENDP)
+        if (status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -5747,7 +5747,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (status != MCAPI_ECONNECTED)
+        if (status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -5767,7 +5767,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign node side, close the scalar connection. */
@@ -5789,7 +5789,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -5809,7 +5809,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -5826,7 +5826,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.14.2.7 - Invalid foreign send endpoint, invalid receive
@@ -5835,7 +5835,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, 0,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -5858,7 +5858,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -5877,7 +5877,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -5901,7 +5901,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -5919,7 +5919,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign node, close the send side of the scalar channel. */
@@ -5941,7 +5941,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -5959,7 +5959,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -5972,7 +5972,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -5991,7 +5991,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -6015,7 +6015,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6031,7 +6031,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive node, close the receive side of the scalar
@@ -6053,7 +6053,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6069,7 +6069,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive node, close the receive side of the packet
@@ -6089,7 +6089,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
          */
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6119,7 +6119,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -6139,7 +6139,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6157,7 +6157,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive side, close the connection. */
@@ -6175,7 +6175,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6193,7 +6193,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive side, close the connection. */
@@ -6217,7 +6217,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -6242,7 +6242,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6254,7 +6254,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the scalar connection. */
@@ -6295,7 +6295,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6307,7 +6307,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -6326,7 +6326,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -6341,7 +6341,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #ifdef MCAPI_FOREIGN_TEST
@@ -6355,7 +6355,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #endif
@@ -6371,7 +6371,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
          */
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6394,7 +6394,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -6411,7 +6411,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -6431,7 +6431,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6447,7 +6447,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Foreign receive node closes receive side of scalar. */
@@ -6465,7 +6465,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6481,7 +6481,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         if (mcapi_status == MCAPI_SUCCESS)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Foreign receive node closes receive side of packet channel. */
@@ -6497,7 +6497,7 @@ void MCAPI_TEST_mcapi_connect_pktchan_i(int type)
         /* 1.14.7.1 - Invalid request. */
         mcapi_connect_pktchan_i(send_endpoint, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6569,7 +6569,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         /* 1.15.1.1 - Invalid receive handle. */
         mcapi_open_pktchan_recv_i(0, receive_endpoint, &recv_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6579,7 +6579,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         /* 1.15.1.2 - Invalid receive handle, invalid receive endpoint. */
         mcapi_open_pktchan_recv_i(0, receive_endpoint, &recv_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6588,7 +6588,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
          */
         mcapi_open_pktchan_recv_i(0, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6602,14 +6602,14 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         mcapi_open_pktchan_recv_i(&recv_handle, receive_endpoint, &recv_request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
         /* 1.15.2.2 - Invalid receive endpoint, invalid request. */
         mcapi_open_pktchan_recv_i(&recv_handle, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6633,7 +6633,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         mcapi_open_pktchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for tx. */
@@ -6655,7 +6655,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         mcapi_open_pktchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for tx. */
@@ -6678,7 +6678,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         mcapi_open_pktchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6706,7 +6706,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         mcapi_open_pktchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -6725,7 +6725,7 @@ void MCAPI_TEST_mcapi_open_pktchan_recv_i(int type)
         mcapi_open_pktchan_recv_i(&recv_handle, receive_endpoint,
                                   0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6788,7 +6788,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         /* 1.16.1.1 - Invalid send handle. */
         mcapi_open_pktchan_send_i(0, send_endpoint, &send_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6798,7 +6798,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         /* 1.16.1.2 - Invalid send handle, invalid send endpoint. */
         mcapi_open_pktchan_send_i(0, send_endpoint, &send_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6807,7 +6807,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
          */
         mcapi_open_pktchan_send_i(0, send_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6821,14 +6821,14 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         mcapi_open_pktchan_send_i(&send_handle, send_endpoint, &send_request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
         /* 1.16.2.2 - Invalid send endpoint, invalid request. */
         mcapi_open_pktchan_send_i(&send_handle, send_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -6851,7 +6851,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         mcapi_open_pktchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for rx. */
@@ -6876,7 +6876,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         mcapi_open_pktchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for rx. */
@@ -6901,7 +6901,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         mcapi_open_pktchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -6929,7 +6929,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         mcapi_open_pktchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -6948,7 +6948,7 @@ void MCAPI_TEST_mcapi_open_pktchan_send_i(int type)
         mcapi_open_pktchan_send_i(&send_handle, send_endpoint,
                                   0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7059,7 +7059,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.1.1 - Invalid send endpoint. */
         mcapi_pktchan_send_i(send_handle, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7079,7 +7079,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.1.2 - Invalid send endpoint, invalid receive endpoint. */
         mcapi_pktchan_send_i(send_handle, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7088,7 +7088,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
          */
         mcapi_pktchan_send_i(send_handle, 0, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7098,7 +7098,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         mcapi_pktchan_send_i(send_handle, 0, MCAPI_MAX_DATA_LEN + 1, &request,
                              &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7107,7 +7107,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
          */
         mcapi_pktchan_send_i(send_handle, 0, MCAPI_MAX_DATA_LEN + 1, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7169,7 +7169,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.1.7 - Invalid tx handle (rx side closed). */
         mcapi_pktchan_send_i(send_handle, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7193,7 +7193,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.1.8 - Invalid tx handle (tx opened, rx not opened, no connection. */
         mcapi_pktchan_send_i(send_handle, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7204,7 +7204,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.1.9 - Invalid tx handle (no connection) */
         mcapi_pktchan_send_i(send_handle, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -7266,7 +7266,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.1.10 - Scalar tx handle. */
         mcapi_pktchan_send_i(scl_send_handle, buffer, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -7327,7 +7327,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.2.1 - Invalid buffer. */
         mcapi_pktchan_send_i(send_handle, 0, 128, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7343,14 +7343,14 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         mcapi_pktchan_send_i(send_handle, 0, MCAPI_MAX_DATA_LEN + 1, &request,
                              &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
         /* 1.17.2.4 - Invalid buffer, invalid size, invalid request */
         mcapi_pktchan_send_i(send_handle, 0, MCAPI_MAX_DATA_LEN + 1, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7364,7 +7364,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         mcapi_pktchan_send_i(send_handle, buffer, MCAPI_MAX_DATA_LEN + 1, &request,
                              &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPACK_LIMIT)
+        if (mcapi_status != MCAPI_ERR_PKT_SIZE)
             MCAPI_TEST_Error();
 
 
@@ -7379,7 +7379,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         mcapi_pktchan_send_i(send_handle, buffer, MCAPI_MAX_DATA_LEN + 1, 0,
                              &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7463,7 +7463,7 @@ void MCAPI_TEST_mcapi_pktchan_send_i(int type)
         /* 1.17.4.1 - Invalid request. */
         mcapi_pktchan_send_i(send_handle, buffer, 128, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7667,7 +7667,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.1.1 - Invalid send endpoint. */
         mcapi_pktchan_send(send_handle, buffer, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7677,7 +7677,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.1.2 - Invalid send endpoint, invalid receive endpoint. */
         mcapi_pktchan_send(send_handle, buffer, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7686,7 +7686,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
          */
         mcapi_pktchan_send(send_handle, buffer, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7695,7 +7695,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
          */
         mcapi_pktchan_send(send_handle, 0, MCAPI_MAX_DATA_LEN + 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7746,7 +7746,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.1.6 - Invalid tx handle (rx side closed). */
         mcapi_pktchan_send(send_handle, buffer, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7760,7 +7760,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.1.7 - Invalid tx handle (tx opened, rx not opened, no connection. */
         mcapi_pktchan_send(send_handle, buffer, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -7771,7 +7771,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.1.8 - Invalid tx handle (no connection) */
         mcapi_pktchan_send(send_handle, buffer, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -7823,7 +7823,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.1.9 - Scalar tx handle. */
         mcapi_pktchan_send(scl_send_handle, buffer, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -7873,7 +7873,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.2.1 - Invalid buffer. */
         mcapi_pktchan_send(send_handle, 0, 128, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7887,7 +7887,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.2.3 - Invalid buffer, invalid size. */
         mcapi_pktchan_send(send_handle, 0, MCAPI_MAX_DATA_LEN + 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -7898,7 +7898,7 @@ void MCAPI_TEST_mcapi_pktchan_send(int type)
         /* 1.18.3.1 - Invalid size. */
         mcapi_pktchan_send(send_handle, buffer, MCAPI_MAX_DATA_LEN + 1, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPACK_LIMIT)
+        if (mcapi_status != MCAPI_ERR_PKT_SIZE)
             MCAPI_TEST_Error();
 
 
@@ -8056,7 +8056,7 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
         /* 1.19.1.1 - Try to receive data on the closed handle. */
         mcapi_pktchan_recv_i(receive_handle, (void**)&buffer, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -8065,7 +8065,7 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
          */
         mcapi_pktchan_recv_i(receive_handle, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8074,7 +8074,7 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
          */
         mcapi_pktchan_recv_i(receive_handle, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8135,7 +8135,7 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
         /* 1.19.1.5 - TX side closed. */
         mcapi_pktchan_recv_i(receive_handle, (void**)&buffer, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -8170,7 +8170,7 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
         /* 1.19.1.6 - Connected, TX not open. */
         mcapi_pktchan_recv_i(receive_handle, (void**)&buffer, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -8219,7 +8219,7 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
         /* 1.19.1.7 - Scalar RX handle. */
         mcapi_pktchan_recv_i(scl_recv_handle, (void**)&buffer, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the scalar connection. */
@@ -8269,14 +8269,14 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
         /* 1.19.2.1 - Invalid buffer. */
         mcapi_pktchan_recv_i(receive_handle, 0, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
         /* 1.19.2.2 - Invalid buffer, invalid request. */
         mcapi_pktchan_recv_i(receive_handle, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8287,7 +8287,7 @@ void MCAPI_TEST_mcapi_pktchan_recv_i(int type)
         /* 1.19.3.1 - Invalid request. */
         mcapi_pktchan_recv_i(receive_handle, (void**)&buffer, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8439,7 +8439,7 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
         /* 1.20.1.1 - Try to receive data on the closed handle. */
         mcapi_pktchan_recv(receive_handle, (void**)&buffer, &rx_size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -8448,7 +8448,7 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
          */
         mcapi_pktchan_recv(receive_handle, 0, &rx_size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8457,7 +8457,7 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
          */
         mcapi_pktchan_recv(receive_handle, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8526,7 +8526,7 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
         /* 1.20.1.5 - TX side closed. */
         mcapi_pktchan_recv(receive_handle, (void**)&buffer, &rx_size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -8561,7 +8561,7 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
         /* 1.20.1.6 - Connected, TX not open. */
         mcapi_pktchan_recv(receive_handle, (void**)&buffer, &rx_size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -8610,7 +8610,7 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
         /* 1.20.1.7 - Scalar RX handle. */
         mcapi_pktchan_recv(scl_recv_handle, (void**)&buffer, &rx_size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the scalar connection. */
@@ -8660,14 +8660,14 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
         /* 1.20.2.1 - Invalid buffer. */
         mcapi_pktchan_recv(receive_handle, 0, &rx_size, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
         /* 1.20.2.2 - Invalid buffer, invalid rx_size. */
         mcapi_pktchan_recv(receive_handle, 0, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8678,7 +8678,7 @@ void MCAPI_TEST_mcapi_pktchan_recv(int type)
         /* 1.20.3.1 - Invalid rx_size. */
         mcapi_pktchan_recv(receive_handle, (void**)&buffer, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -8829,7 +8829,7 @@ void MCAPI_TEST_mcapi_pktchan_available(int type)
         /* 1.21.1.1 - Invalid rx handle. */
         byte_count = mcapi_pktchan_available(receive_handle, &mcapi_status);
 
-        if ( (byte_count != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (byte_count != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -8886,7 +8886,7 @@ void MCAPI_TEST_mcapi_pktchan_available(int type)
         /* 1.21.1.3 - Pass in a scalar endpoint. */
         byte_count = mcapi_pktchan_available(scl_recv_handle, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -8912,7 +8912,7 @@ void MCAPI_TEST_mcapi_pktchan_available(int type)
         /* 1.21.1.5 - Connection not made yet. */
         byte_count = mcapi_pktchan_available(receive_handle, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_CONNECTED)
+        if (mcapi_status != MGC_MCAPI_ERR_NOT_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -8933,7 +8933,7 @@ void MCAPI_TEST_mcapi_pktchan_available(int type)
         /* 1.21.1.6 - Pass in a tx handle. */
         byte_count = mcapi_pktchan_available(send_handle, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
 
@@ -9017,7 +9017,7 @@ void MCAPI_TEST_mcapi_pktchan_free(int type)
         /* 1.22.1.1 - Null buffer. */
         mcapi_pktchan_free(0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_VALID_BUF)
+        if (mcapi_status != MCAPI_ERR_BUF_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -9035,7 +9035,7 @@ void MCAPI_TEST_mcapi_pktchan_free(int type)
             /* 1.22.1.2 - Attempt to free the buffer again. */
             mcapi_pktchan_free((void*)recv_buf1, &mcapi_status);
 
-            if (mcapi_status != MCAPI_ENOT_VALID_BUF)
+            if (mcapi_status != MCAPI_ERR_BUF_INVALID)
                 MCAPI_TEST_Error();
         }
 
@@ -9143,7 +9143,7 @@ void MCAPI_TEST_mcapi_packetchan_recv_close_i(int type)
         /* 1.23.1.1 - Invalid rx handle. */
         mcapi_packetchan_recv_close_i(recv_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -9193,7 +9193,7 @@ void MCAPI_TEST_mcapi_packetchan_recv_close_i(int type)
         /* 1.23.1.2 - tx handle. */
         mcapi_packetchan_recv_close_i(send_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the send and receive sides. */
@@ -9244,7 +9244,7 @@ void MCAPI_TEST_mcapi_packetchan_recv_close_i(int type)
         /* 1.23.1.3 - Use a scalar receive handle. */
         mcapi_packetchan_recv_close_i(scl_recv_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -9255,7 +9255,7 @@ void MCAPI_TEST_mcapi_packetchan_recv_close_i(int type)
         /* 1.23.1.4 - Invalid rx handle, invalid request. */
         mcapi_packetchan_recv_close_i(recv_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -9306,7 +9306,7 @@ void MCAPI_TEST_mcapi_packetchan_recv_close_i(int type)
         /* 1.23.2.1 - Invalid request. */
         mcapi_packetchan_recv_close_i(recv_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -9403,7 +9403,7 @@ void MCAPI_TEST_mcapi_packetchan_send_close_i(int type)
         /* 1.24.1.1 - Invalid tx handle. */
         mcapi_packetchan_send_close_i(send_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -9453,7 +9453,7 @@ void MCAPI_TEST_mcapi_packetchan_send_close_i(int type)
         /* 1.24.1.2 - rx handle. */
         mcapi_packetchan_send_close_i(recv_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the send and receive sides. */
@@ -9503,7 +9503,7 @@ void MCAPI_TEST_mcapi_packetchan_send_close_i(int type)
         /* 1.24.1.3 - Use a scalar send handle. */
         mcapi_packetchan_send_close_i(scl_send_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -9514,7 +9514,7 @@ void MCAPI_TEST_mcapi_packetchan_send_close_i(int type)
         /* 1.24.1.4 - Invalid tx handle, invalid request. */
         mcapi_packetchan_send_close_i(send_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -9564,7 +9564,7 @@ void MCAPI_TEST_mcapi_packetchan_send_close_i(int type)
         /* 1.24.2.1 - Invalid request. */
         mcapi_packetchan_send_close_i(send_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -9629,7 +9629,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -9654,7 +9654,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -9666,7 +9666,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the packet connection. */
@@ -9706,7 +9706,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -9718,7 +9718,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -9737,7 +9737,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -9752,7 +9752,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #ifdef MCAPI_FOREIGN_TEST
@@ -9766,7 +9766,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #endif
@@ -9783,7 +9783,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, 0,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -9813,7 +9813,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (status != MCAPI_ENOT_ENDP)
+        if (status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -9831,7 +9831,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (status != MCAPI_ECONNECTED)
+        if (status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -9849,7 +9849,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign node side, close the packet connection. */
@@ -9869,7 +9869,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -9887,7 +9887,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the receive endpoint. */
@@ -9904,7 +9904,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
         /* 1.25.2.7 - Invalid foreign send endpoint, invalid receive
@@ -9913,7 +9913,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, 0,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -9936,7 +9936,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -9953,7 +9953,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -9975,7 +9975,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -9991,7 +9991,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign node, close the send side of the packet channel. */
@@ -10011,7 +10011,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10027,7 +10027,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10040,7 +10040,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10057,7 +10057,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -10079,7 +10079,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10095,7 +10095,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive node, close the receive side of the packet
@@ -10117,7 +10117,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10133,7 +10133,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive node, close the receive side of the scalar
@@ -10153,7 +10153,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
          */
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10183,7 +10183,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -10203,7 +10203,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10221,7 +10221,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive side, close the connection. */
@@ -10239,7 +10239,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10257,7 +10257,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* On the foreign receive side, close the connection. */
@@ -10281,7 +10281,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -10306,7 +10306,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10318,7 +10318,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the packet connection. */
@@ -10358,7 +10358,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10370,7 +10370,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -10389,7 +10389,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -10404,7 +10404,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #ifdef MCAPI_FOREIGN_TEST
@@ -10418,7 +10418,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint,
                                 &connect_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 #endif
@@ -10434,7 +10434,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
          */
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10457,7 +10457,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, &connect_request,
                                 &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -10476,7 +10476,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -10498,7 +10498,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10516,7 +10516,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Foreign receive node closes receive side of packet. */
@@ -10536,7 +10536,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
         }
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10552,7 +10552,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         else
             mcapi_wait(&connect_request, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Foreign receive node closes receive side of scalar channel. */
@@ -10568,7 +10568,7 @@ void MCAPI_TEST_mcapi_connect_sclchan_i(int type)
         /* 1.25.7.1 - Invalid request. */
         mcapi_connect_sclchan_i(send_endpoint, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10640,7 +10640,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         /* 1.26.1.1 - Invalid receive handle. */
         mcapi_open_sclchan_recv_i(0, receive_endpoint, &recv_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10650,7 +10650,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         /* 1.26.1.2 - Invalid receive handle, invalid receive endpoint. */
         mcapi_open_sclchan_recv_i(0, receive_endpoint, &recv_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10659,7 +10659,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
          */
         mcapi_open_sclchan_recv_i(0, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10673,14 +10673,14 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         mcapi_open_sclchan_recv_i(&recv_handle, receive_endpoint, &recv_request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
         /* 1.26.2.2 - Invalid receive endpoint, invalid request. */
         mcapi_open_sclchan_recv_i(&recv_handle, receive_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10704,7 +10704,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         mcapi_open_sclchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for tx. */
@@ -10721,7 +10721,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         mcapi_open_sclchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for tx. */
@@ -10738,7 +10738,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         mcapi_open_sclchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10766,7 +10766,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         mcapi_open_sclchan_recv_i(&recv_handle, receive_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -10778,7 +10778,7 @@ void MCAPI_TEST_mcapi_open_sclchan_recv_i(int type)
         mcapi_open_sclchan_recv_i(&recv_handle, receive_endpoint,
                                   0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10842,7 +10842,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         /* 1.27.1.1 - Invalid send handle. */
         mcapi_open_sclchan_send_i(0, send_endpoint, &send_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10852,7 +10852,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         /* 1.27.1.2 - Invalid send handle, invalid send endpoint. */
         mcapi_open_sclchan_send_i(0, send_endpoint, &send_request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10861,7 +10861,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
          */
         mcapi_open_sclchan_send_i(0, send_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10875,14 +10875,14 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         mcapi_open_sclchan_send_i(&send_handle, send_endpoint, &send_request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_ENDP)
+        if (mcapi_status != MCAPI_ERR_ENDP_INVALID)
             MCAPI_TEST_Error();
 
 
         /* 1.27.2.2 - Invalid send endpoint, invalid request. */
         mcapi_open_sclchan_send_i(&send_handle, send_endpoint, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -10905,7 +10905,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         mcapi_open_sclchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for rx. */
@@ -10922,7 +10922,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         mcapi_open_sclchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the endpoint for rx. */
@@ -10939,7 +10939,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         mcapi_open_sclchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -10967,7 +10967,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         mcapi_open_sclchan_send_i(&send_handle, send_endpoint, &request,
                                   &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECONNECTED)
+        if (mcapi_status != MCAPI_ERR_CHAN_CONNECTED)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -10979,7 +10979,7 @@ void MCAPI_TEST_mcapi_open_sclchan_send_i(int type)
         mcapi_open_sclchan_send_i(&send_handle, send_endpoint,
                                   0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -11082,7 +11082,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint64(int type)
         /* 1.28.1.1 - Invalid send endpoint. */
         mcapi_sclchan_send_uint64(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11092,7 +11092,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint64(int type)
         /* 1.28.1.2 - Invalid send endpoint, invalid receive endpoint. */
         mcapi_sclchan_send_uint64(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11137,7 +11137,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint64(int type)
         /* 1.28.1.3 - Invalid tx handle (rx side closed). */
         mcapi_sclchan_send_uint64(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11151,7 +11151,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint64(int type)
         /* 1.28.1.4 - Invalid tx handle (tx opened, rx not opened, no connection. */
         mcapi_sclchan_send_uint64(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11162,7 +11162,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint64(int type)
         /* 1.28.1.5 - Invalid tx handle (no connection) */
         mcapi_sclchan_send_uint64(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -11214,7 +11214,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint64(int type)
         /* 1.28.1.6 - Packet tx handle. */
         mcapi_sclchan_send_uint64(pkt_send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -11352,7 +11352,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint32(int type)
         /* 1.29.1.1 - Invalid send endpoint. */
         mcapi_sclchan_send_uint32(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11362,7 +11362,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint32(int type)
         /* 1.29.1.2 - Invalid send endpoint, invalid receive endpoint. */
         mcapi_sclchan_send_uint32(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11407,7 +11407,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint32(int type)
         /* 1.29.1.3 - Invalid tx handle (rx side closed). */
         mcapi_sclchan_send_uint32(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11421,7 +11421,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint32(int type)
         /* 1.29.1.4 - Invalid tx handle (tx opened, rx not opened, no connection. */
         mcapi_sclchan_send_uint32(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11432,7 +11432,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint32(int type)
         /* 1.29.1.5 - Invalid tx handle (no connection) */
         mcapi_sclchan_send_uint32(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -11484,7 +11484,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint32(int type)
         /* 1.29.1.6 - Packet tx handle. */
         mcapi_sclchan_send_uint32(pkt_send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -11622,7 +11622,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint16(int type)
         /* 1.30.1.1 - Invalid send endpoint. */
         mcapi_sclchan_send_uint16(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11632,7 +11632,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint16(int type)
         /* 1.30.1.2 - Invalid send endpoint, invalid receive endpoint. */
         mcapi_sclchan_send_uint16(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11677,7 +11677,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint16(int type)
         /* 1.30.1.3 - Invalid tx handle (rx side closed). */
         mcapi_sclchan_send_uint16(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11691,7 +11691,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint16(int type)
         /* 1.30.1.4 - Invalid tx handle (tx opened, rx not opened, no connection. */
         mcapi_sclchan_send_uint16(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11702,7 +11702,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint16(int type)
         /* 1.30.1.5 - Invalid tx handle (no connection) */
         mcapi_sclchan_send_uint16(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -11754,7 +11754,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint16(int type)
         /* 1.30.1.6 - Packet tx handle. */
         mcapi_sclchan_send_uint16(pkt_send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -11893,7 +11893,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint8(int type)
         /* 1.31.1.1 - Invalid send endpoint. */
         mcapi_sclchan_send_uint8(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11903,7 +11903,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint8(int type)
         /* 1.31.1.2 - Invalid send endpoint, invalid receive endpoint. */
         mcapi_sclchan_send_uint8(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11948,7 +11948,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint8(int type)
         /* 1.31.1.3 - Invalid tx handle (rx side closed). */
         mcapi_sclchan_send_uint8(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11962,7 +11962,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint8(int type)
         /* 1.31.1.4 - Invalid tx handle (tx opened, rx not opened, no connection. */
         mcapi_sclchan_send_uint8(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -11973,7 +11973,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint8(int type)
         /* 1.31.1.5 - Invalid tx handle (no connection) */
         mcapi_sclchan_send_uint8(send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -12025,7 +12025,7 @@ void MCAPI_TEST_mcapi_sclchan_send_uint8(int type)
         /* 1.31.1.6 - Packet tx handle. */
         mcapi_sclchan_send_uint8(pkt_send_handle, buffer, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send and receive side. */
@@ -12166,7 +12166,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint64(int type)
         /* 1.32.1.1 - Try to receive data on the closed handle. */
         buffer = mcapi_sclchan_recv_uint64(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -12225,7 +12225,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint64(int type)
         /* 1.32.1.3 - TX side closed. */
         buffer = mcapi_sclchan_recv_uint64(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -12263,7 +12263,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint64(int type)
         /* 1.32.1.4 - Connected, TX not open. */
         buffer = mcapi_sclchan_recv_uint64(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -12319,7 +12319,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint64(int type)
         /* 1.32.1.5 - 32-bit send, 64-bit receive. */
         buffer = mcapi_sclchan_recv_uint64(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -12331,7 +12331,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint64(int type)
         /* 1.32.1.6 - 16-bit send, 64-bit receive. */
         buffer = mcapi_sclchan_recv_uint64(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -12343,7 +12343,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint64(int type)
         /* 1.32.1.7 - 8-bit send, 64-bit receive. */
         buffer = mcapi_sclchan_recv_uint64(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -12398,7 +12398,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint64(int type)
         /* 1.32.1.8 - Packet RX handle. */
         buffer = mcapi_sclchan_recv_uint64(pkt_recv_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ECHAN_TYPE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_TYPE) )
             MCAPI_TEST_Error();
 
         /* Close the packet connection. */
@@ -12561,7 +12561,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint32(int type)
         /* 1.33.1.1 - Try to receive data on the closed handle. */
         buffer = mcapi_sclchan_recv_uint32(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -12628,7 +12628,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint32(int type)
         /* 1.33.1.3 - TX side closed. */
         buffer = mcapi_sclchan_recv_uint32(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -12666,7 +12666,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint32(int type)
         /* 1.33.1.4 - Connected, TX not open. */
         buffer = mcapi_sclchan_recv_uint32(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -12722,7 +12722,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint32(int type)
         /* 1.33.1.5 - 64-bit send, 32-bit receive. */
         buffer = mcapi_sclchan_recv_uint32(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -12734,7 +12734,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint32(int type)
         /* 1.33.1.6 - 16-bit send, 32-bit receive. */
         buffer = mcapi_sclchan_recv_uint32(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -12746,7 +12746,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint32(int type)
         /* 1.33.1.7 - 8-bit send, 32-bit receive. */
         buffer = mcapi_sclchan_recv_uint32(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -12801,7 +12801,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint32(int type)
         /* 1.33.1.8 - Packet RX handle. */
         buffer = mcapi_sclchan_recv_uint32(pkt_recv_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ECHAN_TYPE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_TYPE) )
             MCAPI_TEST_Error();
 
         /* Close the packet connection. */
@@ -12959,7 +12959,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint16(int type)
         /* 1.34.1.1 - Try to receive data on the closed handle. */
         buffer = mcapi_sclchan_recv_uint16(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -13018,7 +13018,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint16(int type)
         /* 1.34.1.3 - TX side closed. */
         buffer = mcapi_sclchan_recv_uint16(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -13056,7 +13056,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint16(int type)
         /* 1.34.1.4 - Connected, TX not open. */
         buffer = mcapi_sclchan_recv_uint16(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -13112,7 +13112,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint16(int type)
         /* 1.34.1.5 - 64-bit send, 16-bit receive. */
         buffer = mcapi_sclchan_recv_uint16(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -13124,7 +13124,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint16(int type)
         /* 1.34.1.6 - 32-bit send, 16-bit receive. */
         buffer = mcapi_sclchan_recv_uint16(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -13136,7 +13136,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint16(int type)
         /* 1.34.1.7 - 8-bit send, 16-bit receive. */
         buffer = mcapi_sclchan_recv_uint16(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -13191,7 +13191,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint16(int type)
         /* 1.34.1.8 - Packet RX handle. */
         buffer = mcapi_sclchan_recv_uint16(pkt_recv_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ECHAN_TYPE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_TYPE) )
             MCAPI_TEST_Error();
 
         /* Close the packet connection. */
@@ -13350,7 +13350,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint8(int type)
         /* 1.35.1.1 - Try to receive data on the closed handle. */
         buffer = mcapi_sclchan_recv_uint8(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -13409,7 +13409,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint8(int type)
         /* 1.35.1.3 - TX side closed. */
         buffer = mcapi_sclchan_recv_uint8(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -13447,7 +13447,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint8(int type)
         /* 1.35.1.4 - Connected, TX not open. */
         buffer = mcapi_sclchan_recv_uint8(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -13503,7 +13503,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint8(int type)
         /* 1.35.1.5 - 64-bit send, 8-bit receive. */
         buffer = mcapi_sclchan_recv_uint8(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -13515,7 +13515,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint8(int type)
         /* 1.35.1.6 - 32-bit send, 8-bit receive. */
         buffer = mcapi_sclchan_recv_uint8(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
 
@@ -13527,7 +13527,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint8(int type)
         /* 1.35.1.7 - 16-bit send, 8-bit receive. */
         buffer = mcapi_sclchan_recv_uint8(receive_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ESCL_SIZE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_GENERAL) )
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -13582,7 +13582,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_uint8(int type)
         /* 1.35.1.8 - Packet RX handle. */
         buffer = mcapi_sclchan_recv_uint8(pkt_recv_handle, &mcapi_status);
 
-        if ( (buffer != 0) || (mcapi_status != MCAPI_ECHAN_TYPE) )
+        if ( (buffer != 0) || (mcapi_status != MCAPI_ERR_CHAN_TYPE) )
             MCAPI_TEST_Error();
 
         /* Close the packet connection. */
@@ -13739,7 +13739,7 @@ void MCAPI_TEST_mcapi_sclchan_available(int type)
         /* 1.36.1.1 - Invalid rx handle. */
         byte_count = mcapi_sclchan_available(receive_handle, &mcapi_status);
 
-        if ( (byte_count != 0) || (mcapi_status != MCAPI_ENOT_HANDLE) )
+        if ( (byte_count != 0) || (mcapi_status != MCAPI_ERR_CHAN_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -13796,7 +13796,7 @@ void MCAPI_TEST_mcapi_sclchan_available(int type)
         /* 1.36.1.3 - Pass in a packet endpoint. */
         byte_count = mcapi_sclchan_available(pkt_recv_handle, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -13823,7 +13823,7 @@ void MCAPI_TEST_mcapi_sclchan_available(int type)
         /* 1.36.1.5 - Connection not made yet. */
         byte_count = mcapi_sclchan_available(receive_handle, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_CONNECTED)
+        if (mcapi_status != MGC_MCAPI_ERR_NOT_CONNECTED)
             MCAPI_TEST_Error();
 
 
@@ -13846,7 +13846,7 @@ void MCAPI_TEST_mcapi_sclchan_available(int type)
         /* 1.36.1.6 - Pass in a tx handle. */
         byte_count = mcapi_sclchan_available(send_handle, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
 
@@ -13935,7 +13935,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_close_i(int type)
         /* 1.37.1.1 - Invalid rx handle. */
         mcapi_sclchan_recv_close_i(recv_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the send side. */
@@ -13985,7 +13985,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_close_i(int type)
         /* 1.37.1.2 - tx handle. */
         mcapi_sclchan_recv_close_i(send_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the send and receive sides. */
@@ -14036,7 +14036,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_close_i(int type)
         /* 1.37.1.3 - Use a packet receive handle. */
         mcapi_sclchan_recv_close_i(pkt_recv_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -14047,7 +14047,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_close_i(int type)
         /* 1.37.1.4 - Invalid rx handle, invalid request. */
         mcapi_sclchan_recv_close_i(recv_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -14090,7 +14090,7 @@ void MCAPI_TEST_mcapi_sclchan_recv_close_i(int type)
         /* 1.37.2.1 - Invalid request. */
         mcapi_sclchan_recv_close_i(recv_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -14192,7 +14192,7 @@ void MCAPI_TEST_mcapi_sclchan_send_close_i(int type)
         /* 1.38.1.1 - Invalid tx handle. */
         mcapi_sclchan_send_close_i(send_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the receive side. */
@@ -14242,7 +14242,7 @@ void MCAPI_TEST_mcapi_sclchan_send_close_i(int type)
         /* 1.38.1.2 - rx handle. */
         mcapi_sclchan_send_close_i(recv_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EDIR)
+        if (mcapi_status != MCAPI_ERR_CHAN_DIRECTION)
             MCAPI_TEST_Error();
 
         /* Close the send and receive sides. */
@@ -14293,7 +14293,7 @@ void MCAPI_TEST_mcapi_sclchan_send_close_i(int type)
         /* 1.38.1.3 - Use a packet send handle. */
         mcapi_sclchan_send_close_i(pkt_send_handle, &request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ECHAN_TYPE)
+        if (mcapi_status != MCAPI_ERR_CHAN_TYPE)
             MCAPI_TEST_Error();
 
         /* Close the connection. */
@@ -14312,7 +14312,7 @@ void MCAPI_TEST_mcapi_sclchan_send_close_i(int type)
         /* 1.38.1.4 - Invalid tx handle, invalid request. */
         mcapi_sclchan_send_close_i(send_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOT_HANDLE)
+        if (mcapi_status != MCAPI_ERR_CHAN_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -14355,7 +14355,7 @@ void MCAPI_TEST_mcapi_sclchan_send_close_i(int type)
         /* 1.38.2.1 - Invalid request. */
         mcapi_sclchan_send_close_i(send_handle, 0, &mcapi_status);
 
-        if (mcapi_status != MCAPI_EPARAM)
+        if (mcapi_status != MCAPI_ERR_PARAMETER)
             MCAPI_TEST_Error();
 
 
@@ -14407,14 +14407,14 @@ void MCAPI_TEST_mcapi_test(int type)
         /* 1.39.1.1 - Invalid request. */
         finished = mcapi_test(0, &size, &mcapi_status);
 
-        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ENOTREQ_HANDLE) )
+        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ERR_REQUEST_INVALID) )
             MCAPI_TEST_Error();
 
 
         /* 1.39.1.2 - Invalid request, invalid size. */
         finished = mcapi_test(0, 0, &mcapi_status);
 
-        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ENOTREQ_HANDLE) )
+        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ERR_REQUEST_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -14428,7 +14428,7 @@ void MCAPI_TEST_mcapi_test(int type)
         /* 1.39.2.1 - Invalid size. */
         finished = mcapi_test(&request, 0, &mcapi_status);
 
-        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 
@@ -14478,14 +14478,14 @@ void MCAPI_TEST_mcapi_wait(int type)
         /* 1.40.1.1 - Invalid request. */
         finished = mcapi_wait(0, &size, &mcapi_status, MCAPID_TIMEOUT);
 
-        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ENOTREQ_HANDLE) )
+        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ERR_REQUEST_INVALID) )
             MCAPI_TEST_Error();
 
 
         /* 1.40.1.2 - Invalid request, invalid size. */
         finished = mcapi_wait(0, 0, &mcapi_status, MCAPID_TIMEOUT);
 
-        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ENOTREQ_HANDLE) )
+        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ERR_REQUEST_INVALID) )
             MCAPI_TEST_Error();
 
 
@@ -14499,7 +14499,7 @@ void MCAPI_TEST_mcapi_wait(int type)
         /* 1.40.2.1 - Invalid size. */
         finished = mcapi_wait(&request, 0, &mcapi_status, MCAPID_TIMEOUT);
 
-        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != MCAPI_FALSE) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 
@@ -14549,7 +14549,7 @@ void MCAPI_TEST_mcapi_cancel(int type)
         /* 1.42.1.1 - NULL request. */
         mcapi_cancel(MCAPI_NULL, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOTREQ_HANDLE)
+        if (mcapi_status != MCAPI_ERR_REQUEST_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -14563,7 +14563,7 @@ void MCAPI_TEST_mcapi_cancel(int type)
         /* 1.42.1.2 - Invalid request (request already canceled) */
         mcapi_cancel(&request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOTREQ_HANDLE)
+        if (mcapi_status != MCAPI_ERR_REQUEST_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -14585,7 +14585,7 @@ void MCAPI_TEST_mcapi_cancel(int type)
         /* 1.42.1.3 - Attempt to cancel the completed call. */
         mcapi_cancel(&request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOTREQ_HANDLE)
+        if (mcapi_status != MCAPI_ERR_REQUEST_INVALID)
             MCAPI_TEST_Error();
 
         /* Delete the endpoint. */
@@ -14611,7 +14611,7 @@ void MCAPI_TEST_mcapi_cancel(int type)
         /* Attempt to cancel a request that could not complete. */
         mcapi_cancel(&request, &mcapi_status);
 
-        if (mcapi_status != MCAPI_ENOTREQ_HANDLE)
+        if (mcapi_status != MCAPI_ERR_REQUEST_INVALID)
             MCAPI_TEST_Error();
 
 
@@ -14658,21 +14658,21 @@ void MCAPI_TEST_mcapi_wait_any(int type)
         finished = mcapi_wait_any(0, requests, &size, MCAPID_TIMEOUT,
                                   &mcapi_status);
 
-        if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != 0) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.1.2 - Invalid number, invalid requests. */
         finished = mcapi_wait_any(0, 0, &size, MCAPID_TIMEOUT, &mcapi_status);
 
-        if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != 0) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.1.3 - Invalid number, invalid requests, invalid size. */
         finished = mcapi_wait_any(0, 0, 0, MCAPID_TIMEOUT, &mcapi_status);
 
-        if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != 0) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 
@@ -14688,14 +14688,14 @@ void MCAPI_TEST_mcapi_wait_any(int type)
         /* 1.41.2.1 - Invalid requests. */
         finished = mcapi_wait_any(1, 0, &size, MCAPID_TIMEOUT, &mcapi_status);
 
-        if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != 0) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 
         /* 1.41.2.2 - Invalid requests, invalid size. */
         finished = mcapi_wait_any(1, 0, 0, MCAPID_TIMEOUT, &mcapi_status);
 
-        if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != 0) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 
@@ -14710,7 +14710,7 @@ void MCAPI_TEST_mcapi_wait_any(int type)
         finished = mcapi_wait_any(1, requests, 0, MCAPID_TIMEOUT,
                                   &mcapi_status);
 
-        if ( (finished != 0) || (mcapi_status != MCAPI_EPARAM) )
+        if ( (finished != 0) || (mcapi_status != MCAPI_ERR_PARAMETER) )
             MCAPI_TEST_Error();
 
 

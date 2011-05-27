@@ -48,6 +48,9 @@
 extern "C" {
 #endif /* __cplusplus */
 
+/* XXX remove me */
+#define MGC_MCAPI_ERR_NOT_CONNECTED (MCAPI_STATUSCODE_END+1)
+
 /*
  * MCAPI implementation specific type definitions
  */

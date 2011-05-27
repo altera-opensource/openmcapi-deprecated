@@ -85,9 +85,9 @@ mcapi_uint_t mcapi_pktchan_available(mcapi_pktchan_recv_hndl_t receive_handle,
         }
 
         /* The receive handle is invalid. */
-        else if (*mcapi_status == MCAPI_ENOT_ENDP)
+        else if (*mcapi_status == MCAPI_ERR_ENDP_INVALID)
         {
-            *mcapi_status = MCAPI_ENOT_HANDLE;
+            *mcapi_status = MCAPI_ERR_CHAN_INVALID;
         }
 
         /* Release the lock. */

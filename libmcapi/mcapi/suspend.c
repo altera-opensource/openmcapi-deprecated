@@ -210,7 +210,7 @@ void mcapi_check_resume(int type, mcapi_endpoint_t endpoint,
                              */
                             else
                             {
-                                status = MCAPI_ETRUNCATED;
+                                status = MCAPI_ERR_MSG_TRUNCATED;
                             }
 
                             break;

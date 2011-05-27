@@ -140,7 +140,7 @@ void scal_rcv(mcapi_sclchan_recv_hndl_t receive_handle, MCAPI_SCALAR *scalar,
                                  */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_ESCL_SIZE;
+                                    *mcapi_status = MCAPI_ERR_GENERAL;
                                 }
 
                                 break;
@@ -162,7 +162,7 @@ void scal_rcv(mcapi_sclchan_recv_hndl_t receive_handle, MCAPI_SCALAR *scalar,
                                  */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_ESCL_SIZE;
+                                    *mcapi_status = MCAPI_ERR_GENERAL;
                                 }
 
                                 break;
@@ -184,7 +184,7 @@ void scal_rcv(mcapi_sclchan_recv_hndl_t receive_handle, MCAPI_SCALAR *scalar,
                                  */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_ESCL_SIZE;
+                                    *mcapi_status = MCAPI_ERR_GENERAL;
                                 }
 
                                 break;
@@ -206,7 +206,7 @@ void scal_rcv(mcapi_sclchan_recv_hndl_t receive_handle, MCAPI_SCALAR *scalar,
                                  */
                                 else
                                 {
-                                    *mcapi_status = MCAPI_ESCL_SIZE;
+                                    *mcapi_status = MCAPI_ERR_GENERAL;
                                 }
 
                                 break;
@@ -218,7 +218,7 @@ void scal_rcv(mcapi_sclchan_recv_hndl_t receive_handle, MCAPI_SCALAR *scalar,
                         }
 
                         /* Put the buffer back on the free list. */
-                        if (*mcapi_status != MCAPI_ESCL_SIZE)
+                        if (*mcapi_status != MCAPI_ERR_GENERAL)
                         {
                             /* Remove the buffer from the receive queue. */
                             rx_buf = mcapi_dequeue(&rx_endp_ptr->mcapi_rx_queue);
@@ -232,33 +232,33 @@ void scal_rcv(mcapi_sclchan_recv_hndl_t receive_handle, MCAPI_SCALAR *scalar,
                     /* If the endpoint is no longer connected. */
                     else if (!(rx_endp_ptr->mcapi_state & MCAPI_ENDP_CONNECTED))
                     {
-                        *mcapi_status = MCAPI_ENOT_HANDLE;
+                        *mcapi_status = MCAPI_ERR_CHAN_INVALID;
                     }
                 }
 
                 /* The channel is a packet channel. */
                 else
                 {
-                    *mcapi_status = MCAPI_ECHAN_TYPE;
+                    *mcapi_status = MCAPI_ERR_CHAN_TYPE;
                 }
             }
 
             /* Attempting to receive on a send handle. */
             else if (rx_endp_ptr->mcapi_state & MCAPI_ENDP_TX)
             {
-                *mcapi_status = MCAPI_EDIR;
+                *mcapi_status = MCAPI_ERR_CHAN_DIRECTION;
             }
 
             /* The receive side has been closed. */
             else
             {
-                *mcapi_status = MCAPI_ENOT_HANDLE;
+                *mcapi_status = MCAPI_ERR_CHAN_INVALID;
             }
         }
 
-        else if (*mcapi_status == MCAPI_ENOT_ENDP)
+        else if (*mcapi_status == MCAPI_ERR_ENDP_INVALID)
         {
-            *mcapi_status = MCAPI_ENOT_HANDLE;
+            *mcapi_status = MCAPI_ERR_CHAN_INVALID;
         }
 
         /* Unlock the global data structure. */

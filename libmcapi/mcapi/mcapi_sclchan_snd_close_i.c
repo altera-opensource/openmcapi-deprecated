@@ -91,9 +91,9 @@ void mcapi_sclchan_send_close_i(mcapi_sclchan_send_hndl_t send_handle,
                         MCAPI_ENDP_TX, mcapi_status);
         }
 
-        else if (*mcapi_status == MCAPI_ENOT_ENDP)
+        else if (*mcapi_status == MCAPI_ERR_ENDP_INVALID)
         {
-            *mcapi_status = MCAPI_ENOT_HANDLE;
+            *mcapi_status = MCAPI_ERR_CHAN_INVALID;
         }
 
         /* Release the lock. */

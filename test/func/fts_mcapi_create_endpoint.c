@@ -155,7 +155,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_3_2)
         /* Attempt to create the same endpoint again. */
         mcapi_create_endpoint(1024, &mcapi_struct->status);
 
-        if (mcapi_struct->status == MCAPI_EENDP_ISCREATED)
+        if (mcapi_struct->status == MCAPI_ERR_ENDP_EXISTS)
         {
             mcapi_struct->status = MCAPI_SUCCESS;
         }
@@ -218,7 +218,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_3_3)
     /* Attempt to create one more endpoint. */
     bad_endpoint = mcapi_create_endpoint(MCAPI_PORT_ANY, &mcapi_struct->status);
 
-    if (mcapi_struct->status == MCAPI_EENDP_LIMIT)
+    if (mcapi_struct->status == MCAPI_ERR_GENERAL)
     {
         mcapi_struct->status = MCAPI_SUCCESS;
     }
