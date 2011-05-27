@@ -178,12 +178,6 @@ enum mcapi_status_codes {
 	MCAPI_STATUSCODE_END			// This should always be last
 };
 
-#define MCAPI_MSG_TYPE          0
-#define MCAPI_CHAN_PKT_TYPE     1
-#define MCAPI_CHAN_SCAL_TYPE    2
-
-extern mcapi_node_t MCAPI_Node_ID;
-
 void mcapi_cancel(mcapi_request_t *, mcapi_status_t *);
 void mcapi_connect_pktchan_i(mcapi_endpoint_t, mcapi_endpoint_t, mcapi_request_t *,
                              mcapi_status_t *);

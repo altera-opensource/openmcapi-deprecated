@@ -39,6 +39,12 @@
 extern  "C" {                               /* C declarations in C++     */
 #endif /* _cplusplus */
 
+extern mcapi_node_t MCAPI_Node_ID;
+
+#define MCAPI_MSG_TYPE          0
+#define MCAPI_CHAN_PKT_TYPE     1
+#define MCAPI_CHAN_SCAL_TYPE    2
+
 /* Packet header offsets. */
 #define     MCAPI_SRC_NODE_OFFSET       0
 #define     MCAPI_SRC_PORT_OFFSET       2
