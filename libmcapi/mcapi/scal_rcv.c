@@ -103,7 +103,7 @@ void scal_rcv(mcapi_sclchan_recv_hndl_t receive_handle, MCAPI_SCALAR *scalar,
                         request.mcapi_chan_type = MCAPI_CHAN_SCAL_TYPE;
 
                         MCAPI_Suspend_Task(node_data, &request, &request.mcapi_cond,
-                                           MCAPI_INFINITE);
+                                           MCAPI_TIMEOUT_INFINITE);
 
                         /* Set the status. */
                         *mcapi_status = request.mcapi_status;

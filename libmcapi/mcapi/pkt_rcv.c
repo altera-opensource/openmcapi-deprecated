@@ -156,7 +156,7 @@ void pkt_rcv(mcapi_pktchan_recv_hndl_t receive_handle, void **buffer,
                             {
                                 MCAPI_Suspend_Task(node_data, request,
                                                    &request->mcapi_cond,
-                                                   MCAPI_INFINITE);
+                                                   MCAPI_TIMEOUT_INFINITE);
 
                                 /* Return the number of bytes received. */
                                 *received_size = request->mcapi_byte_count;

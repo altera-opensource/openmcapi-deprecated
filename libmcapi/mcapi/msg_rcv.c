@@ -158,7 +158,7 @@ void msg_recv(mcapi_endpoint_t receive_endpoint, void *buffer,
                     else if (timeout)
                     {
                         MCAPI_Suspend_Task(node_data, request, &request->mcapi_cond,
-                                           MCAPI_INFINITE);
+                                           MCAPI_TIMEOUT_INFINITE);
 
                         /* Return the number of bytes received. */
                         *bytes_recv = request->mcapi_byte_count;

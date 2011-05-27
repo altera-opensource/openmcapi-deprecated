@@ -173,11 +173,6 @@ typedef int mcapi_version_t; /* XXX remove me */
 #define MCAPI_EREQ_ERROR        -237
 #define MCAPI_OS_ERROR          -238
 
-/* Macro for specifying that an infinite timeout should be used in the
- * blocking operation.
- */
-#define MCAPI_INFINITE          0xffffffff
-
 extern mcapi_node_t MCAPI_Node_ID;
 
 void mcapi_cancel(mcapi_request_t *, mcapi_status_t *);

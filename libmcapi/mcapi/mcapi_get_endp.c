@@ -142,7 +142,7 @@ mcapi_endpoint_t mcapi_get_endpoint(mcapi_node_t node_id, mcapi_port_t port_id,
 
             /* Suspend until the call completes or is canceled. */
             MCAPI_Suspend_Task(node_data, &request, &request.mcapi_cond,
-                               MCAPI_INFINITE);
+                               MCAPI_TIMEOUT_INFINITE);
 
             *mcapi_status = request.mcapi_status;
         }

@@ -96,7 +96,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Pkt_Server)
     {
         /* Wait for a connection to be established. */
         mcapi_wait(&mcapi_struct->request, &rx_len, &mcapi_struct->status,
-                   MCAPI_INFINITE);
+                   MCAPI_TIMEOUT_INFINITE);
 
         for (;;)
         {
@@ -201,7 +201,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Scl_Server)
 
             /* Wait for a connection to be established. */
             mcapi_wait(&mcapi_struct->request, &rx_len, &mcapi_struct->status,
-                       MCAPI_INFINITE);
+                       MCAPI_TIMEOUT_INFINITE);
 
             if (mcapi_struct->status == MCAPI_SUCCESS)
             {
@@ -363,7 +363,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Local_Services)
 
                     /* Wait for the specified request. */
                     mcapi_wait((mcapi_request_t*)(mcapi_get32((unsigned char*)buffer, MCAPID_MGMT_STATUS_OFFSET)),
-                               &rx_len, &mcapi_struct->status, MCAPI_INFINITE);
+                               &rx_len, &mcapi_struct->status, MCAPI_TIMEOUT_INFINITE);
 
                     break;
 

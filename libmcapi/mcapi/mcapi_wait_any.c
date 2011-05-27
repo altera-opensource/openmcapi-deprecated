@@ -59,7 +59,7 @@
 *       timeout                 The number milliseconds to wait for
 *                               completion of the respective operation
 *                               before returning from mcapi_wait_any().
-*                               A value of MCAPI_INFINITE indicates no
+*                               A value of MCAPI_TIMEOUT_INFINITE indicates no
 *                               timeout.
 *       *mcapi_status           A pointer to memory that will be filled in
 *                               with the status of the call.

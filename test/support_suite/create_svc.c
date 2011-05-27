@@ -187,7 +187,7 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
 
                         /* Wait for the connection to complete. */
                         mcapi_wait(&request, &size, &mcapi_struct->status,
-                                   MCAPI_INFINITE);
+                                   MCAPI_TIMEOUT_INFINITE);
                     }
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
@@ -198,7 +198,7 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                                                   &mcapi_struct->request,
                                                   &mcapi_struct->status);
                         mcapi_wait(&mcapi_struct->request, &size,
-                                   &mcapi_struct->status, MCAPI_INFINITE);
+                                   &mcapi_struct->status, MCAPI_TIMEOUT_INFINITE);
                     }
 
                     break;
@@ -211,7 +211,7 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                                               &mcapi_struct->request,
                                               &mcapi_struct->status);
                     mcapi_wait(&mcapi_struct->request, &size,
-                               &mcapi_struct->status, MCAPI_INFINITE);
+                               &mcapi_struct->status, MCAPI_TIMEOUT_INFINITE);
 
                     break;
 
@@ -227,7 +227,7 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
 
                         /* Wait for the connection to complete. */
                         mcapi_wait(&request, &size, &mcapi_struct->status,
-                                   MCAPI_INFINITE);
+                                   MCAPI_TIMEOUT_INFINITE);
                     }
 
                     if (mcapi_struct->status == MCAPI_SUCCESS)
@@ -238,7 +238,7 @@ int MCAPID_Create_Service(MCAPID_STRUCT *mcapi_struct)
                                                   &mcapi_struct->request,
                                                   &mcapi_struct->status);
                         mcapi_wait(&mcapi_struct->request, &size,
-                                   &mcapi_struct->status, MCAPI_INFINITE);
+                                   &mcapi_struct->status, MCAPI_TIMEOUT_INFINITE);
                     }
 
                     break;

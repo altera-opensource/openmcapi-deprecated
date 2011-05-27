@@ -180,7 +180,7 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
     if (status == 0)
     {
         /* If no timeout value was specified. */
-        if (timeout == MCAPI_INFINITE)
+        if (timeout == MCAPI_TIMEOUT_INFINITE)
         {
             status = pthread_cond_wait(&condition->mcapi_cond, &MCAPI_Mutex);
         }

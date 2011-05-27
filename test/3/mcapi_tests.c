@@ -1322,7 +1322,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Request = &request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
 
@@ -1352,7 +1352,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Request = &request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
 
@@ -1401,7 +1401,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Request = &recv_request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
 
@@ -1450,7 +1450,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Request = &send_request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
 
@@ -1517,7 +1517,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Request = &request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
 
@@ -1566,7 +1566,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Request = &recv_request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
 
@@ -1615,7 +1615,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Request = &send_request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = MCAPI_FALSE;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
 
@@ -1651,7 +1651,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Any_Request[1] = &recv_request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = 0;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 2;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
@@ -1701,7 +1701,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Any_Request[0] = &recv_request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = 0;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 1;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
@@ -1776,7 +1776,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Any_Request[1] = &send_request2;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = 0;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 2;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);
@@ -1871,7 +1871,7 @@ void MCAPI_TEST_mcapi_finalize(void)
     MCAPI_TEST_Wait_Any_Request[1] = &recv_request;
     MCAPI_TEST_Wait_Status = MCAPI_EREQ_CANCELED;
     MCAPI_TEST_Wait_Finished = 0;
-    MCAPI_TEST_Wait_Timeout = MCAPI_INFINITE;
+    MCAPI_TEST_Wait_Timeout = MCAPI_TIMEOUT_INFINITE;
     MCAPI_TEST_Wait_Any_Count = 2;
 
     MCAPI_Release_Mutex(&MCAPI_TEST_Wait_Mutex);

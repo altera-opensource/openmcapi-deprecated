@@ -62,7 +62,7 @@ mcapi_boolean_t __mcapi_test(mcapi_request_t *request, size_t *size,
 *       timeout                 The number milliseconds to wait for
 *                               completion of the respective operation
 *                               before returning from mcapi_wait().
-*                               A value of MCAPI_INFINITE indicates no
+*                               A value of MCAPI_TIMEOUT_INFINITE indicates no
 *                               timeout.
 *
 *   OUTPUTS
