@@ -64,14 +64,15 @@ struct shm_msgbuf {
 mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unit_id,
                                     mcapi_uint32_t node_id)
 {
-    int rc;
     struct shm_msgbuf msg = {node_id + 1};
+    int rc;
+    mcapi_status_t status = MCAPI_SUCCESS;
 
     rc = msgsnd(msgqid, &msg, 0, 0);
     if (rc == -1)
-        rc = MGC_MCAPI_ERR_NOT_CONNECTED;
+        status = MGC_MCAPI_ERR_NOT_CONNECTED;
 
-    return rc;
+    return status;
 }
 
 mcapi_uint32_t openmcapi_shm_schedunitid(void)
