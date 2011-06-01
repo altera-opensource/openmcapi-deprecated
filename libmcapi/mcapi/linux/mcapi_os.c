@@ -32,6 +32,21 @@
 MCAPI_MUTEX MCAPI_Mutex;
 pthread_t   MCAPI_Control_Task_TCB;
 
+static inline long ms_to_s(long ms)
+{
+    return ms / 1000;
+}
+
+static inline long ns_to_s(long ns)
+{
+    return ns / 1000000000;
+}
+
+static inline long ms_to_ns(long ms)
+{
+    return ms * 1000000;
+}
+
 /*************************************************************************
 *
 *   FUNCTION
@@ -186,16 +201,17 @@ mcapi_status_t MCAPI_Suspend_Task(MCAPI_GLOBAL_DATA *node_data,
         }
         else
         {
-            /* Get the current time. */
+            long subsecond_ms;
+            long total_ns;
+
             clock_gettime(CLOCK_REALTIME, &ts);
 
-            /* Set the number of seconds to wait. */
-            ts.tv_sec += (timeout / 1000);
+            /* Add timeout to ts, accounting for nsec overflow. */
+            subsecond_ms = timeout % 1000;
+            total_ns = ts.tv_nsec + ms_to_ns(subsecond_ms);
+            ts.tv_sec += ms_to_s(timeout) + ns_to_s(total_ns);
+            ts.tv_nsec = total_ns % 1000000000;
 
-            /* Set the number of nanoseconds. */
-            ts.tv_nsec += ((timeout % 1000) * 1000000);
-
-            /* Wait for the specified time. */
             status = pthread_cond_timedwait(&condition->mcapi_cond,
                                             &MCAPI_Mutex, &ts);
         }
