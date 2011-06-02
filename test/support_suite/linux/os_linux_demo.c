@@ -38,6 +38,7 @@
 #include <pthread.h>
 #include <signal.h>
 #include <time.h>
+#include <stdlib.h>
 #include <unistd.h>
 #include "mcapid.h"
 #include "support_suite/mcapid_support.h"
