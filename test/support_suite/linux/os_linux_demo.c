@@ -83,35 +83,25 @@ int main(int argc, char *argv[])
     return mcapi_test_start(argc, argv);
 }
 
-/************************************************************************
-*
-*   FUNCTION
-*
-*       MCAPID_Create_Thread
-*
-*   DESCRIPTION
-*
-*       This routine creates a Linux thread.
-*
-*************************************************************************/
-mcapi_status_t MCAPID_Create_Thread(MCAPI_THREAD_PTR_ENTRY(thread_entry), MCAPID_STRUCT *mcapi_struct)
+mcapi_status_t MCAPID_Create_Thread(MCAPI_THREAD_PTR_ENTRY(thread_entry),
+                                    MCAPID_STRUCT *mcapi_struct)
 {
-    int             status;
+    mcapi_status_t status = MCAPI_SUCCESS;
+    int rc;
 
     /* Initialize the state. */
     mcapi_struct->state = -1;
 
-    /* Create the thread, passing the mcapi_struct parameter into
-     * the new thread.
-     */
-    status = pthread_create(&mcapi_struct->task_ptr, NULL,
-                            thread_entry, (void*)mcapi_struct);
+    rc = pthread_create(&mcapi_struct->task_ptr, NULL,
+                        thread_entry, (void*)mcapi_struct);
+
+    if (rc)
+        status = MCAPI_ERR_GENERAL;
 
     mcapi_struct->status = status;
 
-    return (status);
-
-} /* MCAPID_Create_Thread */
+    return status;
+}
 
 /************************************************************************
 *
