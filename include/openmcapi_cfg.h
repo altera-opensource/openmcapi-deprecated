@@ -62,7 +62,7 @@
 
 /* Control task settings. */
 #define MCAPI_CONTROL_TASK_SIZE     2000
-#define MCAPI_CONTROL_TASK_PRIO     3
+#define MCAPI_CONTROL_TASK_PRIO     5
 
 /* The default priority of all new endpoints in the system. */
 #define MCAPI_DEFAULT_PRIO          1

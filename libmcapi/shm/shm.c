@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, Mentor Graphics Corporation
+ * Copyright (c) 2013, Altera Corporation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -32,7 +33,7 @@
 
 #include <mcapi.h>
 #include <openmcapi.h>
-#include <atomic.h>
+#include <barrier.h>
 #include "shm.h"
 #include "shm_os.h"
 
@@ -53,22 +54,24 @@ extern MCAPI_BUF_QUEUE MCAPI_RX_Queue[MCAPI_PRIO_COUNT];
 extern mcapi_node_t MCAPI_Node_ID;
 
 
-static void shm_acquire_lock(shm_lock* plock)
+static inline void shm_init_lock(void)
 {
-	const int lockVal = LOCK;
-	unsigned int retVal;
-
-	do {
-		retVal = xchg(plock, lockVal);
-	} while (retVal==lockVal);
+	openmcapi_shm_lock_init(SHM_Mgmt_Blk);
 }
 
-static void shm_release_lock(shm_lock* plock)
+static inline void shm_acquire_lock(shm_lock* plock)
+{
+
+	openmcapi_shm_lock(plock, MCAPI_Node_ID);
+
+}
+
+static inline void shm_release_lock(shm_lock* plock)
 {
 	mb();
-
-	*plock = UNLOCK;
+	openmcapi_shm_unlock(plock, MCAPI_Node_ID);
 }
+
 
 static mcapi_uint32_t get_first_zero_bit(mcapi_int_t value)
 {
@@ -614,6 +617,15 @@ static mcapi_status_t shm_master_node_init(mcapi_node_t node_id,
 	/* The current node is the first node executing in the system.
 	 * Initialize SM driver as master node. */
 
+	/* Initialize descriptor queue */
+	for (i = 0; i < CONFIG_SHM_NR_NODES; i++)
+	{
+		/* Initialize routes */
+		SHM_Mgmt_Blk->shm_queues[i].put_idx = 0;
+		SHM_Mgmt_Blk->shm_queues[i].count = 0;
+		SHM_Mgmt_Blk->shm_queues[i].get_idx = 0;
+	}
+
 	/* Initialize routes and SM buffer queue data structures */
 	for (i = 0; i < CONFIG_SHM_NR_NODES; i++)
 	{
@@ -651,6 +663,10 @@ static mcapi_status_t shm_master_node_init(mcapi_node_t node_id,
 
 	/* Load shared memory initialization complete key */
 	SHM_Mgmt_Blk->shm_init_field = SHM_INIT_COMPLETE_KEY;
+#ifdef MCAPI_SM_DBG_SUPPORT
+	printf("Master Node %d : %s cpuid %d, SHM_Mgmt_Blk = %08x\n", node_id,
+		__func__, openmcapi_shm_schedunitid(), SHM_Mgmt_Blk);
+#endif
 
 	/* Return master node initialization status */
 	return status;
@@ -713,6 +729,10 @@ static mcapi_status_t shm_slave_node_init(mcapi_node_t node_id,
 		}
 
 	}
+#ifdef MCAPI_SM_DBG_SUPPORT
+	printf("Slave Node %d: %s (route_idx = %d) cpuid %d, SHM_Mgmt_Blk = %08x\n", node_id,
+		__func__, i, openmcapi_shm_schedunitid(), SHM_Mgmt_Blk);
+#endif
 
 	/* Return slave node initialization status */
 	return status;
@@ -765,8 +785,14 @@ mcapi_status_t openmcapi_shm_init(mcapi_node_t node_id,
 
 	if (SHM_Mgmt_Blk != MCAPI_NULL)
 	{
-		/* Initialize OS specific component */
-		openmcapi_shm_os_init();
+#ifdef MCAPI_SM_DBG_SUPPORT
+		printf("SHM_Mgmt_Blk->shm_init_field  = %x \n",
+			SHM_Mgmt_Blk->shm_init_field);
+#endif
+
+		/* Initialize SM driver lock */
+		if (SHM_Mgmt_Blk->shm_init_field != SHM_INIT_COMPLETE_KEY)
+			shm_init_lock();
 
 		/* Obtain SM driver initialization lock */
 		shm_acquire_lock(&SHM_Mgmt_Blk->shm_init_lock);
@@ -785,6 +811,9 @@ mcapi_status_t openmcapi_shm_init(mcapi_node_t node_id,
 
 		/* Release SM driver initialization lock */
 		shm_release_lock(&SHM_Mgmt_Blk->shm_init_lock);
+
+		/* Initialize OS specific component after shared memory is initialized*/
+		openmcapi_shm_os_init();
 	}
 	else
 	{
@@ -847,7 +876,6 @@ void shm_poll(void)
 
 #ifdef MCAPI_SM_DBG_SUPPORT
 	mcapi_uint32_t  add;
-	printf("Received data\r\n");
 #endif
 
 	/* Obtain the SM ring queue for the current Node ID */
@@ -906,4 +934,5 @@ void shm_poll(void)
 	/* Set notification event */
 	if (got_data)
 		MCAPI_Set_RX_Event();
+
 }

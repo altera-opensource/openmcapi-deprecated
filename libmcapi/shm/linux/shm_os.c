@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, Mentor Graphics Corporation
+ * Copyright (c) 2013, Altera Corportation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -29,10 +30,13 @@
 
 
 #include <mcapi.h>
+#include <lock.h>
 #include "../shm.h"
 #include "../shm_os.h"
 
 #include <stdio.h>
+#include <string.h>
+#include <dirent.h>
 #include <fcntl.h>
 #include <errno.h>
 #include <unistd.h>
@@ -63,6 +67,11 @@ struct mcomm_init_device {
 /* Notify the specified core that data has been made available to it */
 #define MCOMM_NOTIFY     _IOW('*', 3, mcomm_core_t)
 
+/* Lock critical section using hw mutex */
+#define MCOMM_LOCK 		 _IOW('*', 4, mcomm_core_t)
+
+/* Unlock critical section using hw mutex*/
+#define MCOMM_UNLOCK  	 _IOW('*', 5, mcomm_core_t)
 
 static pthread_t shm_rx_thread;
 
@@ -76,13 +85,40 @@ static size_t shm_linux_read_size(void)
 {
     unsigned long size;
     FILE *f;
-    int rc;
+    int rc = -1;
+	DIR *dp;
+	struct dirent *dirp;
+	char *path[] = {"/sys/devices/platform",
+			"/sys/devices",
+			"/sys/devices/sopc.0"};
+	char *devname = "mcomm";
+	char filename[50];
+	int i;
 
-    f = fopen("/sys/devices/platform/mcomm.0/size", "r");
-    if (!f)
-        f = fopen("/sys/devices/mcomm.0/size", "r");
-    if (!f)
-        return errno;
+	for (i = 0; i < 3; i++) {
+		if ((dp = opendir(path[i])) == NULL)
+		    continue;
+
+		while ((dirp = readdir(dp)) != NULL)
+		{
+			if(strstr(dirp->d_name,devname)) {
+				rc = 0;
+				break;
+			}
+		}
+		closedir(dp);
+
+		if (rc == 0)
+			break;
+	}
+
+	if (rc == 0) {
+		sprintf(filename, "%s/%s/size", path[i], dirp->d_name);
+		f = fopen(filename, "r");
+		if (!f)
+			return errno;
+	} else
+		return rc;
 
     rc = fscanf(f, "%lx", &size);
     if (rc < 0)
@@ -91,6 +127,47 @@ static size_t shm_linux_read_size(void)
     fclose(f);
 
     return size;
+}
+
+
+mcapi_status_t openmcapi_shm_lock_init(SHM_MGMT_BLOCK *SHM_Mgmt_Blk)
+{
+	int i;
+
+	SHM_Mgmt_Blk->shm_init_lock = (shm_lock) INIT_LOCK;
+	SHM_Mgmt_Blk->shm_buff_mgmt_blk.lock = (shm_lock) BUFQ_LOCK;
+
+	for (i = 0; i < DESCQ_LOCK_NUM; i++) {
+		SHM_Mgmt_Blk->shm_queues[i].lock = DESCQ_LOCK_BASE + i;
+	}
+
+	return MCAPI_SUCCESS;
+}
+
+mcapi_status_t openmcapi_shm_lock(shm_lock *lock, mcapi_uint32_t node_id)
+{
+    mcapi_status_t mcapi_status = MCAPI_SUCCESS;
+    mcapi_uint32_t nodeid_lockidx = *lock | node_id << 16;
+    int rc;
+
+    rc = ioctl(mcomm_fd, MCOMM_LOCK, &nodeid_lockidx);
+    if (rc)
+        mcapi_status = MCAPI_OS_ERROR;
+
+    return mcapi_status;
+}
+
+mcapi_status_t openmcapi_shm_unlock(shm_lock *lock, mcapi_uint32_t node_id)
+{
+    mcapi_status_t mcapi_status = MCAPI_SUCCESS;
+    mcapi_uint32_t nodeid_lockidx = *lock | node_id << 16;
+    int rc;
+
+    rc = ioctl(mcomm_fd, MCOMM_UNLOCK, &nodeid_lockidx);
+    if (rc)
+        mcapi_status = MCAPI_OS_ERROR;
+
+    return mcapi_status;
 }
 
 mcapi_status_t openmcapi_shm_notify(mcapi_uint32_t unit_id,

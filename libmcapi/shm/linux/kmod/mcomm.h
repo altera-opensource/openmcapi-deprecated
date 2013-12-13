@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, Mentor Graphics Corporation
+ * Copyright (c) 2013, Altera Corportation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -62,6 +63,12 @@ struct mcomm_init_device {
 /* Notify the specified core that data has been made available to it */
 #define MCOMM_NOTIFY     _IOW('*', 3, mcomm_core_t)
 
+/* Lock critical section using hw mutex */
+#define MCOMM_LOCK 		 _IOW('*', 4, mcomm_core_t)
+
+/* Unlock critical section using hw mutex*/
+#define MCOMM_UNLOCK  	 _IOW('*', 5, mcomm_core_t)
+
 #ifdef __KERNEL__
 
 #ifndef NO_IRQ
@@ -77,14 +84,18 @@ struct mcomm_platform_ops {
 	void (*notify)(u32 core_nr);
 	void (*ack)(void);
 	unsigned long (*cpuid)(void);
+	void (*lock)(u32 lock_idx, u32 node_id);
+	void (*unlock)(u32 lock_idx, u32 node_id);
 };
 
 int mcomm_init(struct mcomm_platform_ops *ops, struct module *module);
 void mcomm_exit(void);
 
 int mcomm_new_region(struct device *dev, struct resource *mem,
-                     struct resource *irq);
+                     struct resource *irq, unsigned int int_mode);
 void mcomm_remove_region(struct device *dev);
+
+void mcomm_mbox(void);
 
 #endif /* __KERNEL__ */
 

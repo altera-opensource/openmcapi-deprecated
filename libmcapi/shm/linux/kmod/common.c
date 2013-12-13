@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, Mentor Graphics Corporation
+ * Copyright (c) 2013, Altera Corportation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -64,6 +65,7 @@ struct mcomm_devdata {
 	void *platform_data;
 	atomic_t refcount;
 	unsigned int irq;
+	unsigned int int_mode;
 	unsigned int nr_mboxes;
 	unsigned int mbox_size;
 	unsigned int mbox_stride;
@@ -75,6 +77,16 @@ static struct mcomm_devdata _mcomm_devdata;
 static struct mcomm_platform_ops *mcomm_platform_ops;
 
 
+void mcomm_mbox(void)
+{
+	struct mcomm_devdata *devdata = &_mcomm_devdata;
+
+	wake_up_interruptible(&devdata->wait);
+
+	if (mcomm_platform_ops && mcomm_platform_ops->ack)
+		mcomm_platform_ops->ack();
+}
+EXPORT_SYMBOL(mcomm_mbox);
 
 /* Wake up the process(es) corresponding to the mailbox(es) which just received
  * packets. */
@@ -106,7 +118,7 @@ static irqreturn_t mcomm_interrupt(int irq, void *dev_id)
 		mbox += devdata->mbox_stride;
 	}
 
-	if (irq != NO_IRQ)
+	if ((irq != NO_IRQ || devdata->int_mode) && mcomm_platform_ops->ack)
 		mcomm_platform_ops->ack();
 
 	return IRQ_HANDLED;
@@ -135,7 +147,8 @@ static int mcomm_mbox_pending(struct mcomm_devdata *devdata,
 		pr_debug("mailbox %d (0x%lx) active; value 0x%x\n", mbox_id,
 		         mbox_offset, active);
 	else
-		pr_debug("mailbox %d (0x%lx) not active\n", mbox_id, mbox_offset);
+		pr_debug("mailbox %d (0x%lx) not active\n", mbox_id,
+			mbox_offset);
 
 	return active;
 }
@@ -143,17 +156,46 @@ static int mcomm_mbox_pending(struct mcomm_devdata *devdata,
 static long mcomm_fd_ioctl_wait_read(struct mcomm_devdata *devdata,
                                      mcomm_mbox_t mbox_id)
 {
-	if (devdata->irq == NO_IRQ)
+	if ((devdata->irq == NO_IRQ) || (devdata->int_mode == 0))
 		return 0;
 
 	return wait_event_interruptible(devdata->wait,
 	                                mcomm_mbox_pending(devdata, mbox_id));
 }
 
+static long mcomm_fd_ioctl_lock(mcomm_core_t lock_idx,
+                                  mcomm_core_t node_id)
+{
+	int rc = 0;
+
+	if (mcomm_platform_ops && mcomm_platform_ops->lock)
+		mcomm_platform_ops->lock(lock_idx, node_id);
+	else
+		rc = -ENOSYS;
+
+	return rc;
+}
+
+static long mcomm_fd_ioctl_unlock(mcomm_core_t lock_idx,
+                                  mcomm_core_t node_id)
+{
+	int rc = 0;
+
+	if (mcomm_platform_ops && mcomm_platform_ops->unlock)
+		mcomm_platform_ops->unlock(lock_idx, node_id);
+	else
+		rc = -ENOSYS;
+
+	return rc;
+}
+
 static long mcomm_fd_ioctl_notify(struct mcomm_devdata *devdata,
                                   mcomm_core_t target_core)
 {
-	/* If the target is the local core, call the interrupt handler directly. */
+	if (devdata->int_mode == 0)
+		return 0;
+
+	/* If the target is a local core, call the interrupt handler directly */
 	if (target_core == mcomm_platform_ops->cpuid())
 		mcomm_interrupt(NO_IRQ, devdata);
 	else
@@ -199,7 +241,44 @@ static long mcomm_fd_ioctl(struct file *fp, unsigned int ioctl,
 			pr_debug("%s: waking core %d\n", __func__, core_id);
 			rc = mcomm_fd_ioctl_notify(devdata, core_id);
 		}
+		break;
+	}
 
+	case MCOMM_LOCK: {
+		mcomm_core_t nodeid_lockidx;
+		mcomm_core_t node_id;
+		mcomm_core_t lock_idx;
+
+		rc = -EFAULT;
+		if (copy_from_user(&nodeid_lockidx, userptr,
+			sizeof(nodeid_lockidx)) == 0){
+
+			node_id = nodeid_lockidx >> 16;
+			lock_idx = nodeid_lockidx & 0xffff;
+			pr_debug("%s: lock_idx %d node %d\n",
+				__func__, (unsigned int)lock_idx, node_id);
+
+			rc = mcomm_fd_ioctl_lock(lock_idx, node_id);
+		}
+		break;
+	}
+
+	case MCOMM_UNLOCK: {
+		mcomm_core_t nodeid_lockidx;
+		mcomm_core_t node_id;
+		mcomm_core_t lock_idx;
+
+		rc = -EFAULT;
+		if (copy_from_user(&nodeid_lockidx, userptr,
+			sizeof(nodeid_lockidx)) == 0){
+
+			node_id = nodeid_lockidx >> 16;
+			lock_idx = nodeid_lockidx & 0xffff;
+			pr_debug("%s: lock_idx %d node %d\n",
+				__func__, (unsigned int)lock_idx, node_id);
+
+			rc = mcomm_fd_ioctl_unlock(lock_idx, node_id);
+		}
 		break;
 	}
 
@@ -255,7 +334,7 @@ static inline int mcomm_follow_pte(struct mm_struct *mm, unsigned long address,
 
 	/* (void) is needed to make gcc happy */
 	(void) __cond_lock(*ptlp,
-			   !(res = __mcomm_follow_pte(mm, address, ptepp, ptlp)));
+			 !(res = __mcomm_follow_pte(mm, address, ptepp, ptlp)));
 	return res;
 }
 
@@ -364,7 +443,7 @@ static long mcomm_dev_initialize(struct mcomm_devdata *devdata, u32 offset,
 	long rc;
 
 	if (offset + nr_mboxes * mbox_stride >= resource_size(&devdata->mem)) {
-		printk(KERN_ERR "%s: mailboxes exceed memory area.\n", __func__);
+		printk(KERN_ERR "%s: mailboxes exceed memory area\n", __func__);
 		rc = -E2BIG;
 		goto out1;
 	}
@@ -390,6 +469,9 @@ static long mcomm_dev_initialize(struct mcomm_devdata *devdata, u32 offset,
 		goto out1;
 	}
 
+	pr_debug("%s devdata->mbox_mapped %x, paddr =%x, offset %x\n", __func__,
+		(unsigned int)devdata->mbox_mapped, devdata->mem.start, offset);
+
 	devdata->mbox_size = mbox_size;
 	devdata->mbox_stride = mbox_stride;
 	devdata->nr_mboxes = nr_mboxes;
@@ -398,8 +480,8 @@ static long mcomm_dev_initialize(struct mcomm_devdata *devdata, u32 offset,
 		rc = request_irq(devdata->irq, mcomm_interrupt, 0, "mcomm",
 						 devdata);
 		if (rc) {
-			printk(KERN_ERR "%s: failed to reserve irq %d\n", __func__,
-				   devdata->irq);
+			printk(KERN_ERR "%s: failed to reserve irq %d\n",
+				__func__, devdata->irq);
 			goto out2;
 		}
 	}
@@ -516,7 +598,7 @@ struct miscdevice mcomm_misc_dev = {
 };
 
 int mcomm_new_region(struct device *dev, struct resource *mem,
-                     struct resource *irq)
+                     struct resource *irq, unsigned int int_mode)
 {
 	struct mcomm_devdata *devdata = &_mcomm_devdata;
 	int rc;
@@ -528,6 +610,7 @@ int mcomm_new_region(struct device *dev, struct resource *mem,
 	init_waitqueue_head(&devdata->wait);
 	devdata->mem = *mem;
 	devdata->irq = irq->start;
+	devdata->int_mode = int_mode;
 
 	rc = sysfs_create_group(&dev->kobj, &mcomm_attr_group);
 	if (rc) {

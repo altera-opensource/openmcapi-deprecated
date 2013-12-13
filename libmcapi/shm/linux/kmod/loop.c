@@ -1,5 +1,6 @@
 /*
  * Copyright (c) 2010, Mentor Graphics Corporation
+ * Copyright (c) 2013, Altera Corportation
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -88,7 +89,7 @@ static struct mcomm_platform_ops mcomm_loop_ops = {
 };
 
 
-static int __devinit mcomm_probe(struct platform_device *pdev)
+static int mcomm_probe(struct platform_device *pdev)
 {
 	struct resource *mem;
 	struct resource *irq;
@@ -101,7 +102,7 @@ static int __devinit mcomm_probe(struct platform_device *pdev)
 	if (!irq)
 		return -EINVAL;
 
-	return mcomm_new_region(&pdev->dev, mem, irq);
+	return mcomm_new_region(&pdev->dev, mem, irq, 0);
 }
 
 static int mcomm_remove(struct platform_device *pdev)

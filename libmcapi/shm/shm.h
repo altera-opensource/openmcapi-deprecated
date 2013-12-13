@@ -32,7 +32,9 @@
 #define MCAPI_SM_DRV_H
 
 #include <openmcapi.h>
-#include <atomic.h>
+#include <lock.h>
+
+typedef lock shm_lock;
 
 /* Configure buffering system */
 

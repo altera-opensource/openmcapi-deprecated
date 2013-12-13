@@ -42,6 +42,7 @@
 #include <sys/ioctl.h>
 #include <getopt.h>
 #include <limits.h>
+#include <dirent.h>
 
 #define DEVMCOMM "/dev/mcomm"
 
@@ -49,23 +50,48 @@ typedef int (*command_t)(void *mem, size_t bytes, unsigned long base);
 
 static ssize_t read_mcomm_size(void)
 {
-	ssize_t size;
-	unsigned long val;
-	FILE *f;
-	int rc;
+    unsigned long size;
+    FILE *f;
+    int rc = -1;
+	DIR *dp;
+	struct dirent *dirp;
+	char *path[] = {"/sys/devices/platform",
+			"/sys/devices",
+			"/sys/devices/sopc.0"};
+	char *devname = "mcomm";
+	char filename[50];
+	int i;
 
-	f = fopen("/sys/devices/mcomm.0/size", "r");
-	if (!f)
-		return -ENOENT;
+	for (i = 0; i < 3; i++) {
+		if ((dp = opendir(path[i])) == NULL)
+		    continue;
 
-	rc = fscanf(f, "%lx", &val);
-	size = val;
-	if (rc < 0) {
-		perror("fscanf");
-		size = -EINVAL;
+		while ((dirp = readdir(dp)) != NULL)
+		{
+			if(strstr(dirp->d_name,devname)) {
+				rc = 0;
+				break;
+			}
+		}
+		closedir(dp);
+
+		if (rc == 0)
+			break;
 	}
 
-	fclose(f);
+	if (rc == 0) {
+		sprintf(filename, "%s/%s/size", path[i], dirp->d_name);
+		f = fopen(filename, "r");
+		if (!f)
+			return errno;
+	} else
+		return rc;
+
+    rc = fscanf(f, "%lx", &size);
+    if (rc < 0)
+        size = errno;
+
+    fclose(f);
 
 	return size;
 }
