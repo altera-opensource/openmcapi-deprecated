@@ -3,6 +3,9 @@ mcomm_socfpga-objs := socfpga.o
 obj-m += mcomm_socfpga.o
 endif
 
+#mcomm_mutex_stub-objs := mutex_stub.o
+#obj-m += mcomm_mutex_stub.o
+
 
 mcomm_loop-objs := loop.o
 mcomm-objs := common.o compat_anon_inodes.o

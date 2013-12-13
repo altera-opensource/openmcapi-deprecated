@@ -156,10 +156,10 @@ AC_SUBST([KERNELDIR])
 #AC_PROG_CXX(nios2-elf-g++)
 
 AC_PROG_CC
-#AM_PROG_AR
+m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 AM_PROG_CC_C_O
 AC_PROG_LIBTOOL
 AC_CONFIG_HEADERS([config.h])
-AC_CONFIG_FILES([Makefile libmcapi/Makefile demo/Makefile test/Makefile])
+AC_CONFIG_FILES([Makefile libmcapi/Makefile demo/Makefile test/Makefile util/Makefile])
 AC_OUTPUT
 

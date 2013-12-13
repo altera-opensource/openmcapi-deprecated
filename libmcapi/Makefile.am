@@ -13,7 +13,7 @@ libopenmcapi_a_SOURCES = mcapi_cfg.c mcapi/cntrl_msg.c mcapi/connect.c mcapi/cre
 
 if OS_LINUX
   libopenmcapi_a_SOURCES += mcapi/linux/mcapi_os.c
-  AM_CPPFLAGS += -I$(top_srcdir)/include/linux -I$(KERNELDIR)/arch/$(ARCH)/include -I$(top_srcdir)/libmcapi/include/arch/$(ARCH)/
+  AM_CPPFLAGS += -I$(top_srcdir)/include/linux -I$(KERNELDIR)/arch/$(ARCH)/include -I$(top_srcdir)/libmcapi/include/arch/$(ARCH)/ -Wa,-mimplicit-it=thumb
   AM_MAKEFLAGS = BUILDDIR=@abs_top_builddir@ SRCDIR=@abs_top_srcdir@ KERNELDIR=$(KERNELDIR) CROSS_COMPILE=$(CROSS_COMPILE)- ARCH=$(ARCH)
 if OS_SYSV
   libopenmcapi_a_SOURCES += shm/sysv.c
