@@ -27,7 +27,7 @@
  * POSSIBILITY OF SUCH DAMAGE.
  */
 
-
+//#define   MCAPI_SM_DBG_SUPPORT
 
 #include <openmcapi.h>
 
@@ -95,6 +95,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
             {
                 case MCAPI_GETENDP_REQUEST:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_GETENDP_REQUEST\n", MCAPI_Node_ID);
+#endif
                     /* Extract the target port from the packet. */
                     port_id = MCAPI_GET16(buffer, MCAPI_GETENDP_PORT);
 
@@ -218,6 +221,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_GETENDP_RESPONSE:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_GETENDP_RESPONSE\n", MCAPI_Node_ID);
+#endif
                     /* Extract the status from the packet. */
                     mcapi_status = MCAPI_GET32(buffer, MCAPI_GETENDP_STATUS);
 
@@ -230,6 +236,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_CANCEL_MSG:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_CANCEL_MSG\n", MCAPI_Node_ID);
+#endif
                     /* Decode the requestor's information. */
                     mcapi_decode_endpoint(MCAPI_GET32(buffer, MCAPI_GETENDP_ENDP),
                                           &node_id, &port_id);
@@ -272,6 +281,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_CONNECT_REQUEST:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_CONNECT_REQUEST\n", MCAPI_Node_ID);
+#endif
                     /* If the node ID of the send side is the local node,
                      * connect the send side.  The requestor should only
                      * send the connection request to the send side.
@@ -295,6 +307,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_CONNECT_SYN:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_CONNECT_SYN\n", MCAPI_Node_ID);
+#endif
                     /* Extract the node ID and port ID. */
                     node_id = MCAPI_GET16(buffer, MCAPI_CNCT_RX_NODE);
                     port_id = MCAPI_GET16(buffer, MCAPI_CNCT_RX_PORT);
@@ -354,6 +369,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_CONNECT_ACK:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_CONNECT_ACK\n", MCAPI_Node_ID);
+#endif
                     /* Extract the node ID and port ID. */
                     node_id = MCAPI_GET16(buffer, MCAPI_CNCT_TX_NODE);
                     port_id = MCAPI_GET16(buffer, MCAPI_CNCT_TX_PORT);
@@ -414,6 +432,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_OPEN_TX:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_OPEN_TX\n", MCAPI_Node_ID);
+#endif
                     mcapi_status = MCAPI_SUCCESS;
 
                     /* Extract the node ID and port ID. */
@@ -472,6 +493,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_OPEN_RX:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_OPEN_RX\n", MCAPI_Node_ID);
+#endif
                     mcapi_status = MCAPI_SUCCESS;
 
                     /* Extract the node ID and port ID. */
@@ -530,6 +554,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_OPEN_RX_ACK:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_OPEN_RX_ACK\n", MCAPI_Node_ID);
+#endif
                     /* Extract the node ID and port ID. */
                     node_id = MCAPI_GET16(buffer, MCAPI_CNCT_RX_NODE);
                     port_id = MCAPI_GET16(buffer, MCAPI_CNCT_RX_PORT);
@@ -585,6 +612,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_OPEN_TX_ACK:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_OPEN_TX_ACK\n", MCAPI_Node_ID);
+#endif
                     /* Extract the status from the packet. */
                     mcapi_status = MCAPI_GET32(buffer, MCAPI_CNCT_STATUS);
 
@@ -640,6 +670,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_CONNECT_RESPONSE:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_CONNECT_RESPONSE\n", MCAPI_Node_ID);
+#endif
                     /* Get the status. */
                     mcapi_status = MCAPI_GET32(buffer, MCAPI_CNCT_STATUS);
 
@@ -660,6 +693,9 @@ MCAPI_THREAD_ENTRY(mcapi_process_ctrl_msg)
 
                 case MCAPI_CONNECT_FIN:
 
+#ifdef MCAPI_SM_DBG_SUPPORT
+                    printf("Node %d : MCAPI_CONNECT_FIN\n", MCAPI_Node_ID);
+#endif
                     /* Extract the port ID. */
                     port_id = MCAPI_GET16(buffer, MCAPI_CNCT_FIN_PORT);
 

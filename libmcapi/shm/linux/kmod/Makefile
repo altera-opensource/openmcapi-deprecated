@@ -4,6 +4,6 @@ PWD = $(shell pwd)
 KBUILD_FLAGS = -C $(KERNELDIR) M=$(PWD) INSTALL_MOD_PATH=$(INSTALL_MOD_PATH)
 
 %:
-	$(MAKE) $(KBUILD_FLAGS) $@
+	$(MAKE) $(KBUILD_FLAGS) modules
 
 .DEFAULT_GOAL = modules

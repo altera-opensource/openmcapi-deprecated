@@ -32,6 +32,7 @@
 #ifndef MCAPI_DEFS_H
 #define MCAPI_DEFS_H
 
+#include <config.h>
 #include <mcapi.h>
 #include <mcapi_os.h>
 #include <openmcapi_cfg.h>

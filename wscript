@@ -61,7 +61,7 @@ def configure(conf):
 	# Create config.h and make sure every file uses it, without needing an
 	# explicit #include
 	config_h = 'config.h'
-	cppflags = [ '-I', conf.path.get_bld().abspath(), '-include', config_h, ]
+	cppflags = [ '-I', conf.path.get_bld().abspath(), '-include', config_h, "-march=armv7-a", "-Wa,-mimplicit-it=thumb" ]
 	conf.env.prepend_value('CPPFLAGS', cppflags)
 	conf.write_config_header(config_h)
 
