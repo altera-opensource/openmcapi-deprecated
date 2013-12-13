@@ -79,6 +79,57 @@ mcapi_uint32_t openmcapi_shm_schedunitid(void)
     return 0;
 }
 
+int locks[4];
+
+mcapi_status_t openmcapi_shm_lock(shm_lock plock, mcapi_node_t node_id) {
+	char lock[20];
+	sprintf(lock, "/tmp/mcapi-lock%d", node_id+1);
+	while(1) {
+		locks[node_id] = open(lock, O_RDWR, 0777);
+		if(locks[node_id] != -1) break;
+	}
+}
+
+mcapi_status_t openmcapi_shm_unlock(shm_lock plock, mcapi_node_t node_id) {
+	close(locks[node_id]);
+}
+
+mcapi_status_t openmcapi_shm_lock_init(SHM_MGMT_BLOCK *SHM_Mgmt_Blk) {
+	int fd;
+	int i;
+
+	SHM_Mgmt_Blk->shm_init_lock = (shm_lock) INIT_LOCK;
+	SHM_Mgmt_Blk->shm_buff_mgmt_blk.lock = (shm_lock) BUFQ_LOCK;
+
+	for (i = 0; i < DESCQ_LOCK_NUM; i++) {
+		SHM_Mgmt_Blk->shm_queues[i].lock = DESCQ_LOCK_BASE + i;
+	}
+
+	fd = open("/tmp/mcapi-lock1", O_RDWR | O_CREAT | O_EXCL, 0777);
+	if(fd != -1) {
+		write(fd, "0", 1);
+	}
+	close(fd);
+
+	fd = open("/tmp/mcapi-lock2", O_RDWR | O_CREAT | O_EXCL, 0777);
+	if(fd != -1) {
+		write(fd, "0", 1);
+	}
+	close(fd);
+
+	fd = open("/tmp/mcapi-lock3", O_RDWR | O_CREAT | O_EXCL, 0777);
+	if(fd != -1) {
+		write(fd, "0", 1);
+	}
+	close(fd);
+
+	fd = open("/tmp/mcapi-lock4", O_RDWR | O_CREAT | O_EXCL, 0777);
+	if(fd != -1) {
+		write(fd, "0", 1);
+	}
+	close(fd);
+}
+
 void *openmcapi_shm_map(void)
 {
     void *shm;
