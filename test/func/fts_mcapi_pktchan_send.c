@@ -279,6 +279,7 @@ MCAPI_THREAD_ENTRY(MCAPI_FTS_Tx_2_18_3)
                         {
                             break;
                         }
+	                MCAPID_Sleep(1);
                     }
 
                     /* Try to send a packet. */
