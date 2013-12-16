@@ -12,7 +12,10 @@ AM_CPPFLAGS = -I$(top_srcdir)/include -I$(top_srcdir)/libmcapi/include -I$(top_s
 AM_CPPFLAGS += -I$(top_srcdir)/include/linux
 AM_LDFLAGS = -lrt -lpthread
 
-bin_PROGRAMS = func_frontend func_backend 
+bin_PROGRAMS = func_frontend func_backend api_suite
+api_suite_SOURCES = 3/mcapi_tests.c \
+		support_suite/linux/os_linux_demo.c
+
 func_frontend_SOURCES = func/frontend.c \
                 func/fts_mcapi_cancel.c \
                 func/fts_mcapi_connect_pktchan_i.c \
@@ -63,5 +66,6 @@ func_backend_SOURCES = func/backend.c \
 
 func_backend_LDADD = ../libmcapi/libopenmcapi.a
 func_frontend_LDADD = ../libmcapi/libopenmcapi.a
+api_suite_LDADD = ../libmcapi/libopenmcapi.a
 
 endif
