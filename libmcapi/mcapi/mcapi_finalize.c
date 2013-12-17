@@ -77,6 +77,13 @@ void mcapi_finalize(mcapi_status_t *mcapi_status)
             mcapi_delete_endpoint(MCAPI_CTRL_RX_Endp, mcapi_status);
             mcapi_delete_endpoint(MCAPI_CTRL_TX_Endp, mcapi_status);
 
+            /* Insert delay to allow proper clean up of OS resources
+             * when calling MCAPI finalize. The thread is put to sleep to
+             * allow lower priority backgroup thread (mcapi_process_ctrl_msg)
+             * to run, so that clean up process can be completed
+             */
+            MCAPI_Sleep(1);
+
             /* Get the lock. */
             mcapi_lock_node_data();
 
