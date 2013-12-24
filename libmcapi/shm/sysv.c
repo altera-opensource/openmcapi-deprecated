@@ -190,6 +190,10 @@ static void *mcapi_receive_thread(void *data)
     static struct shm_msgbuf msg = {0};
 
     do {
+	pthread_testcancel();
+
+	pthread_setcanceltype(PTHREAD_CANCEL_ASYNCHRONOUS, NULL);
+
         /* Block until data for this node is available. */
         rc = msgrcv(msgqid, &msg, 0, MCAPI_Node_ID + 1, 0);
         if (rc < 0) {
@@ -235,6 +239,13 @@ mcapi_status_t openmcapi_shm_os_finalize(void)
     rc = pthread_cancel(shm_rx_thread);
     if (rc) {
         perror("couldn't cancel thread");
+        mcapi_status = MCAPI_OS_ERROR;
+    }
+
+    /* Don't return until it's dead. */
+    rc = pthread_join(shm_rx_thread, NULL);
+    if (rc) {
+        perror("couldn't joined canceled thread");
         mcapi_status = MCAPI_OS_ERROR;
     }
 
